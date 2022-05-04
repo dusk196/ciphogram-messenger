@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "sauf-messenger": {
+      "hosting": {
+        "sauf-messenger": [
+          "sauf-messenger"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "sauf-messenger"
+  }
+}
