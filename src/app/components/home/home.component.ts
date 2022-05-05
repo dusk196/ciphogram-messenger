@@ -29,4 +29,8 @@ export class HomeComponent implements OnInit {
     }, 3000);
   }
 
+  refreshId(): void {
+    this.newRoomId = this.uuidService.generateUuid();
+  }
+
 }

@@ -5,22 +5,29 @@
     </header>
     <main>
         <div class="container">
-            <input type="text" placeholder="Your Alias" maxlength=30 />
+            <input class="alias" type="text" placeholder="Your Alias (required)" maxlength=30 />
             <div class="inner-container">
                 <div class="left-container">
                     <div class="new-room">
-                        <span>Room ID:</span>
-                        <input title="Room ID" type="text" readonly [value]="newRoomId" />
-                        <button type="button" class="tooltip" (click)="onCopy()">
-                            <span class="d-none">copy</span>
-                            <span class="tooltip-text" [innerText]="copyText"></span>
-                        </button>
+                        <span>New Room ID:</span>
+                        <div class="new-room-input">
+                            <button type="button" class="refresh-id tooltip" (click)="refreshId()">
+                                <span class="d-none">generate new Room ID</span>
+                                <span class="tooltip-text">Generate new Room ID</span>
+                            </button>
+                            <input title="Room ID" type="text" readonly [value]="newRoomId" />
+                            <button type="button" class="copy tooltip" (click)="onCopy()">
+                                <span class="d-none">copy</span>
+                                <span class="tooltip-text" [innerText]="copyText"></span>
+                            </button>
+                        </div>
                     </div>
                     <button class="action-btns" type="button">Get Started</button>
                 </div>
                 <div class="seperator"></div>
                 <div class="right-container">
-                    <input type="text" maxlength=36 placeholder="Join room" />
+                    <span>Already have a Room ID? Join now:</span>
+                    <input type="text" maxlength=36 placeholder="Paste a valid Room ID" />
                     <button class="action-btns" type="button">Join</button>
                 </div>
             </div>

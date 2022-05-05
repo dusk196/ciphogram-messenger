@@ -2,7 +2,7 @@
     justify-content: space-between;
 
     header {
-        margin-top: 33vh;
+        margin-top: 25vh;
 
         h1 {
             color      : #FAEBD7;
@@ -26,7 +26,7 @@
             color         : #FAEBD7;
 
             input {
-                width        : 50%;
+                width        : 75%;
                 text-align   : center;
                 margin       : 10px;
                 padding      : 5px 10px 5px 10px;
@@ -45,21 +45,41 @@
             }
 
             .inner-container {
-                display       : flex;
-                flex-direction: row;
-                text-align    : center;
+                display        : flex;
+                flex-direction : row;
+                text-align     : center;
+                align-items    : center;
+                justify-content: space-around;
+                width          : 70vw;
 
                 .left-container {
+                    width: 50vw;
+
                     .new-room {
-                        display    : flex;
-                        align-items: center;
+                        display       : flex;
+                        align-items   : center;
+                        flex-direction: column;
+
+                        .new-room-input {
+                            display        : flex;
+                            flex-direction : row;
+                            align-items    : center;
+                            justify-content: center;
+                        }
 
                         button {
-                            height    : 3em;
-                            width     : 3em;
-                            border    : 0;
-                            background: url("./../../../assets/copy.svg") no-repeat center center;
-                            cursor    : pointer;
+                            height: 3em;
+                            width : 3em;
+                            border: 0;
+                            cursor: pointer;
+
+                            &.refresh-id {
+                                background: url("./../../../assets/reload.svg") no-repeat center center;
+                            }
+
+                            &.copy {
+                                background: url("./../../../assets/copy.svg") no-repeat center center;
+                            }
 
                             &:active {
                                 opacity: 0.75;
@@ -71,12 +91,14 @@
                 .seperator {
                     border-left : 1px solid #FAEBD7;
                     border-right: 1px solid #FAEBD7;
+                    height      : 20vh;
                 }
 
                 .right-container {
                     display       : flex;
                     flex-direction: column;
                     align-items   : center;
+                    width         : 50vw;
                 }
 
                 .action-btns {
@@ -89,6 +111,11 @@
                     cursor       : pointer;
                 }
 
+            }
+
+            .alias {
+                margin: 50px 10px 50px 10px;
+                width : 30vw;
             }
         }
     }
