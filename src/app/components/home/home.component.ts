@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UuidService } from './../../services/uuid.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit {
   isValidUserRoomId: boolean = false;
   copyText: string = 'COPY';
 
-  constructor(private uuidService: UuidService) { }
+  constructor(private uuidService: UuidService, private router: Router) { }
 
   ngOnInit(): void {
     this.newRoomId = this.uuidService.generateUuid();
@@ -44,8 +45,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  a(): void {
-    console.log(this.alias);
+  jumpToRoom(): void {
+    this.router.navigate(['/messages', this.newRoomId]);
   }
 
 }
