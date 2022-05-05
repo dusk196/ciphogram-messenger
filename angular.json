@@ -111,9 +111,21 @@
             "firebaseProject": "sauf-messenger",
             "firebaseHostingSite": "sauf-messenger"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "sauf-messenger"
+  "defaultProject": "sauf-messenger",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

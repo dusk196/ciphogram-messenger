@@ -9,10 +9,15 @@ import { UuidService } from './../../services/uuid.service';
 
 export class HomeComponent implements OnInit {
 
+  newRoomId: string = '';
+
   constructor(private uuidService: UuidService) { }
 
   ngOnInit(): void {
+    this.newRoomId = this.uuidService.generateUuid();
     console.log(this.uuidService.generateUuid());
+    console.log(this.uuidService.val);
+    console.log(this.uuidService.val);
   }
 
 }

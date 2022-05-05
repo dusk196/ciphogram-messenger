@@ -4,13 +4,26 @@
         <h2>Safe & Secure, Anonymous, Untrackable and Fast Messenger</h2>
     </header>
     <main>
-        <div class="input-container">
-            <input type="text" placeholder="Enter your email address" />
-            <button type="button">Get Started</button>
+        <div class="container">
+            <input type="text" placeholder="Your Alias" />
+            <div>
+                <div>
+                    <div>
+                        <span>Room ID:</span>
+                        <input type="text" readonly [value]="newRoomId" />
+                        <button type="button">Copy</button>
+                    </div>
+                    <button type="button">Get Started</button>
+                </div>
+                <div>
+                    <input type="text" placeholder="Join room" />
+                    <button type="button">Join</button>
+                </div>
+            </div>
         </div>
     </main>
     <footer>
-        Made with ❤️ by Sayantan Roy! Source code:
+        Made with ❤️ by Sayantan Roy. Source code:
         <a href="https://github.com/dusk196/sauf-messenger" target="_blank">GitHub</a>
     </footer>
 </div>
