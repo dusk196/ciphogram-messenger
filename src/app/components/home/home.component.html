@@ -5,7 +5,7 @@
     </header>
     <main>
         <div class="container">
-            <input class="alias" type="text" placeholder="Your Alias (required)" maxlength=30 />
+            <input class="alias" type="text" placeholder="Your Alias (required)" [(ngModel)]="alias" maxlength=30 />
             <div class="inner-container">
                 <div class="left-container">
                     <div class="new-room">
@@ -22,13 +22,19 @@
                             </button>
                         </div>
                     </div>
-                    <button class="action-btns" type="button">Get Started</button>
+                    <button class="action-btns" type="button" [disabled]="alias.length === 0">
+                        Get Started
+                    </button>
                 </div>
-                <div class="seperator"></div>
+                <div class=" seperator">
+                </div>
                 <div class="right-container">
                     <span>Already have a Room ID? Join now:</span>
-                    <input type="text" maxlength=36 placeholder="Paste a valid Room ID" />
-                    <button class="action-btns" type="button">Join</button>
+                    <input type="text" maxlength=36 placeholder="Paste a valid Room ID" [(ngModel)]="userRoomId"
+                        (ngModelChange)="checkRoomId()" />
+                    <button class="action-btns" type="button" [disabled]="alias.length === 0 || !isValidUserRoomId">
+                        Join
+                    </button>
                 </div>
             </div>
         </div>

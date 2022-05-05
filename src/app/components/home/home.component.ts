@@ -10,6 +10,9 @@ import { UuidService } from './../../services/uuid.service';
 export class HomeComponent implements OnInit {
 
   newRoomId: string = '';
+  alias: string = '';
+  userRoomId: string = '';
+  isValidUserRoomId: boolean = false;
   copyText: string = 'COPY';
 
   constructor(private uuidService: UuidService) { }
@@ -31,6 +34,18 @@ export class HomeComponent implements OnInit {
 
   refreshId(): void {
     this.newRoomId = this.uuidService.generateUuid();
+  }
+
+  checkRoomId(): void {
+    if (this.userRoomId.length === 36) {
+      this.isValidUserRoomId = this.uuidService.validateUuid(this.userRoomId);
+    } else {
+      this.isValidUserRoomId = false;
+    }
+  }
+
+  a(): void {
+    console.log(this.alias);
   }
 
 }
