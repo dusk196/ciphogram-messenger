@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UuidService } from './../../services/uuid.service';
+import { FirstNames, LastNames } from './../../utils/utils';
 
 @Component({
   selector: 'app-home',
@@ -47,6 +48,12 @@ export class HomeComponent implements OnInit {
 
   jumpToRoom(): void {
     this.router.navigate(['/messages', this.newRoomId]);
+  }
+
+  generateAlias(): void {
+    const randomNumber1 = Math.floor(Math.random() * 1000);
+    const randomNumber2 = Math.floor(Math.random() * 1000);
+    this.alias = `${FirstNames[randomNumber1]} ${LastNames[randomNumber2]}`;
   }
 
 }

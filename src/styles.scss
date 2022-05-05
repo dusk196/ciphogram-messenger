@@ -24,10 +24,18 @@ input {
     font-family: 'Bitter', serif, 'Roboto', sans-serif;
 }
 
-button:disabled,
-button[disabled] {
-    opacity       : 0.5;
-    pointer-events: none;
+button {
+    font-family: 'Bitter', serif, 'Roboto', sans-serif;
+
+    &:disabled {
+        opacity       : 0.5;
+        pointer-events: none;
+    }
+
+    &[disabled] {
+        opacity       : 0.5;
+        pointer-events: none;
+    }
 }
 
 app-home {

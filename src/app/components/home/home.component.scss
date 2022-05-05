@@ -123,9 +123,33 @@
 
             }
 
-            .alias {
-                margin: 50px 10px 50px 10px;
-                width : 30vw;
+            .alias-container {
+                .alias {
+                    margin       : 50px 10px 50px 10px;
+                    width        : 30vw;
+                    border       : solid #FAEBD7;
+                    border-width : 1px 0px 1px 1px;
+                    border-radius: 5px 0px 0px 5px;
+                    margin-right : 0;
+                    padding      : 10px;
+                    font-size    : 1em;
+                }
+
+                button {
+                    border       : 1px solid #FAEBD7;
+                    background   : rgba(0, 0, 0, 0.1);
+                    border-radius: 0px 5px 5px 0px;
+                    color        : #FAEBD7;
+                    cursor       : pointer;
+                    height       : auto;
+                    padding      : 10px;
+                    font-size    : 1em;
+
+                    &:active {
+                        color     : #202020;
+                        background: #FAEBD7;
+                    }
+                }
             }
         }
     }

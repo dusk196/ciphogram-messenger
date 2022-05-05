@@ -5,7 +5,10 @@
     </header>
     <main>
         <div class="container">
-            <input class="alias" type="text" placeholder="Your Alias (required)" [(ngModel)]="alias" maxlength=30 />
+            <div class="alias-container">
+                <input class="alias" type="text" placeholder="Your Alias (required)" [(ngModel)]="alias" maxlength=30 />
+                <button type="button" class="action-btns" (click)="generateAlias()">Random</button>
+            </div>
             <div class="inner-container">
                 <div class="left-container">
                     <div class="new-room">
