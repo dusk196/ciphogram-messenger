@@ -1,20 +1,16 @@
 .error-container {
     background-color: #F4F5F7;
-    height          : 100vh;
-    width           : 100vw;
+
+    main {
+        height: 100vh;
+    }
 
     .warn-msg {
         background-color: #091E42;
-        display         : flex;
-        flex-direction  : column;
-        justify-content : center;
-        align-items     : center;
         color           : #F4F5F7;
 
         h1 {
             font-size: 5em;
-            margin   : 0;
-            padding  : 0;
         }
 
         button {
@@ -38,5 +34,21 @@
     .svg-container {
         display         : flex;
         background-color: #F4F5F7;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .error-container {
+        .warn-msg {
+            h1 {
+                font-size: 3em;
+            }
+
+            button {
+                font-size: 0.75em;
+                height   : 48px;
+                width    : 96px;
+            }
+        }
     }
 }
