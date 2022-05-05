@@ -10,6 +10,7 @@ import { UuidService } from './../../services/uuid.service';
 export class HomeComponent implements OnInit {
 
   newRoomId: string = '';
+  copyText: string = 'COPY';
 
   constructor(private uuidService: UuidService) { }
 
@@ -18,6 +19,14 @@ export class HomeComponent implements OnInit {
     console.log(this.uuidService.generateUuid());
     console.log(this.uuidService.val);
     console.log(this.uuidService.val);
+  }
+
+  onCopy(): void {
+    navigator.clipboard.writeText(this.newRoomId);
+    this.copyText = 'COPIED!';
+    setTimeout(() => {
+      this.copyText = 'COPY';
+    }, 3000);
   }
 
 }

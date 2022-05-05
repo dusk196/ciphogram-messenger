@@ -5,19 +5,23 @@
     </header>
     <main>
         <div class="container">
-            <input type="text" placeholder="Your Alias" />
-            <div>
-                <div>
-                    <div>
+            <input type="text" placeholder="Your Alias" maxlength=30 />
+            <div class="inner-container">
+                <div class="left-container">
+                    <div class="new-room">
                         <span>Room ID:</span>
-                        <input type="text" readonly [value]="newRoomId" />
-                        <button type="button">Copy</button>
+                        <input title="Room ID" type="text" readonly [value]="newRoomId" />
+                        <button type="button" class="tooltip" (click)="onCopy()">
+                            <span class="d-none">copy</span>
+                            <span class="tooltip-text" [innerText]="copyText"></span>
+                        </button>
                     </div>
-                    <button type="button">Get Started</button>
+                    <button class="action-btns" type="button">Get Started</button>
                 </div>
-                <div>
-                    <input type="text" placeholder="Join room" />
-                    <button type="button">Join</button>
+                <div class="seperator"></div>
+                <div class="right-container">
+                    <input type="text" maxlength=36 placeholder="Join room" />
+                    <button class="action-btns" type="button">Join</button>
                 </div>
             </div>
         </div>
