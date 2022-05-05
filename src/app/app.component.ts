@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DbService } from "./services/db-service.service";
+import { DbService } from "./services/db.service";
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   constructor(private dbService: DbService) { }
 
   ngOnInit(): void {
-    this.dbService.addMessage('Hello World 123!');
+    //this.dbService.addMessage('Hello World 123!');
     // set(ref(this.database, 'users/' + 'lol'), {
     //   username: 'name',
     //   email: 'email',
