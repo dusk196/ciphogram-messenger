@@ -7,13 +7,13 @@
         h1 {
             color      : #FAEBD7;
             text-shadow: 0 0 3px #000, 0 0 5px #FEFEFE;
-            font-size  : 5em;
+            font-size  : 4em;
         }
 
         h2 {
             color      : #FAEBD7;
             text-shadow: 0 0 3px #000, 0 0 5px #FEFEFE;
-            font-size  : 2em;
+            font-size  : 2.5em;
         }
     }
 
@@ -41,6 +41,11 @@
 
                 &:focus {
                     outline: none;
+                }
+
+                &::placeholder {
+                    color  : #FAEBD7;
+                    opacity: 0.75;
                 }
             }
 
@@ -109,6 +114,11 @@
                     padding      : 10px;
                     border-radius: 5px;
                     cursor       : pointer;
+
+                    &:active {
+                        color     : #202020;
+                        background: #FAEBD7;
+                    }
                 }
 
             }
@@ -150,6 +160,14 @@
                 font-size: 0.75em;
             }
         }
+
+        main {
+            font-size: 0.75em;
+        }
+
+        footer {
+            font-size: 1em;
+        }
     }
 }
 
@@ -163,6 +181,39 @@
             h2 {
                 font-size: 0.5em;
             }
+        }
+
+        main {
+            font-size: 0.5em;
+        }
+
+        footer {
+            font-size: 0.75em;
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .home {
+        main {
+            .container {
+
+                .inner-container {
+                    flex-direction: column;
+                }
+
+                .seperator {
+                    display: none;
+                }
+
+                .right-container {
+                    margin-top: 30px;
+                }
+            }
+        }
+
+        footer {
+            font-size: 0.5em;
         }
     }
 }
