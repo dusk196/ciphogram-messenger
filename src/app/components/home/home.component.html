@@ -17,10 +17,11 @@
                         <div class="new-room-input">
                             <button type="button" class="refresh-id tooltip" (click)="refreshId()">
                                 <span class="d-none">generate new Room ID</span>
-                                <span class="tooltip-text">Generate new Room ID</span>
+                                <span class="tooltip-text">Get a new one</span>
                             </button>
                             <input title="Room ID" type="text" readonly [value]="userDetails.associatedRoomId" />
-                            <button type="button" class="copy tooltip" (click)="onCopy()">
+                            <button type="button" class="copy tooltip" (click)="onCopy()"
+                                (mouseenter)="copyText = 'COPY';">
                                 <span class="d-none">copy new room id</span>
                                 <span class="tooltip-text" [innerText]="copyText"></span>
                             </button>

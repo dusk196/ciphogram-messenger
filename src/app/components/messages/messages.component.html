@@ -2,7 +2,13 @@
     <header>
         <div class="left">
             <h1>SAUF Messenger</h1>
-            <h3>Room ID: {{roomId}}</h3>
+            <div class="roomDetails">
+                <h3>Room ID: {{roomId}}</h3>
+                <button type="button" class="copy tooltip" (click)="onCopy()" (mouseenter)="copyText = 'COPY';">
+                    <span class="d-none">copy new room id</span>
+                    <span class="tooltip-text" [innerText]="copyText"></span>
+                </button>
+            </div>
         </div>
         <div class="right">
             <button type="button" [routerLink]="'/home'">Exit</button>
@@ -32,6 +38,7 @@
                     </ul>
                 </div>
                 <div class="alias-container">
+                    <p>You've connected as:</p>
                     <input class="" type="text" placeholder="Update Alias (required)" [(ngModel)]="aliasFormData"
                         maxlength=30 />
                     <div class="btns">

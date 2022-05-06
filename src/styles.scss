@@ -65,36 +65,39 @@ app-home {
 
 .tooltip {
     position: relative;
-}
 
-.tooltip .tooltip-text {
-    visibility      : hidden;
-    width           : 100px;
-    background-color: black;
-    color           : #fff;
-    text-align      : center;
-    border-radius   : 6px;
-    padding         : 5px 0;
-    position        : absolute;
-    z-index         : 1;
-    top             : 125%;
-    left            : 50%;
-    margin-left     : -50px;
-}
+    .tooltip-text {
+        visibility      : hidden;
+        width           : 100px;
+        background-color: black;
+        color           : #fff;
+        text-align      : center;
+        border-radius   : 6px;
+        padding         : 5px 0;
+        position        : absolute;
+        z-index         : 1;
+        top             : 125%;
+        left            : 50%;
+        margin-left     : -50px;
+        font-size       : 16px;
 
-.tooltip .tooltip-text::after {
-    content     : "";
-    position    : absolute;
-    bottom      : 100%;
-    left        : 50%;
-    margin-left : -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent black transparent;
-}
+        &::after {
+            content     : "";
+            position    : absolute;
+            bottom      : 100%;
+            left        : 50%;
+            margin-left : -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent black transparent;
+        }
+    }
 
-.tooltip:hover .tooltip-text {
-    visibility: visible;
+    &:hover {
+        .tooltip-text {
+            visibility: visible;
+        }
+    }
 }
 
 .d-none {

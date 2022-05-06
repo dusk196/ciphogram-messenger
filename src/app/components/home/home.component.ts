@@ -22,49 +22,46 @@ export class HomeComponent implements OnInit {
   copyText: string = 'COPY';
 
   constructor(
-    private utilsService: UtilsService,
-    private uuidService: UuidService,
-    private router: Router
+    private _utilsService: UtilsService,
+    private _uuidService: UuidService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
-    this.userDetails.id = this.uuidService.generateUuid();
-    this.userDetails.associatedRoomId = this.uuidService.generateUuid();
+    this.userDetails.id = this._uuidService.generateUuid();
+    this.userDetails.associatedRoomId = this._uuidService.generateUuid();
   }
 
   onCopy(): void {
     navigator.clipboard.writeText(this.userDetails.associatedRoomId);
     this.copyText = 'COPIED!';
-    setTimeout(() => {
-      this.copyText = 'COPY';
-    }, 3000);
   }
 
   refreshId(): void {
-    this.userDetails.associatedRoomId = this.uuidService.generateUuid();
+    this.userDetails.associatedRoomId = this._uuidService.generateUuid();
   }
 
   checkRoomId(): void {
     if (this.userRoomId.length === 36) {
-      this.isValidUserRoomId = this.uuidService.validateUuid(this.userRoomId);
+      this.isValidUserRoomId = this._uuidService.validateUuid(this.userRoomId);
     } else {
       this.isValidUserRoomId = false;
     }
   }
 
   jumpToRoom(): void {
-    this.utilsService.updateAlias(this.userDetails);
-    this.router.navigate(['/messages', this.userDetails.associatedRoomId]);
+    this._utilsService.updateAlias(this.userDetails);
+    this._router.navigate(['/messages', this.userDetails.associatedRoomId]);
   }
 
   jumpToRoomId(): void {
     this.userDetails.associatedRoomId = this.userRoomId;
-    this.utilsService.updateAlias(this.userDetails);
-    this.router.navigate(['/messages', this.userRoomId]);
+    this._utilsService.updateAlias(this.userDetails);
+    this._router.navigate(['/messages', this.userRoomId]);
   }
 
   generateAlias(): void {
-    this.userDetails.name = this.utilsService.generateRandomAlias();
+    this.userDetails.name = this._utilsService.generateRandomAlias();
   }
 
 }

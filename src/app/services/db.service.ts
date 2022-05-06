@@ -7,10 +7,10 @@ import { Database, ref, set } from "@angular/fire/database";
 
 export class DbService {
 
-  constructor(private database: Database) { }
+  constructor(private _database: Database) { }
 
   addMessage(message: string) {
-    set(ref(this.database, 'messages/' + 'lol1'), {
+    set(ref(this._database, 'messages/' + 'lol1'), {
       message
     });
   }
