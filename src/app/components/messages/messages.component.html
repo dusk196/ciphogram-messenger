@@ -17,17 +17,17 @@
                 <div>
                     <h3>Online: 2</h3>
                     <ul>
-                        <li>{{localAlias}}</li>
+                        <li>{{localAlias.main}}</li>
                         <li>Hailey Black [You]</li>
                         <li>John Doe</li>
                     </ul>
                 </div>
                 <div class="alias-container">
-                    <input class="" type="text" placeholder="Update Alias (required)" [(ngModel)]="localAlias"
+                    <input class="" type="text" placeholder="Update Alias (required)" [(ngModel)]="localAlias.formData"
                         maxlength=30 />
                     <div class="btns">
                         <button type="button" class="" (click)="generateAlias()">Random</button>
-                        <button type="button" class="">Update</button>
+                        <button type="button" class="" (click)="updateAlias()">Update</button>
                     </div>
                 </div>
             </div>

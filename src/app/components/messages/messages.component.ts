@@ -12,7 +12,10 @@ import { UtilsService } from './../../services/utils.service';
 export class MessagesComponent implements OnInit, OnDestroy {
 
   readonly roomId = this._activatedroute.snapshot.params['roomId'];
-  localAlias: string = '';
+  localAlias = {
+    main: '',
+    formData: ''
+  };
   subscription: Subscription = new Subscription();
 
 
@@ -23,7 +26,10 @@ export class MessagesComponent implements OnInit, OnDestroy {
   ) {
     this.subscription = this.utilsService.getAlias().subscribe((alias: string) => {
       console.log(alias)
-      this.localAlias = this.utilsService.isNullOrEmpty(alias) ? '' : alias;
+      if (!this.utilsService.isNullOrEmpty(alias)) {
+        this.localAlias.main = alias;
+        this.localAlias.formData = alias;
+      }
     });
   }
 
@@ -34,6 +40,10 @@ export class MessagesComponent implements OnInit, OnDestroy {
   generateAlias(): void {
     const newAlias = this.utilsService.generateRandomAlias();
     this.utilsService.updateAlias(newAlias);
+  }
+
+  updateAlias(): void {
+    this.utilsService.updateAlias(this.localAlias.formData);
   }
 
   ngOnDestroy(): void {
