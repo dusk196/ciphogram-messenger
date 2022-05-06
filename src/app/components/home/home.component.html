@@ -6,7 +6,8 @@
     <main>
         <div class="container">
             <div class="alias-container">
-                <input class="alias" type="text" placeholder="Your Alias (required)" [(ngModel)]="alias" maxlength=30 />
+                <input class="alias" type="text" placeholder="Your Alias (required)" [(ngModel)]="localAlias"
+                    maxlength=30 />
                 <button type="button" class="action-btns" (click)="generateAlias()">Random</button>
             </div>
             <div class="inner-container">
@@ -20,12 +21,13 @@
                             </button>
                             <input title="Room ID" type="text" readonly [value]="newRoomId" />
                             <button type="button" class="copy tooltip" (click)="onCopy()">
-                                <span class="d-none">copy</span>
+                                <span class="d-none">copy new room id</span>
                                 <span class="tooltip-text" [innerText]="copyText"></span>
                             </button>
                         </div>
                     </div>
-                    <button class="action-btns" type="button" [disabled]="alias.length === 0" (click)="jumpToRoom()">
+                    <button class="action-btns" type="button" [disabled]="localAlias.length === 0"
+                        (click)="jumpToRoom()">
                         Get Started
                     </button>
                 </div>
@@ -35,7 +37,8 @@
                     <span>Already have a Room ID? Join now:</span>
                     <input type="text" maxlength=36 placeholder="Paste a valid Room ID" [(ngModel)]="userRoomId"
                         (ngModelChange)="checkRoomId()" />
-                    <button class="action-btns" type="button" [disabled]="alias.length === 0 || !isValidUserRoomId">
+                    <button class="action-btns" type="button"
+                        [disabled]="localAlias.length === 0 || !isValidUserRoomId">
                         Join
                     </button>
                 </div>

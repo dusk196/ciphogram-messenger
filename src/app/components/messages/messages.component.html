@@ -1,1 +1,44 @@
-<p>messages works!</p>
+<div class="msg-container">
+    <header>
+        <div class="left">
+            <h1>SAUF Messenger</h1>
+            <h3>Room ID: {{roomId}}</h3>
+        </div>
+        <div class="right">
+            <button>Exit</button>
+        </div>
+    </header>
+    <main>
+        <div class="left">
+            Main left-container
+        </div>
+        <div class="right">
+            <div class="list">
+                <div>
+                    <h3>Online: 2</h3>
+                    <ul>
+                        <li>{{localAlias}}</li>
+                        <li>Hailey Black [You]</li>
+                        <li>John Doe</li>
+                    </ul>
+                </div>
+                <div class="alias-container">
+                    <input class="" type="text" placeholder="Update Alias (required)" [(ngModel)]="localAlias"
+                        maxlength=30 />
+                    <div class="btns">
+                        <button type="button" class="" (click)="generateAlias()">Random</button>
+                        <button type="button" class="">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <footer>
+            <p>
+                Made with ❤️ by Sayantan Roy. Source code:
+                <a href="https://github.com/dusk196/sauf-messenger" target="_blank">GitHub</a>
+            </p>
+        </footer>
+    </footer>
+</div>

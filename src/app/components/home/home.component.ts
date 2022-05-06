@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UuidService } from './../../services/uuid.service';
-import { FirstNames, LastNames } from './../../utils/utils';
+import { UtilsService } from './../../services/utils.service';
 
 @Component({
   selector: 'app-home',
@@ -12,12 +12,16 @@ import { FirstNames, LastNames } from './../../utils/utils';
 export class HomeComponent implements OnInit {
 
   newRoomId: string = '';
-  alias: string = '';
+  localAlias: string = '';
   userRoomId: string = '';
   isValidUserRoomId: boolean = false;
   copyText: string = 'COPY';
 
-  constructor(private uuidService: UuidService, private router: Router) { }
+  constructor(
+    private utilsService: UtilsService,
+    private uuidService: UuidService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.newRoomId = this.uuidService.generateUuid();
@@ -47,13 +51,12 @@ export class HomeComponent implements OnInit {
   }
 
   jumpToRoom(): void {
+    this.utilsService.updateAlias(this.localAlias);
     this.router.navigate(['/messages', this.newRoomId]);
   }
 
   generateAlias(): void {
-    const randomNumber1 = Math.floor(Math.random() * 1000);
-    const randomNumber2 = Math.floor(Math.random() * 1000);
-    this.alias = `${FirstNames[randomNumber1]} ${LastNames[randomNumber2]}`;
+    this.localAlias = this.utilsService.generateRandomAlias();
   }
 
 }
