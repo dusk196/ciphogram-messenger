@@ -10,7 +10,16 @@
     </header>
     <main>
         <div class="left">
-            Main left-container
+            <div class="top">
+                Chat here
+            </div>
+            <div class="bottom">
+                <div class="text-container">
+                    <textarea class="text" placeholder="Enter you messege..." [(ngModel)]="message"
+                        (keyup.enter)="sendMessage()"></textarea>
+                    <button class="send" (click)="sendMessage()">Send</button>
+                </div>
+            </div>
         </div>
         <div class="right">
             <div class="list">
@@ -26,7 +35,8 @@
                     <input class="" type="text" placeholder="Update Alias (required)" [(ngModel)]="aliasFormData"
                         maxlength=30 />
                     <div class="btns">
-                        <button type="button" class="" (click)="updateAlias()">Update</button>
+                        <button type="button" class="" (click)="updateAlias()"
+                            [disabled]="aliasFormData.length === 0">Update</button>
                         <button type="button" class="" (click)="generateAlias()">Random</button>
                     </div>
                 </div>

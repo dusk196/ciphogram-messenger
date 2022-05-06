@@ -22,7 +22,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
   aliasFormData: string = '';
   subscription: Subscription = new Subscription();
-
+  message: string = '';
 
   constructor(
     @Inject(ActivatedRoute)
@@ -51,6 +51,11 @@ export class MessagesComponent implements OnInit, OnDestroy {
   updateAlias(): void {
     this.user.name = cloneDeep(this.aliasFormData);
     this.utilsService.updateAlias(this.user);
+  }
+
+  sendMessage(): void {
+    // this.utilsService.sendMessage(this.message, this.user.associatedRoomId);
+    // this.message = '';
   }
 
   ngOnDestroy(): void {
