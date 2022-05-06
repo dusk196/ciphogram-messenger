@@ -19,6 +19,10 @@ export class UtilsService {
     this.alias$.next(newAlias);
   }
 
+  resetAlias(): void {
+    this.updateAlias('');
+  }
+
   destroyAlias(): void {
     this.alias$.complete();
   }

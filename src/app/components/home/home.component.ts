@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IUser } from './../../types/sauf.types';
 import { UuidService } from './../../services/uuid.service';
 import { UtilsService } from './../../services/utils.service';
 
@@ -11,8 +12,11 @@ import { UtilsService } from './../../services/utils.service';
 
 export class HomeComponent implements OnInit {
 
-  newRoomId: string = '';
-  localAlias: string = '';
+  userDetails: IUser = {
+    id: '',
+    name: '',
+    associatedRoomId: ''
+  };
   userRoomId: string = '';
   isValidUserRoomId: boolean = false;
   copyText: string = 'COPY';
@@ -24,14 +28,12 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.newRoomId = this.uuidService.generateUuid();
-    // console.log(this.uuidService.generateUuid());
-    // console.log(this.uuidService.val);
-    // console.log(this.uuidService.val);
+    this.userDetails.id = this.uuidService.generateUuid();
+    this.userDetails.associatedRoomId = this.uuidService.generateUuid();
   }
 
   onCopy(): void {
-    navigator.clipboard.writeText(this.newRoomId);
+    navigator.clipboard.writeText(this.userDetails.associatedRoomId);
     this.copyText = 'COPIED!';
     setTimeout(() => {
       this.copyText = 'COPY';
@@ -39,7 +41,7 @@ export class HomeComponent implements OnInit {
   }
 
   refreshId(): void {
-    this.newRoomId = this.uuidService.generateUuid();
+    this.userDetails.associatedRoomId = this.uuidService.generateUuid();
   }
 
   checkRoomId(): void {
@@ -51,12 +53,18 @@ export class HomeComponent implements OnInit {
   }
 
   jumpToRoom(): void {
-    this.utilsService.updateAlias(this.localAlias);
-    this.router.navigate(['/messages', this.newRoomId]);
+    this.utilsService.updateAlias(this.userDetails.name);
+    this.router.navigate(['/messages', this.userDetails.associatedRoomId]);
+  }
+
+  jumpToRoomId(): void {
+    this.userDetails.associatedRoomId = this.userRoomId;
+    this.utilsService.updateAlias(this.userDetails.name);
+    this.router.navigate(['/messages', this.userRoomId]);
   }
 
   generateAlias(): void {
-    this.localAlias = this.utilsService.generateRandomAlias();
+    this.userDetails.name = this.utilsService.generateRandomAlias();
   }
 
 }

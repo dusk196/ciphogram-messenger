@@ -6,7 +6,7 @@
     <main>
         <div class="container">
             <div class="alias-container">
-                <input class="alias" type="text" placeholder="Your Alias (required)" [(ngModel)]="localAlias"
+                <input class="alias" type="text" placeholder="Your Alias (required)" [(ngModel)]="userDetails.name"
                     maxlength=30 />
                 <button type="button" class="action-btns" (click)="generateAlias()">Random</button>
             </div>
@@ -19,14 +19,14 @@
                                 <span class="d-none">generate new Room ID</span>
                                 <span class="tooltip-text">Generate new Room ID</span>
                             </button>
-                            <input title="Room ID" type="text" readonly [value]="newRoomId" />
+                            <input title="Room ID" type="text" readonly [value]="userDetails.associatedRoomId" />
                             <button type="button" class="copy tooltip" (click)="onCopy()">
                                 <span class="d-none">copy new room id</span>
                                 <span class="tooltip-text" [innerText]="copyText"></span>
                             </button>
                         </div>
                     </div>
-                    <button class="action-btns" type="button" [disabled]="localAlias.length === 0"
+                    <button class="action-btns" type="button" [disabled]="userDetails.name.length === 0"
                         (click)="jumpToRoom()">
                         Get Started
                     </button>
@@ -37,8 +37,8 @@
                     <span>Already have a Room ID? Join now:</span>
                     <input type="text" maxlength=36 placeholder="Paste a valid Room ID" [(ngModel)]="userRoomId"
                         (ngModelChange)="checkRoomId()" />
-                    <button class="action-btns" type="button"
-                        [disabled]="localAlias.length === 0 || !isValidUserRoomId">
+                    <button class="action-btns" type="button" (click)="jumpToRoomId()"
+                        [disabled]="userDetails.name.length === 0 || !isValidUserRoomId">
                         Join
                     </button>
                 </div>
