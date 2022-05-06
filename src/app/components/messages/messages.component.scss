@@ -20,15 +20,20 @@
             background-color: #273036;
             color           : #FFFFFF;
             border          : 1px solid #FFFFFF;
-            padding         : 5px;
+            padding         : 5px 10px 5px 10px;
             border-radius   : 5px;
             font-size       : 2em;
-            font-weight     : bold;
+            font-weight     : 600;
             cursor          : pointer;
 
-            &:active {
+
+            &:hover {
                 color     : #273036;
                 background: #FFFFFF;
+            }
+
+            &:active {
+                font-weight: 800;
             }
         }
 
@@ -74,16 +79,35 @@
                 input {
                     width        : calc(100% - 25px);
                     margin       : 10px 10px 10px 0px;
-                    background   : rgba(0, 0, 0, 0.1);
-                    border       : 1px solid black;
+                    background   : transparent;
+                    border       : 1px solid #273036;
+                    font-size    : 1em;
                     border-radius: 5px;
                     padding      : 5px;
                 }
 
                 .btns {
-                    text-align   : center;
-                    // margin    : 10px;
-                    padding      : 10px;
+                    text-align: center;
+                    padding   : 10px;
+
+                    button {
+                        margin       : 0px 10px 0px 10px;
+                        padding      : 5px 10px 5px 10px;
+                        background   : transparent;
+                        border       : 1px solid #273036;
+                        border-radius: 5px;
+                        cursor       : pointer;
+
+                        &:hover {
+                            outline       : 1px solid #273036;
+                            outline-offset: 0px;
+                        }
+
+                        &:active {
+                            color     : #FFFFFF;
+                            background: #273036;
+                        }
+                    }
                 }
             }
         }

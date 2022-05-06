@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { isNull, isEmpty, isUndefined } from 'lodash';
 import { FirstNames, LastNames } from './../utils/utils';
 import { IUser } from '../types/sauf.types';
@@ -13,7 +13,7 @@ export class UtilsService {
   private readonly initialAlias: IUser = { id: '', name: '', associatedRoomId: '' };
   private alias$: BehaviorSubject<IUser> = new BehaviorSubject(this.initialAlias);
 
-  getAlias() {
+  getAlias(): Observable<IUser> {
     return this.alias$.asObservable();
   }
 
