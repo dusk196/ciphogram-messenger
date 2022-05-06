@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { isNull, isEmpty, isUndefined } from 'lodash';
 import { FirstNames, LastNames } from './../utils/utils';
 
 @Injectable({
@@ -8,10 +9,22 @@ import { FirstNames, LastNames } from './../utils/utils';
 
 export class UtilsService {
 
-  private alias: Subject<string> = new Subject();
+  private alias$: BehaviorSubject<string> = new BehaviorSubject('');
+
+  getAlias() {
+    return this.alias$.asObservable();
+  }
 
   updateAlias(newAlias: string): void {
-    this.alias.next(newAlias);
+    this.alias$.next(newAlias);
+  }
+
+  destroyAlias(): void {
+    this.alias$.complete();
+  }
+
+  isNullOrEmpty(value: any): boolean {
+    return isNull(value) || isEmpty(value) || isUndefined(value);
   }
 
   generateRandomAlias(): string {

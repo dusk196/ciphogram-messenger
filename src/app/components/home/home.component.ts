@@ -25,9 +25,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.newRoomId = this.uuidService.generateUuid();
-    console.log(this.uuidService.generateUuid());
-    console.log(this.uuidService.val);
-    console.log(this.uuidService.val);
+    // console.log(this.uuidService.generateUuid());
+    // console.log(this.uuidService.val);
+    // console.log(this.uuidService.val);
   }
 
   onCopy(): void {
