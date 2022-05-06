@@ -1,7 +1,10 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { cloneDeep } from 'lodash';
+import { IUser } from './../../types/sauf.types';
 import { UtilsService } from './../../services/utils.service';
+
 
 @Component({
   selector: 'app-messages',
@@ -12,10 +15,12 @@ import { UtilsService } from './../../services/utils.service';
 export class MessagesComponent implements OnInit, OnDestroy {
 
   readonly roomId = this._activatedroute.snapshot.params['roomId'];
-  localAlias = {
-    main: '',
-    formData: ''
-  };
+  private user: IUser = {
+    id: '',
+    name: '',
+    associatedRoomId: ''
+  }
+  aliasFormData: string = '';
   subscription: Subscription = new Subscription();
 
 
@@ -24,11 +29,12 @@ export class MessagesComponent implements OnInit, OnDestroy {
     private _activatedroute: ActivatedRoute,
     private utilsService: UtilsService
   ) {
-    this.subscription = this.utilsService.getAlias().subscribe((alias: string) => {
+    this.subscription = this.utilsService.getAlias().subscribe((alias: IUser) => {
       console.log(alias)
       if (!this.utilsService.isNullOrEmpty(alias)) {
-        this.localAlias.main = alias;
-        this.localAlias.formData = alias;
+        this.user = { ...alias };
+        console.log(this.user);
+        this.aliasFormData = cloneDeep(alias.name);
       }
     });
   }
@@ -38,16 +44,17 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   generateAlias(): void {
-    const newAlias = this.utilsService.generateRandomAlias();
-    this.utilsService.updateAlias(newAlias);
+    this.user.name = this.utilsService.generateRandomAlias();
+    this.utilsService.updateAlias(this.user);
   }
 
   updateAlias(): void {
-    this.utilsService.updateAlias(this.localAlias.formData);
+    this.user.name = cloneDeep(this.aliasFormData);
+    this.utilsService.updateAlias(this.user);
   }
 
   ngOnDestroy(): void {
-    this.utilsService.updateAlias('');
+    this.utilsService.resetAlias();
     this.subscription.unsubscribe();
   }
 

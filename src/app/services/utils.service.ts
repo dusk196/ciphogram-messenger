@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { isNull, isEmpty, isUndefined } from 'lodash';
 import { FirstNames, LastNames } from './../utils/utils';
+import { IUser } from '../types/sauf.types';
 
 @Injectable({
   providedIn: 'root'
@@ -9,18 +10,19 @@ import { FirstNames, LastNames } from './../utils/utils';
 
 export class UtilsService {
 
-  private alias$: BehaviorSubject<string> = new BehaviorSubject('');
+  private readonly initialAlias: IUser = { id: '', name: '', associatedRoomId: '' };
+  private alias$: BehaviorSubject<IUser> = new BehaviorSubject(this.initialAlias);
 
   getAlias() {
     return this.alias$.asObservable();
   }
 
-  updateAlias(newAlias: string): void {
+  updateAlias(newAlias: IUser): void {
     this.alias$.next(newAlias);
   }
 
   resetAlias(): void {
-    this.updateAlias('');
+    this.updateAlias(this.initialAlias);
   }
 
   destroyAlias(): void {

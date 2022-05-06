@@ -53,13 +53,13 @@ export class HomeComponent implements OnInit {
   }
 
   jumpToRoom(): void {
-    this.utilsService.updateAlias(this.userDetails.name);
+    this.utilsService.updateAlias(this.userDetails);
     this.router.navigate(['/messages', this.userDetails.associatedRoomId]);
   }
 
   jumpToRoomId(): void {
     this.userDetails.associatedRoomId = this.userRoomId;
-    this.utilsService.updateAlias(this.userDetails.name);
+    this.utilsService.updateAlias(this.userDetails);
     this.router.navigate(['/messages', this.userRoomId]);
   }
 
