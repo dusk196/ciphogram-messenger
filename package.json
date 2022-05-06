@@ -1,6 +1,15 @@
 {
   "name": "sauf-messenger",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A highly Safe & Secure, Anonymous, Untrackable and Fast (SAUF) Messenger!",
+  "contributors": [
+    "Sayantan Roy <sayantan.roy@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dusk196/sauf-messenger"
+  },
+  "license": "GPL-3.0-only",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,7 +18,6 @@
     "test": "ng test",
     "lint": "ng lint"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~13.3.0",
     "@angular/common": "~13.3.0",
