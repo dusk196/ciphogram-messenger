@@ -1,3 +1,8 @@
+$black       : #1C1C1C;
+$white       : #FAEBD7;
+$shadow-white: #FEFEFE;
+$active-black: #202020;
+
 .home {
     justify-content: space-between;
 
@@ -5,14 +10,14 @@
         margin-top: 25vh;
 
         h1 {
-            color      : #FAEBD7;
-            text-shadow: 0 0 3px #000, 0 0 5px #FEFEFE;
+            color      : $white;
+            text-shadow: 0 0 3px $black, 0 0 5px $shadow-white;
             font-size  : 4em;
         }
 
         h2 {
-            color      : #FAEBD7;
-            text-shadow: 0 0 3px #000, 0 0 5px #FEFEFE;
+            color      : $white;
+            text-shadow: 0 0 3px $black, 0 0 5px $shadow-white;
             font-size  : 2.5em;
         }
     }
@@ -23,7 +28,7 @@
             flex-direction: column;
             align-items   : center;
             font-size     : 1.5em;
-            color         : #FAEBD7;
+            color         : $white;
 
             input {
                 width        : 75%;
@@ -32,8 +37,8 @@
                 padding      : 5px 10px 5px 10px;
                 border-radius: 5px;
                 background   : rgba(0, 0, 0, 0.1);
-                color        : #FAEBD7;
-                border       : 1px solid #FAEBD7;
+                color        : $white;
+                border       : 1px solid $white;
                 font-size    : 1em;
                 text-overflow: ellipsis;
                 overflow     : hidden;
@@ -45,7 +50,7 @@
                 }
 
                 &::placeholder {
-                    color  : #FAEBD7;
+                    color  : $white;
                     opacity: 0.75;
                 }
             }
@@ -95,8 +100,8 @@
                 }
 
                 .seperator {
-                    border-left : 1px solid #FAEBD7;
-                    border-right: 1px solid #FAEBD7;
+                    border-left : 1px solid $white;
+                    border-right: 1px solid $white;
                     height      : 20vh;
                 }
 
@@ -110,8 +115,8 @@
                 .action-btns {
                     font-size    : 1em;
                     background   : rgba(0, 0, 0, 0.1);
-                    border       : 1px solid #FAEBD7;
-                    color        : #FAEBD7;
+                    border       : 1px solid $white;
+                    color        : $white;
                     padding      : 10px;
                     border-radius: 5px;
                     cursor       : pointer;
@@ -121,8 +126,8 @@
                     }
 
                     &:active {
-                        color     : #202020;
-                        background: #FAEBD7;
+                        color     : $active-black;
+                        background: $white;
                     }
                 }
 
@@ -132,7 +137,7 @@
                 .alias {
                     margin       : 50px 10px 50px 10px;
                     width        : 30vw;
-                    border       : solid #FAEBD7;
+                    border       : solid $white;
                     border-width : 1px 0px 1px 1px;
                     border-radius: 5px 0px 0px 5px;
                     margin-right : 0;
@@ -141,10 +146,10 @@
                 }
 
                 button {
-                    border       : 1px solid #FAEBD7;
+                    border       : 1px solid $white;
                     background   : rgba(0, 0, 0, 0.1);
                     border-radius: 0px 5px 5px 0px;
-                    color        : #FAEBD7;
+                    color        : $white;
                     cursor       : pointer;
                     height       : auto;
                     padding      : 10px;
@@ -155,8 +160,8 @@
                     }
 
                     &:active {
-                        color     : #202020;
-                        background: #FAEBD7;
+                        color     : $active-black;
+                        background: $white;
                     }
                 }
             }
@@ -165,19 +170,19 @@
 
     footer {
         align-items  : flex-end;
-        color        : #faebd7;
+        color        : $white;
         margin-bottom: 20px;
 
         a:link,
         a:visited {
-            color          : #FAEBD7;
+            color          : $white;
             text-decoration: underline;
             cursor         : pointer;
         }
 
         a:link:active,
         a:visited:active {
-            color: #FAEBD7;
+            color: $white;
         }
     }
 }

@@ -1,39 +1,42 @@
+$white : #FAEBD7;
+$blue  : #091E42;
+
 .error-container {
-    background-color: #F4F5F7;
+    background-color: $white;
 
     main {
         height: 100vh;
     }
 
     .warn-msg {
-        background-color: #091E42;
-        color           : #F4F5F7;
+        background-color: $blue;
+        color           : $white;
 
         h1 {
             font-size: 5em;
         }
 
         button {
-            background : #091E42;
+            background : $blue;
             margin     : 25px 0px 25px 0px;
-            color      : #F4F5F7;
+            color      : $white;
             font-size  : 1em;
             font-weight: 800;
             height     : 64px;
             width      : 128px;
-            border     : 1px solid #F4F5F7;
+            border     : 1px solid $white;
             cursor     : pointer;
 
             &:active {
-                background: #F4F5F7;
-                color     : #091E42;
+                background: $white;
+                color     : $blue;
             }
         }
     }
 
     .svg-container {
         display         : flex;
-        background-color: #F4F5F7;
+        background-color: $white;
     }
 }
 

@@ -10,6 +10,8 @@
         display         : flex;
         justify-content : space-between;
         padding         : 5px;
+        box-shadow      : 0px 0px 10px 5px #273036;
+        z-index         : 1;
 
         h1,
         h3 {
@@ -79,7 +81,58 @@
             text-align: left;
 
             .top {
-                height: 80% !important;
+                height        : 80%;
+                overflow-y    : auto;
+                display       : flex;
+                flex-direction: column;
+
+                .chat-wrapper {
+                    width: 100%;
+
+                    .name {
+                        font-weight  : 600;
+                        color        : #FFFFFF;
+                        margin-bottom: 10px;
+                    }
+
+                    .chat-left {
+                        text-align   : left;
+                        padding      : 20px;
+                        margin       : 20px;
+                        float        : left;
+                        width        : fit-content;
+                        max-width    : 80%;
+                        background   : #9E2A2B;
+                        color        : #FAEBD7;
+                        border-radius: 10px;
+                        box-shadow   : 5px 5px 20px 2px #273036;
+
+                        .time {
+                            text-align: right;
+                            font-size : 12px;
+                            margin-top: 5px;
+                        }
+                    }
+
+                    .chat-right {
+                        text-align   : left;
+                        padding      : 20px;
+                        margin       : 20px;
+                        float        : right;
+                        width        : fit-content;
+                        max-width    : 80%;
+                        color        : #FAEBD7;
+                        background   : #3E885B;
+                        border-radius: 10px;
+                        box-shadow   : -5px 5px 20px 2px #273036;
+
+                        .time {
+                            text-align: right;
+                            font-size : 12px;
+                            margin-top: 5px;
+                        }
+                    }
+                }
             }
 
             .bottom {
@@ -90,8 +143,27 @@
                     width : 100%;
 
                     textarea {
-                        width : 90%;
-                        height: 100%;
+                        width        : 90%;
+                        height       : -webkit-fill-available;
+                        margin       : 10px;
+                        border       : 1px solid #273036;
+                        border-radius: 10px;
+                        padding      : 10px;
+                        resize       : none;
+                        box-shadow   : 0px 0px 7px 2px #273036;
+                        background   : rgba(0, 0, 0, 0.5);
+                        color        : #FFFFFF;
+                        font-size    : 1em;
+
+                        &:focus {
+                            outline   : none;
+                            background: rgba(0, 0, 0, 0.75);
+                        }
+
+                        &::placeholder {
+                            color  : #FFFFFF;
+                            opacity: 0.75;
+                        }
                     }
                 }
             }

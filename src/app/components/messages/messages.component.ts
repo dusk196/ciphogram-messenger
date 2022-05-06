@@ -24,6 +24,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   message: string = '';
   copyText: string = 'COPY';
+  placeholderText: string = 'Enter your messege... \nPress Enter to send, Ctrl + Enter OR Shift + Enter to add new line.\nHave fun!';
 
   constructor(
     @Inject(ActivatedRoute)
@@ -60,6 +61,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   sendMessage(): void {
+    console.log(this.message);
     // this.utilsService.sendMessage(this.message, this.user.associatedRoomId);
     // this.message = '';
   }

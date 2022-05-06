@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+$white: #FFFFFF;
+$black: #000000;
+
 body {
     width                  : 100vw;
     height                 : 100vh;
@@ -8,8 +11,8 @@ body {
     font-family            : 'Bitter', serif, 'Roboto', sans-serif;
     font-size              : 16px;
     font-weight            : 400;
-    color                  : #000;
-    background-color       : #fff;
+    color                  : $black;
+    background-color       : $white;
     -webkit-font-smoothing : antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow               : hidden;
@@ -69,8 +72,8 @@ app-home {
     .tooltip-text {
         visibility      : hidden;
         width           : 100px;
-        background-color: black;
-        color           : #fff;
+        background-color: $black;
+        color           : $white;
         text-align      : center;
         border-radius   : 6px;
         padding         : 5px 0;
