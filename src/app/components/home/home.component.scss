@@ -11,14 +11,16 @@ $active-black: #202020;
 
         h1 {
             color      : $white;
-            text-shadow: 0 0 3px $black, 0 0 5px $shadow-white;
-            font-size  : 4em;
+            text-shadow: 0 0 3px $black, 0 0 5px $black;
+            font-size  : 3.5em;
+            font-weight: 600;
         }
 
         h2 {
             color      : $white;
-            text-shadow: 0 0 3px $black, 0 0 5px $shadow-white;
-            font-size  : 2.5em;
+            text-shadow: 0 0 3px $black, 0 0 5px $black;
+            font-size  : 2em;
+            font-weight: 600;
         }
     }
 
@@ -191,7 +193,7 @@ $active-black: #202020;
     .home {
         header {
             h1 {
-                font-size: 3em;
+                font-size: 2.5em;
             }
 
             h2 {
