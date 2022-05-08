@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,400;0,600;0,800;1,100;1,400;1,600;1,800&display=swap');
 
 $white: #FFFFFF;
 $black: #000000;
@@ -8,7 +8,7 @@ body {
     height                 : 100vh;
     margin                 : 0;
     padding                : 0;
-    font-family            : 'Bitter', serif, 'Roboto', sans-serif;
+    font-family            : 'Montserrat', serif, 'Roboto', sans-serif;
     font-size              : 16px;
     font-weight            : 400;
     color                  : $black;
@@ -19,21 +19,21 @@ body {
 }
 
 * {
-    scrollbar-width: thin;
-    scrollbar-color: #F4FEC1 #273036;
+    // scrollbar-width: auto;
+    scrollbar-color: #273036 transparent;
 
     &::-webkit-scrollbar {
-        width: 12px;
+        width: 10px;
     }
 
     &::-webkit-scrollbar-track {
-        background: #273036;
+        background: transparent;
+        margin    : 10px;
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color   : #F4FEC1;
-        // border-radius   : 20px;
-        border             : 3px solid #273036;
+        background-color: #9E2A2B;
+        border-radius   : 20px;
     }
 }
 
@@ -45,11 +45,11 @@ p {
 }
 
 input {
-    font-family: 'Bitter', serif, 'Roboto', sans-serif;
+    font-family: 'Montserrat', serif, 'Roboto', sans-serif;
 }
 
 button {
-    font-family: 'Bitter', serif, 'Roboto', sans-serif;
+    font-family: 'Montserrat', serif, 'Roboto', sans-serif;
 
     &:disabled {
         opacity       : 0.5;

@@ -13,16 +13,21 @@
         box-shadow      : 0px 0px 10px 5px #273036;
         z-index         : 1;
 
-        h1,
+        h1 {
+            font-weight: 600;
+            padding    : 5px;
+        }
+
         h3 {
-            padding: 5px;
+            font-weight: 400;
+            padding    : 5px;
         }
 
         button {
             background-color: #273036;
             color           : #FFFFFF;
             border          : 1px solid #FFFFFF;
-            padding         : 5px 10px 5px 10px;
+            margin          : 0px 10px;
             border-radius   : 5px;
             font-size       : 2em;
             font-weight     : 600;
@@ -81,7 +86,7 @@
             text-align: left;
 
             .top {
-                height        : 80%;
+                height        : calc(100vh - 280px);
                 overflow-y    : auto;
                 display       : flex;
                 flex-direction: column;
@@ -136,15 +141,16 @@
             }
 
             .bottom {
-                height: 20%;
-
                 .text-container {
-                    height: 100%;
-                    width : 100%;
+                    height       : 100%;
+                    width        : 100%;
+                    display      : flex;
+                    align-content: center;
+                    align-items  : center;
 
                     textarea {
                         width        : 90%;
-                        height       : -webkit-fill-available;
+                        height       : 150px;
                         margin       : 10px;
                         border       : 1px solid #273036;
                         border-radius: 10px;
@@ -165,6 +171,15 @@
                             opacity: 0.75;
                         }
                     }
+
+                    button {
+                        background: url("./../../../assets/send.svg") no-repeat center center;
+                        border    : none;
+                        height    : 64px;
+                        width     : 64px;
+                        margin    : 10px 10px 10px 0px;
+                        cursor    : pointer;
+                    }
                 }
             }
         }
@@ -172,7 +187,7 @@
         .right {
             width           : 20%;
             text-align      : right;
-            background-color: #F4FEC1;
+            background-color: #f6fae0;
             box-shadow      : 3px 0px 6px 3px #273036;
 
             .list {
