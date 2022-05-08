@@ -82,8 +82,9 @@
         display         : flex;
 
         .left {
-            width     : 80%;
-            text-align: left;
+            width       : 80%;
+            text-align  : left;
+            margin-right: 8px;
 
             .top {
                 height        : calc(100vh - 280px);
