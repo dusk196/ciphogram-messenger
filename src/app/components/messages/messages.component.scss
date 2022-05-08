@@ -173,6 +173,7 @@
             width           : 20%;
             text-align      : right;
             background-color: #F4FEC1;
+            box-shadow      : 3px 0px 6px 3px #273036;
 
             .list {
                 text-align     : left;
@@ -181,44 +182,61 @@
                 flex-direction : column;
                 justify-content: space-between;
                 height         : 100%;
-            }
 
-            .alias-container {
-                margin-bottom: 20px;
-
-                input {
-                    width        : calc(100% - 45px);
-                    margin       : 10px 10px 0px 20px;
-                    background   : transparent;
-                    border       : 1px solid #273036;
-                    font-size    : 1em;
-                    border-radius: 5px;
-                    padding      : 5px;
+                .status {
+                    margin-top: 10px;
+                    height    : calc(100vh - 250px);
+                    overflow  : auto;
                 }
 
-                p {
-                    margin-left: 20px;
-                }
+                .alias-container {
+                    margin-bottom: 20px;
 
-                .btns {
-                    padding: 10px;
-
-                    button {
-                        margin       : 0px 10px 0px 10px;
-                        padding      : 5px 10px 5px 10px;
+                    input {
+                        width        : calc(100% - 45px);
+                        margin       : 10px 10px 0px 20px;
                         background   : transparent;
                         border       : 1px solid #273036;
+                        font-size    : 1em;
                         border-radius: 5px;
-                        cursor       : pointer;
+                        padding      : 5px;
+                        box-shadow   : 1px 1px 3px 1px #273036;
 
-                        &:hover {
-                            color     : #FFFFFF;
-                            background: #273036;
+                        &:focus {
+                            outline   : none;
+                            background: rgba(0, 0, 0, 0.25);
+
+                            &::placeholder {
+                                color: #273036;
+                            }
                         }
+                    }
 
-                        &:active {
-                            color     : #FFFFFF;
-                            background: #3E885B;
+                    p {
+                        margin-left: 20px;
+                    }
+
+                    .btns {
+                        padding: 10px;
+
+                        button {
+                            margin       : 0px 10px 0px 10px;
+                            padding      : 5px 10px 5px 10px;
+                            background   : transparent;
+                            border       : 1px solid #273036;
+                            border-radius: 5px;
+                            cursor       : pointer;
+                            box-shadow   : 1px 1px 3px 1px #273036;
+
+                            &:hover {
+                                color     : #FFFFFF;
+                                background: #273036;
+                            }
+
+                            &:active {
+                                color     : #FFFFFF;
+                                background: #3E885B;
+                            }
                         }
                     }
                 }
