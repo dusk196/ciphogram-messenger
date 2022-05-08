@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IUser } from './../../types/sauf.types';
+import { ILocalUser } from './../../types/sauf.types';
 import { UuidService } from './../../services/uuid.service';
 import { UtilsService } from './../../services/utils.service';
+import { DbService } from './../../services/db.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ import { UtilsService } from './../../services/utils.service';
 
 export class HomeComponent implements OnInit {
 
-  userDetails: IUser = {
+  userDetails: ILocalUser = {
     id: '',
     name: '',
     associatedRoomId: ''
@@ -24,6 +25,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private _utilsService: UtilsService,
     private _uuidService: UuidService,
+    private _dbService: DbService,
     private _router: Router
   ) { }
 
@@ -51,6 +53,7 @@ export class HomeComponent implements OnInit {
 
   jumpToRoom(): void {
     this._utilsService.updateAlias(this.userDetails);
+    this._dbService.createRoom(this.userDetails);
     this._router.navigate(['/messages', this.userDetails.associatedRoomId]);
   }
 

@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { cloneDeep } from 'lodash';
-import { IUser } from './../../types/sauf.types';
+import { ILocalUser } from './../../types/sauf.types';
 import { UtilsService } from './../../services/utils.service';
 
 
@@ -15,7 +15,7 @@ import { UtilsService } from './../../services/utils.service';
 export class MessagesComponent implements OnInit, OnDestroy {
 
   readonly roomId = this._activatedroute.snapshot.params['roomId'];
-  private user: IUser = {
+  private user: ILocalUser = {
     id: '',
     name: '',
     associatedRoomId: ''
@@ -31,18 +31,16 @@ export class MessagesComponent implements OnInit, OnDestroy {
     private _activatedroute: ActivatedRoute,
     private _utilsService: UtilsService
   ) {
-    this.subscription = this._utilsService.getAlias().subscribe((alias: IUser) => {
-      console.log(alias)
+    this.subscription = this._utilsService.getAlias().subscribe((alias: ILocalUser) => {
       if (!this._utilsService.isNullOrEmpty(alias)) {
         this.user = { ...alias };
-        console.log(this.user);
         this.aliasFormData = cloneDeep(alias.name);
       }
     });
   }
 
   ngOnInit(): void {
-    console.log(this._activatedroute.snapshot.params['roomId']);
+    console.log('roomId', this._activatedroute.snapshot.params['roomId']);
   }
 
   onCopy(): void {

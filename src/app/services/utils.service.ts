@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { isNull, isEmpty, isUndefined } from 'lodash';
 import { FirstNames, LastNames } from './../utils/utils';
-import { IUser } from '../types/sauf.types';
+import { ILocalUser } from '../types/sauf.types';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +10,14 @@ import { IUser } from '../types/sauf.types';
 
 export class UtilsService {
 
-  private readonly initialAlias: IUser = { id: '', name: '', associatedRoomId: '' };
-  private alias$: BehaviorSubject<IUser> = new BehaviorSubject(this.initialAlias);
+  private readonly initialAlias: ILocalUser = { id: '', name: '', associatedRoomId: '' };
+  private alias$: BehaviorSubject<ILocalUser> = new BehaviorSubject(this.initialAlias);
 
-  getAlias(): Observable<IUser> {
+  getAlias(): Observable<ILocalUser> {
     return this.alias$.asObservable();
   }
 
-  updateAlias(newAlias: IUser): void {
+  updateAlias(newAlias: ILocalUser): void {
     this.alias$.next(newAlias);
   }
 
