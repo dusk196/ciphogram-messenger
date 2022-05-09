@@ -5,7 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { ErrorComponent } from './components/error/error.component';
 
-import { RoutePaths } from './types/routes.types';
+import { RoutePaths } from './types/enums';
 
 const routes: Routes = [
   { path: RoutePaths.Home, component: HomeComponent },

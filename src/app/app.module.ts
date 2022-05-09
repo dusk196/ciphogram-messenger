@@ -13,12 +13,15 @@ import { HomeComponent } from './components/home/home.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { ErrorComponent } from './components/error/error.component';
 
+import { ModalComponent } from './components/shared/modal/modal.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     MessagesComponent,
-    ErrorComponent
+    ErrorComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -30,4 +33,5 @@ import { ErrorComponent } from './components/error/error.component';
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

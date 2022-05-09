@@ -1,3 +1,9 @@
+export interface IModal {
+    title: string;
+    message: string;
+    show: boolean;
+}
+
 export interface ILocalUser {
     id: string;
     name: string;

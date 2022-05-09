@@ -1,7 +1,7 @@
 <div class="home full-viewport flex-center">
     <header class="flex-center">
         <h1>SAUF MESSENGER</h1>
-        <h2>Safe & Secure, Anonymous, Untrackable and Fast Messenger</h2>
+        <h2>Safe & Secure, Anonymous, Untrackable and Fast</h2>
     </header>
     <main>
         <div class="container">
@@ -56,18 +56,4 @@
         <a href="https://github.com/dusk196/sauf-messenger" target="_blank">GitHub</a>
     </footer>
 </div>
-<div class="modal" [ngClass]="{'show': showModal}">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" (click)="closeModal()">&times;</button>
-        </div>
-        <div class="modal-body">
-            <p>Oh-no! 😱</p>
-            <p>We are facing some difficulties while connecting you to the server. 😒 Please try again.</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" (click)="closeModal()">Got it!</button>
-        </div>
-    </div>
-
-</div>
+<app-modal [modalDetails]="modalDetails"></app-modal>

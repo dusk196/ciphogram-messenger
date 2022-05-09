@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ILocalUser } from './../../types/sauf.types';
-import { RoutePaths } from './../../types/routes.types';
+import { ILocalUser, IModal } from './../../types/sauf.types';
+import { RoutePaths, ErrorModal } from '../../types/enums';
 import { UuidService } from './../../services/uuid.service';
 import { UtilsService } from './../../services/utils.service';
 import { DbService } from './../../services/db.service';
@@ -23,7 +23,11 @@ export class HomeComponent implements OnInit {
   isValidUserRoomId: boolean = false;
   copyText: string = 'COPY';
   isLoading: boolean = false;
-  showModal: boolean = false;
+  modalDetails: IModal = {
+    title: '',
+    message: '',
+    show: false
+  };
 
   constructor(
     private _utilsService: UtilsService,
@@ -62,8 +66,12 @@ export class HomeComponent implements OnInit {
         this._router.navigate([`/${RoutePaths.Messages}`, this.userDetails.associatedRoomId]);
       })
       .catch((err: Error) => {
-        this.showModal = true;
         this.isLoading = false;
+        this.modalDetails = {
+          title: ErrorModal.Title,
+          message: ErrorModal.Message,
+          show: true
+        };
         console.error(err);
       });
 
@@ -77,10 +85,6 @@ export class HomeComponent implements OnInit {
 
   generateAlias(): void {
     this.userDetails.name = this._utilsService.generateRandomAlias();
-  }
-
-  closeModal(): void {
-    this.showModal = false;
   }
 
 }
