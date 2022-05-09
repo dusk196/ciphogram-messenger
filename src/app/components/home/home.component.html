@@ -16,7 +16,8 @@
                     <div class="new-room">
                         <span>New Room ID:</span>
                         <div class="new-room-input">
-                            <button type="button" class="refresh-id tooltip" (click)="refreshId()">
+                            <button type="button" class="refresh-id tooltip" (click)="refreshId()"
+                                [disabled]="isLoading">
                                 <span class="d-none">generate new Room ID</span>
                                 <span class="tooltip-text">Get a new one</span>
                             </button>
@@ -54,4 +55,19 @@
         Made with ❤️ by Sayantan Roy. Source code:
         <a href="https://github.com/dusk196/sauf-messenger" target="_blank">GitHub</a>
     </footer>
+</div>
+<div class="modal" [ngClass]="{'show': showModal}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" (click)="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Oh-no! 😱</p>
+            <p>We are facing some difficulties while connecting you to the server. 😒 Please try again.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" (click)="closeModal()">Got it!</button>
+        </div>
+    </div>
+
 </div>

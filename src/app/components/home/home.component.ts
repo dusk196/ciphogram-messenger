@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   isValidUserRoomId: boolean = false;
   copyText: string = 'COPY';
   isLoading: boolean = false;
+  showModal: boolean = false;
 
   constructor(
     private _utilsService: UtilsService,
@@ -61,6 +62,8 @@ export class HomeComponent implements OnInit {
         this._router.navigate([`/${RoutePaths.Messages}`, this.userDetails.associatedRoomId]);
       })
       .catch((err: Error) => {
+        this.showModal = true;
+        this.isLoading = false;
         console.error(err);
       });
 
@@ -74,6 +77,10 @@ export class HomeComponent implements OnInit {
 
   generateAlias(): void {
     this.userDetails.name = this._utilsService.generateRandomAlias();
+  }
+
+  closeModal(): void {
+    this.showModal = false;
   }
 
 }
