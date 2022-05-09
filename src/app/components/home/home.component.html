@@ -7,8 +7,9 @@
         <div class="container">
             <div class="alias-container">
                 <input class="alias" type="text" placeholder="Your Alias (required)" [(ngModel)]="userDetails.name"
-                    maxlength=30 />
-                <button type="button" class="action-btns" (click)="generateAlias()">Random</button>
+                    maxlength=30 [disabled]="isLoading" />
+                <button type="button" class="action-btns" (click)="generateAlias()"
+                    [disabled]="isLoading">Random</button>
             </div>
             <div class="inner-container">
                 <div class="left-container">
@@ -19,7 +20,8 @@
                                 <span class="d-none">generate new Room ID</span>
                                 <span class="tooltip-text">Get a new one</span>
                             </button>
-                            <input title="Room ID" type="text" readonly [value]="userDetails.associatedRoomId" />
+                            <input title="Room ID" type="text" readonly [value]="userDetails.associatedRoomId"
+                                [disabled]="isLoading" />
                             <button type="button" class="copy tooltip" (click)="onCopy()"
                                 (mouseenter)="copyText = 'COPY';">
                                 <span class="d-none">copy new room id</span>
@@ -27,21 +29,23 @@
                             </button>
                         </div>
                     </div>
-                    <button class="action-btns" type="button" [disabled]="userDetails.name.length === 0"
-                        (click)="jumpToRoom()">
+                    <button class="action-btns" type="button" [ngClass]="{'d-none': isLoading}"
+                        [disabled]="userDetails.name.length === 0" (click)="jumpToRoom()" [disabled]="isLoading">
                         Get Started
                     </button>
+                    <span *ngIf="isLoading">Connecting...</span>
                 </div>
                 <div class=" seperator">
                 </div>
                 <div class="right-container">
                     <span>Already have a Room ID? Join now:</span>
                     <input type="text" maxlength=36 placeholder="Paste a valid Room ID" [(ngModel)]="userRoomId"
-                        (ngModelChange)="checkRoomId()" />
-                    <button class="action-btns" type="button" (click)="jumpToRoomId()"
-                        [disabled]="userDetails.name.length === 0 || !isValidUserRoomId">
+                        (ngModelChange)="checkRoomId()" [disabled]="isLoading" />
+                    <button class="action-btns" type="button" (click)="jumpToRoomId()" [ngClass]="{'d-none': isLoading}"
+                        [disabled]="userDetails.name.length === 0 || !isValidUserRoomId || isLoading">
                         Join
                     </button>
+                    <span *ngIf="isLoading">Connecting...</span>
                 </div>
             </div>
         </div>

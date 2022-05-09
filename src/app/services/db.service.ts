@@ -17,7 +17,7 @@ export class DbService {
     messages: []
   };
 
-  createRoom(localUser: ILocalUser) {
+  createRoom(localUser: ILocalUser): Promise<void> {
     const user: IUser = {
       id: localUser.id,
       name: localUser.name
@@ -25,13 +25,7 @@ export class DbService {
     const details: IChat = this.initialInfo;
     details.associatedRoomId = localUser.associatedRoomId;
     details.currentUsers = [user];
-    set(ref(this._database, environment.dbKey + '/' + details.associatedRoomId), details);
-  }
-
-  addMessage(message: string) {
-    set(ref(this._database, 'messages/' + 'lol1'), {
-      message
-    });
+    return set(ref(this._database, `${environment.dbKey}/${details.associatedRoomId}`), details);
   }
 
 }

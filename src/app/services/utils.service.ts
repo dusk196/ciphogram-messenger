@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { isNull, isEmpty, isUndefined } from 'lodash';
-import { FirstNames, LastNames } from './../utils/utils';
+import { FirstNames, LastNames } from '../utils/names';
 import { ILocalUser } from '../types/sauf.types';
 
 @Injectable({

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ILocalUser } from './../../types/sauf.types';
+import { RoutePaths } from './../../types/routes.types';
 import { UuidService } from './../../services/uuid.service';
 import { UtilsService } from './../../services/utils.service';
 import { DbService } from './../../services/db.service';
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
   userRoomId: string = '';
   isValidUserRoomId: boolean = false;
   copyText: string = 'COPY';
+  isLoading: boolean = false;
 
   constructor(
     private _utilsService: UtilsService,
@@ -52,15 +54,22 @@ export class HomeComponent implements OnInit {
   }
 
   jumpToRoom(): void {
+    this.isLoading = true;
     this._utilsService.updateAlias(this.userDetails);
-    this._dbService.createRoom(this.userDetails);
-    this._router.navigate(['/messages', this.userDetails.associatedRoomId]);
+    this._dbService.createRoom(this.userDetails)
+      .then(() => {
+        this._router.navigate([`/${RoutePaths.Messages}`, this.userDetails.associatedRoomId]);
+      })
+      .catch((err: Error) => {
+        console.error(err);
+      });
+
   }
 
   jumpToRoomId(): void {
     this.userDetails.associatedRoomId = this.userRoomId;
     this._utilsService.updateAlias(this.userDetails);
-    this._router.navigate(['/messages', this.userRoomId]);
+    this._router.navigate([`/${RoutePaths.Messages}`, this.userRoomId]);
   }
 
   generateAlias(): void {
