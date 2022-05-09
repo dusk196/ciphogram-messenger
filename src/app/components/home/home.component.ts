@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   isValidUserRoomId: boolean = false;
   copyText: string = 'COPY';
   isLoading: boolean = false;
+  isChecking: boolean = false;
   modalDetails: IModal = {
     title: '',
     message: '',

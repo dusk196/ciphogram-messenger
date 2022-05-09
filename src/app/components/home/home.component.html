@@ -7,9 +7,9 @@
         <div class="container">
             <div class="alias-container">
                 <input class="alias" type="text" placeholder="Your Alias (required)" [(ngModel)]="userDetails.name"
-                    maxlength=30 [disabled]="isLoading" />
+                    maxlength=30 [disabled]="(isLoading || isChecking)" />
                 <button type="button" class="action-btns" (click)="generateAlias()"
-                    [disabled]="isLoading">Random</button>
+                    [disabled]="(isLoading || isChecking)">Random</button>
             </div>
             <div class="inner-container">
                 <div class="left-container">
@@ -17,12 +17,12 @@
                         <span>New Room ID:</span>
                         <div class="new-room-input">
                             <button type="button" class="refresh-id tooltip" (click)="refreshId()"
-                                [disabled]="isLoading">
+                                [disabled]="(isLoading || isChecking)">
                                 <span class="d-none">generate new Room ID</span>
                                 <span class="tooltip-text">Get a new one</span>
                             </button>
                             <input title="Room ID" type="text" readonly [value]="userDetails.associatedRoomId"
-                                [disabled]="isLoading" />
+                                [disabled]="(isLoading || isChecking)" />
                             <button type="button" class="copy tooltip" (click)="onCopy()"
                                 (mouseenter)="copyText = 'COPY';">
                                 <span class="d-none">copy new room id</span>
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <button class="action-btns" type="button" [ngClass]="{'d-none': isLoading}"
-                        [disabled]="userDetails.name.length === 0" (click)="jumpToRoom()" [disabled]="isLoading">
+                        [disabled]="userDetails.name.length === 0 || isChecking" (click)="jumpToRoom()">
                         Get Started
                     </button>
                     <span *ngIf="isLoading">Connecting...</span>
@@ -41,12 +41,13 @@
                 <div class="right-container">
                     <span>Already have a Room ID? Join now:</span>
                     <input type="text" maxlength=36 placeholder="Paste a valid Room ID" [(ngModel)]="userRoomId"
-                        (ngModelChange)="checkRoomId()" [disabled]="isLoading" />
-                    <button class="action-btns" type="button" (click)="jumpToRoomId()" [ngClass]="{'d-none': isLoading}"
-                        [disabled]="userDetails.name.length === 0 || !isValidUserRoomId || isLoading">
+                        (ngModelChange)="checkRoomId()" [disabled]="(isLoading || isChecking)" />
+                    <button class="action-btns" type="button" (click)="jumpToRoomId()"
+                        [ngClass]="{'d-none': isChecking}"
+                        [disabled]="userDetails.name.length === 0 || !isValidUserRoomId || isChecking || (userRoomId === userDetails.associatedRoomId)">
                         Join
                     </button>
-                    <span *ngIf="isLoading">Connecting...</span>
+                    <span *ngIf="isChecking">Getting Details...</span>
                 </div>
             </div>
         </div>
