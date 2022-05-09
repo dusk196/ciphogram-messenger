@@ -4,8 +4,8 @@
             <button type="button" (click)="closeModal()">&times;</button>
         </div>
         <div class="modal-body">
-            <p>Oh crap! 😱</p>
-            <p>We are facing some difficulties while connecting you to the server. 😒 Please try again.</p>
+            <p>{{modalDetails.title}}</p>
+            <p>{{modalDetails.message}}</p>
         </div>
         <div class="modal-footer">
             <button type="button" (click)="closeModal()">Got it!</button>

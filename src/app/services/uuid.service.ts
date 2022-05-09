@@ -7,10 +7,6 @@ import { v4 as uuidv4, NIL as NIL_UUID, validate as uuidValidate } from 'uuid';
 
 export class UuidService {
 
-  constructor() { }
-
-  readonly val = uuidv4();
-
   generateNullUuid(): string {
     return NIL_UUID;
   }

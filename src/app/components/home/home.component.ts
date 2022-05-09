@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ILocalUser, IModal } from './../../types/sauf.types';
-import { RoutePaths, ErrorModal } from '../../types/enums';
+import { IChat, ILocalUser, IModal, IUser } from './../../types/sauf.types';
+import { RoutePaths, ErrorModal, NoRoomModal } from '../../types/enums';
 import { UuidService } from './../../services/uuid.service';
 import { UtilsService } from './../../services/utils.service';
 import { DbService } from './../../services/db.service';
+import { DataSnapshot } from '@angular/fire/database';
 
 @Component({
   selector: 'app-home',
@@ -75,13 +76,54 @@ export class HomeComponent implements OnInit {
         };
         console.error(err);
       });
-
   }
 
   jumpToRoomId(): void {
-    this.userDetails.associatedRoomId = this.userRoomId;
-    this._utilsService.updateAlias(this.userDetails);
-    this._router.navigate([`/${RoutePaths.Messages}`, this.userRoomId]);
+    this.isChecking = true;
+    this._dbService.validateRoomId(this.userRoomId)
+      .then((snapshot: DataSnapshot) => {
+        if (snapshot.exists()) {
+          this.userDetails.associatedRoomId = this.userRoomId;
+          this._utilsService.updateAlias(this.userDetails);
+          const roomDetails: IChat = snapshot.val();
+          console.log(roomDetails);
+          const users: IUser[] = roomDetails.currentUsers;
+          users.push({
+            id: this.userDetails.id,
+            name: this.userDetails.name
+          });
+          this._dbService.addUserToRoom(roomDetails.associatedRoomId, users)
+            .then(() => {
+              this._router.navigate([`/${RoutePaths.Messages}`, this.userDetails.associatedRoomId]);
+            })
+            .catch((err: Error) => {
+              this.isChecking = false;
+              this.modalDetails = {
+                title: ErrorModal.Title,
+                message: ErrorModal.Message,
+                show: true
+              };
+              console.error(err);
+            });
+        } else {
+          this.isChecking = false;
+          this.modalDetails = {
+            title: NoRoomModal.Title,
+            message: NoRoomModal.Message,
+            show: true
+          };
+        }
+      })
+      .catch((err: Error) => {
+        this.isChecking = false;
+        this.modalDetails = {
+          title: ErrorModal.Title,
+          message: ErrorModal.Message,
+          show: true
+        };
+        console.error(err);
+      });
+
   }
 
   generateAlias(): void {

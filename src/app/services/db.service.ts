@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Database, ref, set } from "@angular/fire/database";
+import { child, Database, DatabaseReference, DataSnapshot, get, ref, set, update } from "@angular/fire/database";
 import { environment } from 'src/environments/environment';
 import { IChat, ILocalUser, IUser } from '../types/sauf.types';
 
@@ -26,6 +26,15 @@ export class DbService {
     details.associatedRoomId = localUser.associatedRoomId;
     details.currentUsers = [user];
     return set(ref(this._database, `${environment.dbKey}/${details.associatedRoomId}`), details);
+  }
+
+  validateRoomId(roomId: string): Promise<DataSnapshot> {
+    const dbRef: DatabaseReference = ref(this._database);
+    return get(child(dbRef, `${environment.dbKey}/${roomId}`));
+  }
+
+  addUserToRoom(roomId: string, users: IUser[]): Promise<void> {
+    return update(ref(this._database, `${environment.dbKey}/${roomId}`), { currentUsers: users });
   }
 
 }
