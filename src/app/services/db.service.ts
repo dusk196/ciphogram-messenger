@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { child, Database, DatabaseReference, DataSnapshot, get, ref, set, update } from "@angular/fire/database";
+import { Database, DatabaseReference, DataSnapshot, get, ref, set, update, child } from "@angular/fire/database";
+import { UtilsService } from 'src/app/services/utils.service';
 import { environment } from 'src/environments/environment';
-import { IChat, ILocalUser, IUser } from '../types/sauf.types';
+import { IChat, IUser } from 'src/app/types/sauf.types';
 
 @Injectable({
   providedIn: 'root'
@@ -9,32 +10,49 @@ import { IChat, ILocalUser, IUser } from '../types/sauf.types';
 
 export class DbService {
 
-  constructor(private _database: Database) { }
+  constructor(private _database: Database, private _utilsService: UtilsService) { }
 
-  private readonly initialInfo: IChat = {
-    associatedRoomId: '',
-    currentUsers: [],
-    messages: []
-  };
-
-  createRoom(localUser: ILocalUser): Promise<void> {
-    const user: IUser = {
-      id: localUser.id,
-      name: localUser.name
-    };
-    const details: IChat = this.initialInfo;
-    details.associatedRoomId = localUser.associatedRoomId;
-    details.currentUsers = [user];
-    return set(ref(this._database, `${environment.dbKey}/${details.associatedRoomId}`), details);
+  /**
+   * Creates a new room with a unique id
+   * @param details - { roomId: string, message: string, user: IUser }
+   * @returns {Promise<void>}
+   */
+  createRoom(details: IChat): Promise<void> {
+    const dbRef: DatabaseReference = this.getDbRef(`${environment.dbKey}/${details.associatedRoomId}`);
+    return set(dbRef, details);
   }
 
+  /**
+   * Validates if the room exists
+   * @param roomId - room id
+   * @returns {Promise<DataSnapshot>}
+   */
   validateRoomId(roomId: string): Promise<DataSnapshot> {
-    const dbRef: DatabaseReference = ref(this._database);
+    const dbRef: DatabaseReference = this.getDbRef();
     return get(child(dbRef, `${environment.dbKey}/${roomId}`));
   }
 
+  /**
+   * Adds a new user to the room
+   * @param roomId - room id
+   * @param users - array of users
+   * @returns {Promise<void>}
+   */
   addUserToRoom(roomId: string, users: IUser[]): Promise<void> {
-    return update(ref(this._database, `${environment.dbKey}/${roomId}`), { currentUsers: users });
+    const dbRef: DatabaseReference = this.getDbRef(`${environment.dbKey}/${roomId}`);
+    return update(dbRef, { currentUsers: users });
+  }
+
+  /**
+   * Fetches the database reference
+   * @param params - optional parameters (path to fetch the details from)
+   * @returns {DatabaseReference}
+   */
+  getDbRef(params?: string): DatabaseReference {
+    if (!this._utilsService.isNullOrEmpty(params)) {
+      return ref(this._database, params);
+    }
+    return ref(this._database);
   }
 
 }

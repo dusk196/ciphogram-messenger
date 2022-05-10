@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { v4 as uuidv4, NIL as NIL_UUID, validate as uuidValidate } from 'uuid';
+import { v4 as uuidv4, validate as uuidValidate } from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +7,19 @@ import { v4 as uuidv4, NIL as NIL_UUID, validate as uuidValidate } from 'uuid';
 
 export class UuidService {
 
-  generateNullUuid(): string {
-    return NIL_UUID;
-  }
-
+  /**
+   * Generates a new random uuid
+   * @returns {string}
+   */
   generateUuid(): string {
     return uuidv4();
   }
 
+  /**
+   * 
+   * @param uuid - uuid to validate whether it is valid or not
+   * @returns {boolean}
+   */
   validateUuid(uuid: string): boolean {
     return uuidValidate(uuid);
   }

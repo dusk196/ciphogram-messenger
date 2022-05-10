@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IChat, ILocalUser, IModal, IUser } from './../../types/sauf.types';
-import { RoutePaths, ErrorModal, NoRoomModal } from '../../types/enums';
-import { UuidService } from './../../services/uuid.service';
-import { UtilsService } from './../../services/utils.service';
-import { DbService } from './../../services/db.service';
 import { DataSnapshot } from '@angular/fire/database';
+
+import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/sauf.types';
+import { RoutePaths, ErrorModal, NoRoomModal } from 'src/app/types/enums';
+
+import { UuidService } from 'src/app/services/uuid.service';
+import { UtilsService } from 'src/app//services/utils.service';
+import { DbService } from 'src/app/services/db.service';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +17,11 @@ import { DataSnapshot } from '@angular/fire/database';
 
 export class HomeComponent implements OnInit {
 
+  private readonly initialInfo: IChat = {
+    associatedRoomId: '',
+    currentUsers: [],
+    messages: []
+  };
   userDetails: ILocalUser = {
     id: '',
     name: '',
@@ -63,7 +70,18 @@ export class HomeComponent implements OnInit {
   jumpToRoom(): void {
     this.isLoading = true;
     this._utilsService.updateAlias(this.userDetails);
-    this._dbService.createRoom(this.userDetails)
+    const user: IUser = {
+      id: this.userDetails.id,
+      name: this.userDetails.name
+    };
+    const details: IChat = {
+      associatedRoomId: this.userDetails.associatedRoomId,
+      currentUsers: [user],
+      messages: []
+    };
+    details.associatedRoomId = this.userDetails.associatedRoomId;
+    details.currentUsers = [user];
+    this._dbService.createRoom(details)
       .then(() => {
         this._router.navigate([`/${RoutePaths.Messages}`, this.userDetails.associatedRoomId]);
       })
