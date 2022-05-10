@@ -1,9 +1,11 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
+
 import { Subscription } from 'rxjs';
 import { cloneDeep } from 'lodash';
-import { ErrorModal, GenericConst, MessageConst, NoUserModal } from 'src/app/types/enums';
+
+import { RoutePaths, ErrorModal, GenericConst, MessageConst, NoUserModal } from 'src/app/types/enums';
 import { ILocalUser, IModal } from 'src/app/types/sauf.types';
 import { UtilsService } from 'src/app/services/utils.service';
 import { DbService } from 'src/app/services/db.service';
@@ -15,7 +17,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./messages.component.scss']
 })
 
-export class MessagesComponent implements OnInit, OnDestroy {
+export class MessagesComponent implements OnDestroy {
 
   readonly roomId = this._activatedroute.snapshot.params['roomId'];
   private allUsersHook: Unsubscribe;
@@ -40,19 +42,17 @@ export class MessagesComponent implements OnInit, OnDestroy {
     private _dbService: DbService
   ) {
     this.localUserSubs = this._utilsService.getAlias().subscribe((alias: ILocalUser) => {
-      console.log(alias);
       if (this._utilsService.isNullOrEmpty(alias.associatedRoomId)) {
-        this._router.navigate(['/home']);
+        this._router.navigate([`/${RoutePaths.Home}`]);
       } else {
         this.localUser = { ...alias };
         this.aliasFormData = cloneDeep(alias.name);
       }
     });
     const dbRef: DatabaseReference = this._dbService.getDbRef();
-    const params: string = `${environment.dbKey}/${this._activatedroute.snapshot.params['roomId']}/currentUsers`;
+    const params: string = `${environment.dbKey}/${this.roomId}/currentUsers`;
     this.allUsersHook = onValue(child(dbRef, params), (snapshot) => {
       const data = snapshot.val();
-      console.log('from compo data', data);
       if (!this._utilsService.isNullOrEmpty(data)) {
         this.allConnectedUsers = cloneDeep(data);
       } else {
@@ -72,14 +72,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
-    console.log('roomId', this._activatedroute.snapshot.params['roomId']);
-  }
-
-  checkForLocalUser(): void {
-
-  }
-
   onCopy(): void {
     navigator.clipboard.writeText(this.roomId);
     this.copyText = GenericConst.Copied;
@@ -93,6 +85,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
   updateAlias(): void {
     this.localUser.name = cloneDeep(this.aliasFormData);
     this._utilsService.updateAlias(this.localUser);
+    this.allConnectedUsers.filter((x: ILocalUser) => x.id === this.localUser.id)[0].name = this.aliasFormData;
+    this._dbService.updateUsers(this.roomId, this.allConnectedUsers);
   }
 
   sendMessage(): void {
@@ -105,6 +99,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   closeModal(): void {
     this.modalDetails.show = false;
+    this._router.navigate([`/${RoutePaths.Home}`]);
   }
 
   ngOnDestroy(): void {

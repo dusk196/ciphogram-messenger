@@ -110,7 +110,7 @@ export class HomeComponent implements OnInit {
             id: this.userDetails.id,
             name: this.userDetails.name
           });
-          this._dbService.addUserToRoom(roomDetails.associatedRoomId, users)
+          this._dbService.updateUsers(roomDetails.associatedRoomId, users)
             .then(() => {
               this._router.navigate([`/${RoutePaths.Messages}`, this.userDetails.associatedRoomId]);
             })

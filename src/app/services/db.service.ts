@@ -38,7 +38,7 @@ export class DbService {
    * @param users - array of users
    * @returns {Promise<void>}
    */
-  addUserToRoom(roomId: string, users: IUser[]): Promise<void> {
+  updateUsers(roomId: string, users: IUser[]): Promise<void> {
     const dbRef: DatabaseReference = this.getDbRef(`${environment.dbKey}/${roomId}`);
     return update(dbRef, { currentUsers: users });
   }
