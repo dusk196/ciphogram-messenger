@@ -104,7 +104,6 @@ export class HomeComponent implements OnInit {
           this.userDetails.associatedRoomId = this.userRoomId;
           this._utilsService.updateAlias(this.userDetails);
           const roomDetails: IChat = snapshot.val();
-          console.log(roomDetails);
           const users: IUser[] = roomDetails.currentUsers;
           users.push({
             id: this.userDetails.id,

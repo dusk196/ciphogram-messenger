@@ -19,7 +19,7 @@ export interface IMessage {
     id: string;
     content: string;
     createdAt: Date;
-    user: IUser;
+    createdBy: string;
 }
 
 export interface IChat {

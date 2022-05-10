@@ -6,10 +6,11 @@ import { Subscription } from 'rxjs';
 import { cloneDeep } from 'lodash';
 
 import { RoutePaths, ErrorModal, GenericConst, MessageConst, NoUserModal } from 'src/app/types/enums';
-import { ILocalUser, IModal } from 'src/app/types/sauf.types';
+import { ILocalUser, IMessage, IModal } from 'src/app/types/sauf.types';
 import { UtilsService } from 'src/app/services/utils.service';
 import { DbService } from 'src/app/services/db.service';
 import { environment } from 'src/environments/environment';
+import { UuidService } from 'src/app/services/uuid.service';
 
 @Component({
   selector: 'app-messages',
@@ -19,10 +20,12 @@ import { environment } from 'src/environments/environment';
 
 export class MessagesComponent implements OnDestroy {
 
-  readonly roomId = this._activatedroute.snapshot.params['roomId'];
+  readonly roomId: string = this._activatedroute.snapshot.params['roomId'];
   private allUsersHook: Unsubscribe;
+  private allMsgsHook: Unsubscribe;
   localUser: ILocalUser = { id: '', name: '', associatedRoomId: '' }
   allConnectedUsers: ILocalUser[] = [];
+  allMessages: IMessage[] = [];
   aliasFormData: string = '';
   localUserSubs: Subscription;
   message: string = '';
@@ -39,6 +42,7 @@ export class MessagesComponent implements OnDestroy {
     private _activatedroute: ActivatedRoute,
     private _router: Router,
     private _utilsService: UtilsService,
+    private _uuidService: UuidService,
     private _dbService: DbService
   ) {
     this.localUserSubs = this._utilsService.getAlias().subscribe((alias: ILocalUser) => {
@@ -50,8 +54,8 @@ export class MessagesComponent implements OnDestroy {
       }
     });
     const dbRef: DatabaseReference = this._dbService.getDbRef();
-    const params: string = `${environment.dbKey}/${this.roomId}/currentUsers`;
-    this.allUsersHook = onValue(child(dbRef, params), (snapshot) => {
+    const userParams: string = `${environment.dbKey}/${this.roomId}/currentUsers`;
+    this.allUsersHook = onValue(child(dbRef, userParams), (snapshot) => {
       const data = snapshot.val();
       if (!this._utilsService.isNullOrEmpty(data)) {
         this.allConnectedUsers = cloneDeep(data);
@@ -68,7 +72,21 @@ export class MessagesComponent implements OnDestroy {
         message: ErrorModal.Message,
         show: true
       };
-      console.log('error', error);
+      console.error('error', error);
+    });
+    const msgParams: string = `${environment.dbKey}/${this.roomId}/messages`;
+    this.allMsgsHook = onValue(child(dbRef, msgParams), (snapshot) => {
+      const data = snapshot.val();
+      if (!this._utilsService.isNullOrEmpty(data)) {
+        this.allMessages = cloneDeep(data);
+      }
+    }, (error: Error) => {
+      this.modalDetails = {
+        title: ErrorModal.Title,
+        message: ErrorModal.Message,
+        show: true
+      };
+      console.error('error', error);
     });
   }
 
@@ -90,7 +108,17 @@ export class MessagesComponent implements OnDestroy {
   }
 
   sendMessage(): void {
-    console.log(this.message);
+    if (!this._utilsService.isNullOrEmpty(this.message)) {
+      const msg: IMessage = {
+        id: this._uuidService.generateUuid(),
+        content: this.message,
+        createdAt: new Date(),
+        createdBy: this.localUser.id
+      };
+      this.allMessages.push(msg);
+      this._dbService.updateMessages(this.roomId, this.allMessages);
+      this.message = '';
+    }
   }
 
   onMouseEnter(): void {
@@ -106,6 +134,7 @@ export class MessagesComponent implements OnDestroy {
     this._utilsService.resetAlias();
     this.localUserSubs.unsubscribe();
     this.allUsersHook();
+    this.allMsgsHook();
   }
 
 }
