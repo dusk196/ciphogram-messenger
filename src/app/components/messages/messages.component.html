@@ -4,7 +4,7 @@
             <h1>SAUF Messenger</h1>
             <div class="roomDetails">
                 <h3>Room ID: {{roomId}}</h3>
-                <button type="button" class="copy tooltip" (click)="onCopy()" (mouseenter)="copyText = 'COPY';">
+                <button type="button" class="copy tooltip" (click)="onCopy()" (mouseenter)="onMouseEnter()">
                     <span class="d-none">copy new room id</span>
                     <span class="tooltip-text" [innerText]="copyText"></span>
                 </button>
@@ -101,56 +101,11 @@
         <div class="right">
             <div class="list">
                 <div class="status">
-                    <h3>Online: 2</h3>
+                    <h3>Online: {{allConnectedUsers.length}}</h3>
                     <ul>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
-                        <li>{{aliasFormData}}</li>
-                        <li>Hailey Black [You]</li>
-                        <li>John Doe</li>
+                        <li *ngFor="let user of allConnectedUsers">
+                            <span [ngClass]="{'bold': user.id === localUser.id}">{{user.name}}</span>
+                        </li>
                     </ul>
                 </div>
                 <div class="alias-container">
@@ -175,3 +130,4 @@
         </footer>
     </footer>
 </div>
+<app-modal [modalDetails]="modalDetails" (closeModalEvent)="closeModal()"></app-modal>

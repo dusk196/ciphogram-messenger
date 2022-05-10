@@ -15,6 +15,16 @@ export enum NoRoomModal {
     Message = 'We are unable to find that room. You sure you entered correct ID? 🙄 Please try again.'
 }
 
+export enum NoUserModal {
+    Title = 'Oops! 😒',
+    Message = 'We are unable to find any host connected to that room. You sure you entered correct ID? 🙄 Please try again or create a new room.'
+}
+
 export enum MessageConst {
     Placeholder = 'Enter your messege... \nPress Enter to send, Ctrl + Enter OR Shift + Enter to add new line.\nHave fun!'
+}
+
+export enum GenericConst {
+    Copy = 'Copy',
+    Copied = 'Copied'
 }

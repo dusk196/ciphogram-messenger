@@ -1,13 +1,13 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
 import { Subscription } from 'rxjs';
 import { cloneDeep } from 'lodash';
-import { MessageConst } from 'src/app/types/enums';
-import { ILocalUser } from 'src/app/types/sauf.types';
+import { ErrorModal, GenericConst, MessageConst, NoUserModal } from 'src/app/types/enums';
+import { ILocalUser, IModal } from 'src/app/types/sauf.types';
 import { UtilsService } from 'src/app/services/utils.service';
 import { DbService } from 'src/app/services/db.service';
 import { environment } from 'src/environments/environment';
-import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
 
 @Component({
   selector: 'app-messages',
@@ -18,34 +18,56 @@ import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/da
 export class MessagesComponent implements OnInit, OnDestroy {
 
   readonly roomId = this._activatedroute.snapshot.params['roomId'];
-  private user: ILocalUser = { id: '', name: '', associatedRoomId: '' }
-  private unsubscribe: Unsubscribe;
+  private allUsersHook: Unsubscribe;
+  localUser: ILocalUser = { id: '', name: '', associatedRoomId: '' }
   allConnectedUsers: ILocalUser[] = [];
   aliasFormData: string = '';
-  subscription: Subscription;
+  localUserSubs: Subscription;
   message: string = '';
-  copyText: string = 'COPY';
+  copyText: string = GenericConst.Copy;
   placeholderText: string = MessageConst.Placeholder;
+  modalDetails: IModal = {
+    title: '',
+    message: '',
+    show: false
+  };
 
   constructor(
     @Inject(ActivatedRoute)
     private _activatedroute: ActivatedRoute,
+    private _router: Router,
     private _utilsService: UtilsService,
     private _dbService: DbService
   ) {
-    this.subscription = this._utilsService.getAlias()
-      .subscribe((alias: ILocalUser) => {
-        if (!this._utilsService.isNullOrEmpty(alias)) {
-          this.user = { ...alias };
-          this.aliasFormData = cloneDeep(alias.name);
-        }
-      });
+    this.localUserSubs = this._utilsService.getAlias().subscribe((alias: ILocalUser) => {
+      console.log(alias);
+      if (this._utilsService.isNullOrEmpty(alias.associatedRoomId)) {
+        this._router.navigate(['/home']);
+      } else {
+        this.localUser = { ...alias };
+        this.aliasFormData = cloneDeep(alias.name);
+      }
+    });
     const dbRef: DatabaseReference = this._dbService.getDbRef();
-    const params: string = `${environment.dbKey}/${this._activatedroute.snapshot.params['roomId']}`;
-    this.unsubscribe = onValue(child(dbRef, params), (snapshot) => {
+    const params: string = `${environment.dbKey}/${this._activatedroute.snapshot.params['roomId']}/currentUsers`;
+    this.allUsersHook = onValue(child(dbRef, params), (snapshot) => {
       const data = snapshot.val();
       console.log('from compo data', data);
+      if (!this._utilsService.isNullOrEmpty(data)) {
+        this.allConnectedUsers = cloneDeep(data);
+      } else {
+        this.modalDetails = {
+          title: NoUserModal.Title,
+          message: NoUserModal.Message,
+          show: true
+        };
+      }
     }, (error: Error) => {
+      this.modalDetails = {
+        title: ErrorModal.Title,
+        message: ErrorModal.Message,
+        show: true
+      };
       console.log('error', error);
     });
   }
@@ -54,28 +76,41 @@ export class MessagesComponent implements OnInit, OnDestroy {
     console.log('roomId', this._activatedroute.snapshot.params['roomId']);
   }
 
+  checkForLocalUser(): void {
+
+  }
+
   onCopy(): void {
     navigator.clipboard.writeText(this.roomId);
-    this.copyText = 'COPIED!';
+    this.copyText = GenericConst.Copied;
   }
 
   generateAlias(): void {
-    this.user.name = this._utilsService.generateRandomAlias();
-    this._utilsService.updateAlias(this.user);
+    this.localUser.name = this._utilsService.generateRandomAlias();
+    this._utilsService.updateAlias(this.localUser);
   }
 
   updateAlias(): void {
-    this.user.name = cloneDeep(this.aliasFormData);
-    this._utilsService.updateAlias(this.user);
+    this.localUser.name = cloneDeep(this.aliasFormData);
+    this._utilsService.updateAlias(this.localUser);
   }
 
   sendMessage(): void {
     console.log(this.message);
   }
 
+  onMouseEnter(): void {
+    this.copyText = GenericConst.Copied;
+  }
+
+  closeModal(): void {
+    this.modalDetails.show = false;
+  }
+
   ngOnDestroy(): void {
     this._utilsService.resetAlias();
-    this.subscription.unsubscribe();
+    this.localUserSubs.unsubscribe();
+    this.allUsersHook();
   }
 
 }

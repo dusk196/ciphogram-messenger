@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IModal } from 'src/app/types/sauf.types';
 
 @Component({
@@ -9,15 +9,11 @@ import { IModal } from 'src/app/types/sauf.types';
 
 export class ModalComponent {
 
-  @Input() modalDetails: IModal = {
-    title: '',
-    message: '',
-    show: false
-  };
-
+  @Input() modalDetails: IModal = { title: '', message: '', show: false };
+  @Output() closeModalEvent = new EventEmitter<void>();
 
   closeModal(): void {
-    this.modalDetails.show = false;
+    this.closeModalEvent.emit();
   }
 
 }

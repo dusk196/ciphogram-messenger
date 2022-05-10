@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DataSnapshot } from '@angular/fire/database';
 
 import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/sauf.types';
-import { RoutePaths, ErrorModal, NoRoomModal } from 'src/app/types/enums';
+import { RoutePaths, ErrorModal, NoRoomModal, GenericConst } from 'src/app/types/enums';
 
 import { UuidService } from 'src/app/services/uuid.service';
 import { UtilsService } from 'src/app//services/utils.service';
@@ -22,16 +22,16 @@ export class HomeComponent implements OnInit {
     currentUsers: [],
     messages: []
   };
+  userRoomId: string = '';
+  isValidUserRoomId: boolean = false;
+  copyText: string = GenericConst.Copy;
+  isLoading: boolean = false;
+  isChecking: boolean = false;
   userDetails: ILocalUser = {
     id: '',
     name: '',
     associatedRoomId: ''
   };
-  userRoomId: string = '';
-  isValidUserRoomId: boolean = false;
-  copyText: string = 'COPY';
-  isLoading: boolean = false;
-  isChecking: boolean = false;
   modalDetails: IModal = {
     title: '',
     message: '',
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
 
   onCopy(): void {
     navigator.clipboard.writeText(this.userDetails.associatedRoomId);
-    this.copyText = 'COPIED!';
+    this.copyText = GenericConst.Copied;
   }
 
   refreshId(): void {
@@ -130,6 +130,8 @@ export class HomeComponent implements OnInit {
             message: NoRoomModal.Message,
             show: true
           };
+          this.userRoomId = '';
+          this.isValidUserRoomId = false;
         }
       })
       .catch((err: Error) => {
@@ -146,6 +148,14 @@ export class HomeComponent implements OnInit {
 
   generateAlias(): void {
     this.userDetails.name = this._utilsService.generateRandomAlias();
+  }
+
+  onMouseEnter(): void {
+    this.copyText = GenericConst.Copied;
+  }
+
+  closeModal(): void {
+    this.modalDetails.show = false;
   }
 
 }

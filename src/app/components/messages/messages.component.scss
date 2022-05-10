@@ -203,6 +203,10 @@
                     margin-top: 10px;
                     height    : calc(100vh - 250px);
                     overflow  : auto;
+
+                    .bold {
+                        font-weight: 600;
+                    }
                 }
 
                 .alias-container {
