@@ -35,7 +35,7 @@ export class DbService {
   /**
    * Adds a new user to the room
    * @param roomId - room id
-   * @param users - array of users
+   * @param currentUsers - array of users
    * @returns {Promise<void>}
    */
   updateUsers(roomId: string, currentUsers: IUser[]): Promise<void> {

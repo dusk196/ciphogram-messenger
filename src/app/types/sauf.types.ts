@@ -1,29 +1,31 @@
 export interface IModal {
-    title: string;
-    message: string;
-    show: boolean;
+  title: string;
+  message: string;
+  show: boolean;
 }
 
 export interface ILocalUser {
-    id: string;
-    name: string;
-    associatedRoomId: string;
+  id: string;
+  name: string;
+  associatedRoomId: string;
 }
 
 export interface IUser {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
+  publicKey: string; // gonna keep private in local storage
 }
 
 export interface IMessage {
-    id: string;
-    content: string;
-    createdAt: Date;
-    createdBy: string;
+  id: string;
+  intendedRecipientId: string;
+  content: string;
+  createdAt: Date;
+  createdBy: string;
 }
 
 export interface IChat {
-    associatedRoomId: string;
-    currentUsers: IUser[];
-    messages: IMessage[];
+  associatedRoomId: string;
+  currentUsers: IUser[];
+  messages: IMessage[];
 }

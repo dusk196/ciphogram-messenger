@@ -8,6 +8,7 @@ import { RoutePaths, ErrorModal, NoRoomModal, GenericConst } from 'src/app/types
 import { UuidService } from 'src/app/services/uuid.service';
 import { UtilsService } from 'src/app//services/utils.service';
 import { DbService } from 'src/app/services/db.service';
+import { CryptoService } from 'src/app/services/crypto.service';
 
 @Component({
   selector: 'app-home',
@@ -42,12 +43,14 @@ export class HomeComponent implements OnInit {
     private _utilsService: UtilsService,
     private _uuidService: UuidService,
     private _dbService: DbService,
-    private _router: Router
+    private _router: Router,
+    private _cryptoService: CryptoService
   ) { }
 
   ngOnInit(): void {
     this.userDetails.id = this._uuidService.generateUuid();
     this.userDetails.associatedRoomId = this._uuidService.generateUuid();
+    console.log(this._cryptoService.check());
   }
 
   onCopy(): void {
@@ -72,7 +75,8 @@ export class HomeComponent implements OnInit {
     this._utilsService.updateAlias(this.userDetails);
     const user: IUser = {
       id: this.userDetails.id,
-      name: this.userDetails.name
+      name: this.userDetails.name,
+      publicKey: this.userDetails.name
     };
     const details: IChat = {
       associatedRoomId: this.userDetails.associatedRoomId,
@@ -107,7 +111,8 @@ export class HomeComponent implements OnInit {
           const users: IUser[] = roomDetails.currentUsers;
           users.push({
             id: this.userDetails.id,
-            name: this.userDetails.name
+            name: this.userDetails.name,
+            publicKey: this.userDetails.name
           });
           this._dbService.updateUsers(roomDetails.associatedRoomId, users)
             .then(() => {

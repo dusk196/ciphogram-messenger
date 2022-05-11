@@ -70,13 +70,13 @@ export class MessagesComponent implements OnDestroy {
           show: true
         };
       }
-    }, (error: Error) => {
+    }, (err: Error) => {
       this.modalDetails = {
         title: ErrorModal.Title,
         message: ErrorModal.Message,
         show: true
       };
-      console.error('error', error);
+      console.error(err);
     });
     const msgParams: string = `${environment.dbKey}/${this.roomId}/messages`;
     this.allMsgsHook = onValue(child(dbRef, msgParams), (snapshot) => {
@@ -84,13 +84,13 @@ export class MessagesComponent implements OnDestroy {
       if (!this._utilsService.isNullOrEmpty(data)) {
         this.allMessages = cloneDeep(data);
       }
-    }, (error: Error) => {
+    }, (err: Error) => {
       this.modalDetails = {
         title: ErrorModal.Title,
         message: ErrorModal.Message,
         show: true
       };
-      console.error('error', error);
+      console.error(err);
     });
   }
 
@@ -131,7 +131,8 @@ export class MessagesComponent implements OnDestroy {
         id: this._uuidService.generateUuid(),
         content: this.message,
         createdAt: new Date(),
-        createdBy: this.localUser.id
+        createdBy: this.localUser.id,
+        intendedRecipientId: ''
       };
       this.allMessages.push(msg);
       this._dbService.updateMessages(this.roomId, this.allMessages)

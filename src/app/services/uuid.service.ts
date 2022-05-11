@@ -16,8 +16,8 @@ export class UuidService {
   }
 
   /**
-   * 
-   * @param uuid - uuid to validate whether it is valid or not
+   * Validates the given uuid whether it is valid or not
+   * @param uuid
    * @returns {boolean}
    */
   validateUuid(uuid: string): boolean {

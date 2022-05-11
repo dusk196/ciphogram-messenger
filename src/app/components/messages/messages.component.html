@@ -1,70 +1,69 @@
 <div class="msg-container">
-    <header>
-        <div class="left">
-            <h1>SAUF Messenger</h1>
-            <div class="roomDetails">
-                <h3>Room ID: {{roomId}}</h3>
-                <button type="button" class="copy tooltip" (click)="onCopy()" (mouseenter)="onMouseEnter()">
-                    <span class="d-none">copy new room id</span>
-                    <span class="tooltip-text" [innerText]="copyText"></span>
-                </button>
-            </div>
+  <header>
+    <div class="left">
+      <h1>SAUF Messenger</h1>
+      <div class="roomDetails">
+        <h3>Room ID: {{roomId}}</h3>
+        <button type="button" class="copy tooltip" (click)="onCopy()" (mouseenter)="onMouseEnter()">
+          <span class="d-none">copy new room id</span>
+          <span class="tooltip-text" [innerText]="copyText"></span>
+        </button>
+      </div>
+    </div>
+    <div class="right">
+      <button type="button" [routerLink]="'/home'">Exit</button>
+    </div>
+  </header>
+  <main>
+    <div class="left" #chatContainer>
+      <div class="top">
+        <div class="chat-wrapper" *ngFor="let msg of allMessages">
+          <div [ngClass]="msg.createdBy === localUser.id ?'chat-right': 'chat-left'">
+            <p class="name">{{msg.createdBy | userById: allConnectedUsers}}</p>
+            <div [innerText]="msg.content"></div>
+            <p class="time">{{msg.createdAt | date:'h:mm a, dd MMM yyyy'}}</p>
+          </div>
         </div>
-        <div class="right">
-            <button type="button" [routerLink]="'/home'">Exit</button>
+      </div>
+      <div class="bottom">
+        <div class="text-container">
+          <textarea title="msg" class="text" [placeholder]="placeholderText" [(ngModel)]="message"
+            (keyup.enter)="sendMessage()" [disabled]="isMsgPending" autofocus></textarea>
+          <button type="button" class="send" (click)="sendMessage()" [disabled]="isMsgPending">
+            <span class="d-none">send</span>
+          </button>
         </div>
-    </header>
-    <main>
-        <div class="left" #chatContainer>
-            <div class="top">
-                <div class="chat-wrapper" *ngFor="let msg of allMessages">
-                    <div [ngClass]="msg.createdBy === localUser.id ?'chat-right': 'chat-left'">
-                        <p class="name">{{msg.createdBy | userById: allConnectedUsers}}</p>
-                        <div [innerText]="msg.content"></div>
-                        <p class="time">{{msg.createdAt | date:'h:mm a, dd MMM yyyy'}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="bottom">
-                <div class="text-container">
-                    <textarea class="text" [placeholder]="placeholderText" [(ngModel)]="message"
-                        (keyup.enter)="sendMessage()" [disabled]="isMsgPending" autofocus></textarea>
-                    <button type="button" class="send" (click)="sendMessage()" [disabled]="isMsgPending">
-                        <span class="d-none">send</span>
-                    </button>
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="list">
+        <div class="status">
+          <h3>Online: {{allConnectedUsers.length}}</h3>
+          <ul>
+            <li *ngFor="let user of allConnectedUsers">
+              <span [ngClass]="{'bold': user.id === localUser.id}">{{user.name}}</span>
+            </li>
+          </ul>
         </div>
-        <div class="right">
-            <div class="list">
-                <div class="status">
-                    <h3>Online: {{allConnectedUsers.length}}</h3>
-                    <ul>
-                        <li *ngFor="let user of allConnectedUsers">
-                            <span [ngClass]="{'bold': user.id === localUser.id}">{{user.name}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="alias-container">
-                    <p>You've connected as:</p>
-                    <input class="" type="text" placeholder="Update Alias (required)" [(ngModel)]="aliasFormData"
-                        maxlength=30 />
-                    <div class="btns">
-                        <button type="button" class="" (click)="updateAlias()"
-                            [disabled]="aliasFormData.length === 0">Update</button>
-                        <button type="button" class="" (click)="generateAlias()">Random</button>
-                    </div>
-                </div>
-            </div>
+        <div class="alias-container">
+          <p>You've connected as:</p>
+          <input class="" type="text" placeholder="Update Alias (required)" [(ngModel)]="aliasFormData" maxlength=30 />
+          <div class="btns">
+            <button type="button" class="" (click)="updateAlias()"
+              [disabled]="aliasFormData.length === 0">Update</button>
+            <button type="button" class="" (click)="generateAlias()">Random</button>
+          </div>
         </div>
-    </main>
+      </div>
+    </div>
+  </main>
+  <footer>
     <footer>
-        <footer>
-            <p>
-                Made with ❤️ by Sayantan Roy. Source code:
-                <a href="https://github.com/dusk196/sauf-messenger" target="_blank">GitHub</a>
-            </p>
-        </footer>
+      <p>
+        Made with ❤️ by Sayantan Roy. Source code:
+        <a rel="noopener" href="https://github.com/dusk196/sauf-messenger" target="_blank">GitHub</a>
+      </p>
     </footer>
+  </footer>
 </div>
 <app-modal [modalDetails]="modalDetails" (closeModalEvent)="closeModal()"></app-modal>

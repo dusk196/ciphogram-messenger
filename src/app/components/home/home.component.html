@@ -1,59 +1,59 @@
 <div class="home full-viewport flex-center">
-    <header class="flex-center">
-        <h1>SAUF MESSENGER</h1>
-        <h2>Safe & Secure, Anonymous, Untrackable and Fast</h2>
-    </header>
-    <main>
-        <div class="container">
-            <div class="alias-container">
-                <input class="alias" type="text" placeholder="Your Alias (required)" [(ngModel)]="userDetails.name"
-                    maxlength=30 [disabled]="(isLoading || isChecking)" />
-                <button type="button" class="action-btns" (click)="generateAlias()"
-                    [disabled]="(isLoading || isChecking)">Random</button>
+  <header class="flex-center">
+    <h1>SAUF MESSENGER</h1>
+    <h2>Safe & Secure, Anonymous, Untrackable and Fast</h2>
+    <h2>Here's how...</h2>
+  </header>
+  <main>
+    <div class="container">
+      <div class="alias-container">
+        <input class="alias" type="text" placeholder="Your Alias (required)" [(ngModel)]="userDetails.name" maxlength=30
+          [disabled]="(isLoading || isChecking)" />
+        <button type="button" class="action-btns" (click)="generateAlias()"
+          [disabled]="(isLoading || isChecking)">Random</button>
+      </div>
+      <div class="inner-container">
+        <div class="left-container">
+          <div class="new-room">
+            <span>New Room ID:</span>
+            <div class="new-room-input">
+              <button type="button" class="refresh-id tooltip" (click)="refreshId()"
+                [disabled]="(isLoading || isChecking)">
+                <span class="d-none">generate new Room ID</span>
+                <span class="tooltip-text">Get a new one</span>
+              </button>
+              <input title="Room ID" type="text" readonly [value]="userDetails.associatedRoomId"
+                [disabled]="(isLoading || isChecking)" />
+              <button type="button" class="copy tooltip" (click)="onCopy()" (mouseenter)="onMouseEnter()">
+                <span class="d-none">copy new room id</span>
+                <span class="tooltip-text" [innerText]="copyText"></span>
+              </button>
             </div>
-            <div class="inner-container">
-                <div class="left-container">
-                    <div class="new-room">
-                        <span>New Room ID:</span>
-                        <div class="new-room-input">
-                            <button type="button" class="refresh-id tooltip" (click)="refreshId()"
-                                [disabled]="(isLoading || isChecking)">
-                                <span class="d-none">generate new Room ID</span>
-                                <span class="tooltip-text">Get a new one</span>
-                            </button>
-                            <input title="Room ID" type="text" readonly [value]="userDetails.associatedRoomId"
-                                [disabled]="(isLoading || isChecking)" />
-                            <button type="button" class="copy tooltip" (click)="onCopy()" (mouseenter)="onMouseEnter()">
-                                <span class="d-none">copy new room id</span>
-                                <span class="tooltip-text" [innerText]="copyText"></span>
-                            </button>
-                        </div>
-                    </div>
-                    <button class="action-btns" type="button" [ngClass]="{'d-none': isLoading}"
-                        [disabled]="userDetails.name.length === 0 || isChecking" (click)="jumpToRoom()">
-                        Get Started
-                    </button>
-                    <span *ngIf="isLoading">Connecting...</span>
-                </div>
-                <div class=" seperator">
-                </div>
-                <div class="right-container">
-                    <span>Already have a Room ID? Join now:</span>
-                    <input type="text" maxlength=36 placeholder="Paste a valid Room ID" [(ngModel)]="userRoomId"
-                        (ngModelChange)="checkRoomId()" [disabled]="(isLoading || isChecking)" />
-                    <button class="action-btns" type="button" (click)="jumpToRoomId()"
-                        [ngClass]="{'d-none': isChecking}"
-                        [disabled]="userDetails.name.length === 0 || !isValidUserRoomId || isChecking || (userRoomId === userDetails.associatedRoomId)">
-                        Join
-                    </button>
-                    <span *ngIf="isChecking">Getting Details...</span>
-                </div>
-            </div>
+          </div>
+          <button class="action-btns" type="button" [ngClass]="{'d-none': isLoading}"
+            [disabled]="userDetails.name.length === 0 || isChecking" (click)="jumpToRoom()">
+            Get Started
+          </button>
+          <span *ngIf="isLoading">Connecting...</span>
         </div>
-    </main>
-    <footer>
-        Made with ❤️ by Sayantan Roy. Source code:
-        <a href="https://github.com/dusk196/sauf-messenger" target="_blank">GitHub</a>
-    </footer>
+        <div class=" seperator">
+        </div>
+        <div class="right-container">
+          <span>Already have a Room ID? Join now:</span>
+          <input type="text" maxlength=36 placeholder="Paste a valid Room ID" [(ngModel)]="userRoomId"
+            (ngModelChange)="checkRoomId()" [disabled]="(isLoading || isChecking)" />
+          <button class="action-btns" type="button" (click)="jumpToRoomId()" [ngClass]="{'d-none': isChecking}"
+            [disabled]="userDetails.name.length === 0 || !isValidUserRoomId || isChecking || (userRoomId === userDetails.associatedRoomId)">
+            Join
+          </button>
+          <span *ngIf="isChecking">Getting Details...</span>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    Made with ❤️ by Sayantan Roy. Source code:
+    <a rel="noopener" href="https://github.com/dusk196/sauf-messenger" target="_blank">GitHub</a>
+  </footer>
 </div>
 <app-modal [modalDetails]="modalDetails" (closeModalEvent)="closeModal()"></app-modal>
