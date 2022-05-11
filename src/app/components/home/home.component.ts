@@ -50,7 +50,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.userDetails.id = this._uuidService.generateUuid();
     this.userDetails.associatedRoomId = this._uuidService.generateUuid();
-    console.log(this._cryptoService.check());
   }
 
   onCopy(): void {
