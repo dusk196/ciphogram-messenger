@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
 
@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { cloneDeep } from 'lodash';
 
 import { RoutePaths, ErrorModal, GenericConst, MessageConst, NoUserModal } from 'src/app/types/enums';
-import { ILocalUser, IMessage, IModal } from 'src/app/types/sauf.types';
+import { ILocalUser, IMessage, IModal, IUser } from 'src/app/types/sauf.types';
 import { UtilsService } from 'src/app/services/utils.service';
 import { DbService } from 'src/app/services/db.service';
 import { environment } from 'src/environments/environment';
@@ -20,17 +20,21 @@ import { UuidService } from 'src/app/services/uuid.service';
 
 export class MessagesComponent implements OnDestroy {
 
+  @ViewChild('chatContainer') chatContainer: ElementRef | undefined;
+
   readonly roomId: string = this._activatedroute.snapshot.params['roomId'];
   private allUsersHook: Unsubscribe;
   private allMsgsHook: Unsubscribe;
   localUser: ILocalUser = { id: '', name: '', associatedRoomId: '' }
-  allConnectedUsers: ILocalUser[] = [];
+  allConnectedUsers: IUser[] = [];
   allMessages: IMessage[] = [];
   aliasFormData: string = '';
   localUserSubs: Subscription;
   message: string = '';
   copyText: string = GenericConst.Copy;
   placeholderText: string = MessageConst.Placeholder;
+  modalDismiss: boolean = false;
+  isMsgPending: boolean = false;
   modalDetails: IModal = {
     title: '',
     message: '',
@@ -101,14 +105,28 @@ export class MessagesComponent implements OnDestroy {
   }
 
   updateAlias(): void {
+    const prevName: string = this.localUser.name;
     this.localUser.name = cloneDeep(this.aliasFormData);
     this._utilsService.updateAlias(this.localUser);
-    this.allConnectedUsers.filter((x: ILocalUser) => x.id === this.localUser.id)[0].name = this.aliasFormData;
-    this._dbService.updateUsers(this.roomId, this.allConnectedUsers);
+    this.allConnectedUsers.filter((x: IUser) => x.id === this.localUser.id)[0].name = this.aliasFormData;
+    this._dbService.updateUsers(this.roomId, this.allConnectedUsers)
+      .catch((err: Error) => {
+        this.modalDetails = {
+          title: ErrorModal.Title,
+          message: ErrorModal.Message,
+          show: true
+        };
+        this.modalDismiss = true;
+        this.localUser.name = prevName;
+        this.aliasFormData = prevName;
+        this._utilsService.updateAlias(this.localUser);
+        console.error(err);
+      });
   }
 
   sendMessage(): void {
-    if (!this._utilsService.isNullOrEmpty(this.message)) {
+    if (this.message.replace(/\n/g, '').length > 0) {
+      this.isMsgPending = true;
       const msg: IMessage = {
         id: this._uuidService.generateUuid(),
         content: this.message,
@@ -116,7 +134,29 @@ export class MessagesComponent implements OnDestroy {
         createdBy: this.localUser.id
       };
       this.allMessages.push(msg);
-      this._dbService.updateMessages(this.roomId, this.allMessages);
+      this._dbService.updateMessages(this.roomId, this.allMessages)
+        .then(() => {
+          const elemRef: Element = this.chatContainer?.nativeElement;
+          elemRef.getElementsByClassName('top')[0].scrollTo(0, elemRef.getElementsByClassName('top')[0].scrollHeight);
+          setTimeout(() => {
+            elemRef.getElementsByTagName('textarea')[0].focus();
+          });
+          this.message = '';
+          this.isMsgPending = false;
+        })
+        .catch((err: Error) => {
+          this.modalDetails = {
+            title: ErrorModal.Title,
+            message: ErrorModal.Message,
+            show: true
+          };
+          this.modalDismiss = true;
+          this.message = '';
+          this.allMessages.pop();
+          this.isMsgPending = false;
+          console.error(err);
+        });
+    } else {
       this.message = '';
     }
   }
@@ -127,7 +167,11 @@ export class MessagesComponent implements OnDestroy {
 
   closeModal(): void {
     this.modalDetails.show = false;
-    this._router.navigate([`/${RoutePaths.Home}`]);
+    if (this.modalDismiss) {
+      this.modalDismiss = false;
+    } else {
+      this._router.navigate([`/${RoutePaths.Home}`]);
+    }
   }
 
   ngOnDestroy(): void {

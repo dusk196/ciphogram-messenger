@@ -15,84 +15,21 @@
         </div>
     </header>
     <main>
-        <div class="left">
+        <div class="left" #chatContainer>
             <div class="top">
-                <div class="chat-wrapper">
-                    <div class="chat-left">
-                        <p class="name"> Sayantan </p>
-                        <p> other lorem ipsum dolor sit amet </p>
-                        <p class="time"> 2:40pm </p>
-                    </div>
-                </div>
-                <div class="chat-wrapper">
-                    <div class="chat-right">
-                        <p class="name"> You </p>
-                        <p> other lorem ipsum dolor sit amet </p>
-                        <p class="time"> 2:40pm </p>
-                    </div>
-                </div>
-                <div class="chat-wrapper">
-                    <div class="chat-left">
-                        <p class="name"> Sayantan </p>
-                        <p> other lorem ipsum dolor sit amet </p>
-                        <p class="time"> 2:40pm </p>
-                    </div>
-                </div>
-                <div class="chat-wrapper">
-                    <div class="chat-right">
-                        <p class="name"> You </p>
-                        <p> other lorem ipsum dolor sit amet </p>
-                        <p class="time"> 2:40pm </p>
-                    </div>
-                </div>
-                <div class="chat-wrapper">
-                    <div class="chat-left">
-                        <p class="name"> Sayantan </p>
-                        <p> other lorem ipsum dolor sit amet </p>
-                        <p class="time"> 2:40pm </p>
-                    </div>
-                </div>
-                <div class="chat-wrapper">
-                    <div class="chat-right">
-                        <p class="name"> You </p>
-                        <p> other lorem ipsum dolor sit amet </p>
-                        <p class="time"> 2:40pm </p>
-                    </div>
-                </div>
-                <div class="chat-wrapper">
-                    <div class="chat-left">
-                        <p class="name"> Sayantan </p>
-                        <p> other lorem ipsum dolor sit amet </p>
-                        <p class="time"> 2:40pm </p>
-                    </div>
-                </div>
-                <div class="chat-wrapper">
-                    <div class="chat-right">
-                        <p class="name"> You </p>
-                        <p> other lorem ipsum dolor sit amet </p>
-                        <p class="time"> 2:40pm </p>
-                    </div>
-                </div>
-                <div class="chat-wrapper">
-                    <div class="chat-left">
-                        <p class="name"> Sayantan </p>
-                        <p> other lorem ipsum dolor sit amet </p>
-                        <p class="time"> 2:40pm </p>
-                    </div>
-                </div>
-                <div class="chat-wrapper">
-                    <div class="chat-right">
-                        <p class="name"> You </p>
-                        <p> other lorem ipsum dolor sit amet </p>
-                        <p class="time"> 2:40pm </p>
+                <div class="chat-wrapper" *ngFor="let msg of allMessages">
+                    <div [ngClass]="msg.createdBy === localUser.id ?'chat-right': 'chat-left'">
+                        <p class="name">{{msg.createdBy | userById: allConnectedUsers}}</p>
+                        <div [innerText]="msg.content"></div>
+                        <p class="time">{{msg.createdAt | date:'h:mm a, dd MMM yyyy'}}</p>
                     </div>
                 </div>
             </div>
             <div class="bottom">
                 <div class="text-container">
                     <textarea class="text" [placeholder]="placeholderText" [(ngModel)]="message"
-                        (keyup.enter)="sendMessage()"></textarea>
-                    <button type="button" class="send" (click)="sendMessage()">
+                        (keyup.enter)="sendMessage()" [disabled]="isMsgPending" autofocus></textarea>
+                    <button type="button" class="send" (click)="sendMessage()" [disabled]="isMsgPending">
                         <span class="d-none">send</span>
                     </button>
                 </div>

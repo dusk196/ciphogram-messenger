@@ -7,6 +7,7 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 
 import { HomeComponent } from './components/home/home.component';
@@ -15,13 +16,16 @@ import { ErrorComponent } from './components/error/error.component';
 
 import { ModalComponent } from './components/shared/modal/modal.component';
 
+import { UserByIdPipe } from './pipes/user-by-id.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     MessagesComponent,
     ErrorComponent,
-    ModalComponent
+    ModalComponent,
+    UserByIdPipe
   ],
   imports: [
     BrowserModule,
