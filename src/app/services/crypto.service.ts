@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { pki, util } from 'node-forge';
+import { pki, util, cipher, random, pkcs5 } from 'node-forge';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,15 @@ export class CryptoService {
   constructor() {
     const { privateKey, publicKey } = pki.rsa.generateKeyPair({ bits: 4096, workers: 2 }, (err, keypair) => {
 
-      const txt = '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789';
+      console.log('Error: ', err);
+
+      // Max 500 chars
+      const txt = 'Hello World';
 
       const priv = keypair.privateKey;
       const pub = keypair.publicKey;
+
+      console.log('priv: ', priv, 'pub: ', pub);
 
       // PEM serialize: public key
       const pubPem = pki.publicKeyToPem(pub);
@@ -29,6 +34,7 @@ export class CryptoService {
 
       // make public key from private key
       const pub3 = pki.rsa.setPublicKey(priv2.n, priv2.e);
+      console.log("Public key from private key:", pub3);
 
       // enc/dec with Obj Pub and PEM Priv
       console.log("\n[Enc by Obj/Dec by PEM]");
@@ -51,9 +57,56 @@ export class CryptoService {
       const decrypted3 = priv.decrypt(encrypted3);
       console.log("decrypted(by Obj):", decrypted3);
 
+      this.letsTryAES();
+      this.letsTryAES();
+
       return keypair;
     });
-    console.log('publicKey', publicKey, 'privateKey', privateKey);
+  }
+
+  letsTryAES() {
+    const salt = random.getBytesSync(16);
+    const iv = random.getBytesSync(16);
+
+    const superSecretPassword = "I'm a super secret password!";
+
+    const key = pkcs5.pbkdf2(superSecretPassword, salt, 100000, 256 / 8);
+
+    const varcipher = cipher.createCipher('AES-CBC', key);
+
+    varcipher.start({ iv: iv });
+    varcipher.update(util.createBuffer('That is our super secret text That is our super secret text That is our super secret text That is our super secret text That is our super secret text That is our super secret text That is our super secret text That is our super secret text That is our super secret text That is our super secret text That is our super secret text That is our super secret text That is our super secret text That is our super secret text '));
+    varcipher.finish();
+
+    const encrypted = varcipher.output.bytes();
+
+    console.table({
+      iv: util.encode64(iv),
+      salt: util.encode64(salt),
+      encrypted: util.encode64(encrypted),
+      concatenned: util.encode64(salt + iv + encrypted)
+    });
+
+
+    // const encrypted = forge.util.binary.base64.decode('sYoCiGLJ9xuH3qBLoBzNlNn9DwkecP/GuMv+RuEhoiz0th+PXBSuSujz5r7p/quCUeVVf2qPw3gQwLyKMyOntA=='
+    // );
+
+    const salt_len = 16, iv_len = 16;
+
+    // const salt = forge.util.createBuffer(encrypted.slice(0, salt_len));
+    // const iv = forge.util.createBuffer(encrypted.slice(0 + salt_len, salt_len + iv_len));
+
+    // const key = forge.pkcs5.pbkdf2('my password', salt.bytes(), 100000, 256 / 8, 'SHA256');
+    const decipher = cipher.createDecipher('AES-CBC', key);
+
+    decipher.start({ iv: iv });
+    decipher.update(
+      // util.createBuffer(encrypted.slice(salt_len + iv_len))
+      util.createBuffer(encrypted)
+    );
+    decipher.finish();
+
+    console.log(decipher.output.toString());
   }
 
   encryptMessage(msg: string) {

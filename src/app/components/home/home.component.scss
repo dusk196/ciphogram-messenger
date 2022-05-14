@@ -4,256 +4,257 @@ $shadow-white: #FEFEFE;
 $active-black: #202020;
 
 .home {
-    justify-content: space-between;
+  justify-content: space-between;
+  overflow       : auto;
 
-    header {
-        margin-top: 25vh;
+  header {
+    margin-top: 25vh;
 
-        h1 {
-            color      : $white;
-            text-shadow: 0 0 3px $black, 0 0 5px $black;
-            font-size  : 3.5em;
-            font-weight: 600;
-        }
-
-        h2 {
-            color      : $white;
-            text-shadow: 0 0 3px $black, 0 0 5px $black;
-            font-size  : 2em;
-            font-weight: 600;
-        }
+    h1 {
+      color      : $white;
+      text-shadow: 0 0 3px $black, 0 0 5px $black;
+      font-size  : 3.5em;
+      font-weight: 600;
     }
 
-    main {
-        .container {
-            display       : flex;
-            flex-direction: column;
-            align-items   : center;
-            font-size     : 1.5em;
-            color         : $white;
-
-            input {
-                width        : 75%;
-                text-align   : center;
-                margin       : 10px;
-                padding      : 5px 10px 5px 10px;
-                border-radius: 5px;
-                background   : rgba(0, 0, 0, 0.1);
-                color        : $white;
-                border       : 1px solid $white;
-                font-size    : 1em;
-                text-overflow: ellipsis;
-                overflow     : hidden;
-                white-space  : nowrap;
-
-                &:focus {
-                    outline   : none;
-                    background: rgba(0, 0, 0, 0.5);
-                }
-
-                &::placeholder {
-                    color  : $white;
-                    opacity: 0.75;
-                }
-            }
-
-            .inner-container {
-                display        : flex;
-                flex-direction : row;
-                text-align     : center;
-                align-items    : center;
-                justify-content: space-around;
-                width          : 70vw;
-
-                .left-container {
-                    width: 50vw;
-
-                    .new-room {
-                        display       : flex;
-                        align-items   : center;
-                        flex-direction: column;
-
-                        .new-room-input {
-                            display        : flex;
-                            flex-direction : row;
-                            align-items    : center;
-                            justify-content: center;
-                        }
-
-                        button {
-                            height: 3em;
-                            width : 3em;
-                            border: 0;
-                            cursor: pointer;
-
-                            &.refresh-id {
-                                background: url("./../../../assets/reload.svg") no-repeat center center;
-                            }
-
-                            &.copy {
-                                background: url("./../../../assets/copy.svg") no-repeat center center;
-                            }
-
-                            &:active {
-                                opacity: 0.75;
-                            }
-                        }
-                    }
-                }
-
-                .seperator {
-                    border-left : 1px solid $white;
-                    border-right: 1px solid $white;
-                    height      : 20vh;
-                }
-
-                .right-container {
-                    display       : flex;
-                    flex-direction: column;
-                    align-items   : center;
-                    width         : 50vw;
-                }
-
-                .action-btns {
-                    font-size    : 1em;
-                    background   : rgba(0, 0, 0, 0.1);
-                    border       : 1px solid $white;
-                    color        : $white;
-                    padding      : 10px;
-                    border-radius: 5px;
-                    cursor       : pointer;
-
-                    &:hover {
-                        background: rgba(0, 0, 0, 0.5);
-                    }
-
-                    &:active {
-                        color     : $active-black;
-                        background: $white;
-                    }
-                }
-
-            }
-
-            .alias-container {
-                .alias {
-                    margin       : 50px 10px 50px 10px;
-                    width        : 30vw;
-                    border       : solid $white;
-                    border-width : 1px 0px 1px 1px;
-                    border-radius: 5px 0px 0px 5px;
-                    margin-right : 0;
-                    padding      : 10px;
-                    font-size    : 1em;
-                }
-
-                button {
-                    border       : 1px solid $white;
-                    background   : rgba(0, 0, 0, 0.1);
-                    border-radius: 0px 5px 5px 0px;
-                    color        : $white;
-                    cursor       : pointer;
-                    height       : auto;
-                    padding      : 10px;
-                    font-size    : 1em;
-
-                    &:hover {
-                        background: rgba(0, 0, 0, 0.5);
-                    }
-
-                    &:active {
-                        color     : $active-black;
-                        background: $white;
-                    }
-                }
-            }
-        }
+    h2 {
+      color      : $white;
+      text-shadow: 0 0 3px $black, 0 0 5px $black;
+      font-size  : 2em;
+      font-weight: 600;
     }
+  }
 
-    footer {
-        align-items  : flex-end;
+  main {
+    .container {
+      display       : flex;
+      flex-direction: column;
+      align-items   : center;
+      font-size     : 1.5em;
+      color         : $white;
+
+      input {
+        width        : 75%;
+        text-align   : center;
+        margin       : 10px;
+        padding      : 5px 10px 5px 10px;
+        border-radius: 5px;
+        background   : rgba(0, 0, 0, 0.1);
         color        : $white;
-        margin-bottom: 20px;
+        border       : 1px solid $white;
+        font-size    : 1em;
+        text-overflow: ellipsis;
+        overflow     : hidden;
+        white-space  : nowrap;
 
-        a:link,
-        a:visited {
-            color          : $white;
-            text-decoration: underline;
-            cursor         : pointer;
+        &:focus {
+          outline   : none;
+          background: rgba(0, 0, 0, 0.5);
         }
 
-        a:link:active,
-        a:visited:active {
-            color: $white;
+        &::placeholder {
+          color  : $white;
+          opacity: 0.75;
         }
+      }
+
+      .inner-container {
+        display        : flex;
+        flex-direction : row;
+        text-align     : center;
+        align-items    : center;
+        justify-content: space-around;
+        width          : 70vw;
+
+        .left-container {
+          width: 50vw;
+
+          .new-room {
+            display       : flex;
+            align-items   : center;
+            flex-direction: column;
+
+            .new-room-input {
+              display        : flex;
+              flex-direction : row;
+              align-items    : center;
+              justify-content: center;
+            }
+
+            button {
+              height: 3em;
+              width : 3em;
+              border: 0;
+              cursor: pointer;
+
+              &.refresh-id {
+                background: url("./../../../assets/reload.svg") no-repeat center center;
+              }
+
+              &.copy {
+                background: url("./../../../assets/copy.svg") no-repeat center center;
+              }
+
+              &:active {
+                opacity: 0.75;
+              }
+            }
+          }
+        }
+
+        .seperator {
+          border-left : 1px solid $white;
+          border-right: 1px solid $white;
+          height      : 20vh;
+        }
+
+        .right-container {
+          display       : flex;
+          flex-direction: column;
+          align-items   : center;
+          width         : 50vw;
+        }
+
+        .action-btns {
+          font-size    : 1em;
+          background   : rgba(0, 0, 0, 0.1);
+          border       : 1px solid $white;
+          color        : $white;
+          padding      : 10px;
+          border-radius: 5px;
+          cursor       : pointer;
+
+          &:hover {
+            background: rgba(0, 0, 0, 0.5);
+          }
+
+          &:active {
+            color     : $active-black;
+            background: $white;
+          }
+        }
+
+      }
+
+      .alias-container {
+        .alias {
+          margin       : 50px 10px 50px 10px;
+          width        : 30vw;
+          border       : solid $white;
+          border-width : 1px 0px 1px 1px;
+          border-radius: 5px 0px 0px 5px;
+          margin-right : 0;
+          padding      : 10px;
+          font-size    : 1em;
+        }
+
+        button {
+          border       : 1px solid $white;
+          background   : rgba(0, 0, 0, 0.1);
+          border-radius: 0px 5px 5px 0px;
+          color        : $white;
+          cursor       : pointer;
+          height       : auto;
+          padding      : 10px;
+          font-size    : 1em;
+
+          &:hover {
+            background: rgba(0, 0, 0, 0.5);
+          }
+
+          &:active {
+            color     : $active-black;
+            background: $white;
+          }
+        }
+      }
     }
+  }
+
+  footer {
+    align-items  : flex-end;
+    color        : $white;
+    margin-bottom: 20px;
+
+    a:link,
+    a:visited {
+      color          : $white;
+      text-decoration: underline;
+      cursor         : pointer;
+    }
+
+    a:link:active,
+    a:visited:active {
+      color: $white;
+    }
+  }
 }
 
 @media screen and (max-width: 1600px) {
-    .home {
-        header {
-            h1 {
-                font-size: 2.5em;
-            }
+  .home {
+    header {
+      h1 {
+        font-size: 2.5em;
+      }
 
-            h2 {
-                font-size: 1.5em;
-            }
-        }
-
-        main {
-            font-size: 0.75em;
-        }
-
-        footer {
-            font-size: 1em;
-        }
+      h2 {
+        font-size: 1.5em;
+      }
     }
+
+    main {
+      font-size: 0.75em;
+    }
+
+    footer {
+      font-size: 1em;
+    }
+  }
 }
 
 @media screen and (max-width: 1200px) {
-    .home {
-        header {
-            h1 {
-                font-size: 2em;
-            }
+  .home {
+    header {
+      h1 {
+        font-size: 2em;
+      }
 
-            h2 {
-                font-size: 1em;
-            }
-        }
-
-        main {
-            font-size: 0.5em;
-        }
-
-        footer {
-            font-size: 0.75em;
-        }
+      h2 {
+        font-size: 1em;
+      }
     }
+
+    main {
+      font-size: 0.5em;
+    }
+
+    footer {
+      font-size: 0.75em;
+    }
+  }
 }
 
 @media screen and (max-width: 1024px) {
-    .home {
-        main {
-            .container {
+  .home {
+    main {
+      .container {
 
-                .inner-container {
-                    flex-direction: column;
-                }
-
-                .seperator {
-                    display: none;
-                }
-
-                .right-container {
-                    margin-top: 30px;
-                }
-            }
+        .inner-container {
+          flex-direction: column;
         }
 
-        footer {
-            font-size: 0.5em;
+        .seperator {
+          display: none;
         }
+
+        .right-container {
+          margin-top: 30px;
+        }
+      }
     }
+
+    footer {
+      font-size: 0.5em;
+    }
+  }
 }
