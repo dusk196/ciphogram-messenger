@@ -40,21 +40,23 @@ export class HomeComponent implements OnInit {
   };
 
   constructor(
-    private _utilsService: UtilsService,
-    private _uuidService: UuidService,
-    private _dbService: DbService,
-    private _router: Router,
-    private _cryptoService: CryptoService
+    private readonly _utilsService: UtilsService,
+    private readonly _uuidService: UuidService,
+    private readonly _dbService: DbService,
+    private readonly _router: Router,
+    private readonly _cryptoService: CryptoService
   ) { }
 
   ngOnInit(): void {
     this.userDetails.id = this._uuidService.generateUuid();
     this.userDetails.associatedRoomId = this._uuidService.generateUuid();
+    // this._cryptoService.letsTryRSA();
   }
 
   onCopy(): void {
     navigator.clipboard.writeText(this.userDetails.associatedRoomId);
     this.copyText = GenericConst.Copied;
+    this._cryptoService.letsTryRSA();
   }
 
   refreshId(): void {
@@ -154,7 +156,7 @@ export class HomeComponent implements OnInit {
   }
 
   onMouseEnter(): void {
-    this.copyText = GenericConst.Copied;
+    this.copyText = GenericConst.Copy;
   }
 
   closeModal(): void {

@@ -43,11 +43,11 @@ export class MessagesComponent implements OnDestroy {
 
   constructor(
     @Inject(ActivatedRoute)
-    private _activatedroute: ActivatedRoute,
-    private _router: Router,
-    private _utilsService: UtilsService,
-    private _uuidService: UuidService,
-    private _dbService: DbService
+    private readonly _activatedroute: ActivatedRoute,
+    private readonly _router: Router,
+    private readonly _utilsService: UtilsService,
+    private readonly _uuidService: UuidService,
+    private readonly _dbService: DbService
   ) {
     this.localUserSubs = this._utilsService.getAlias().subscribe((alias: ILocalUser) => {
       if (this._utilsService.isNullOrEmpty(alias.associatedRoomId)) {
@@ -83,6 +83,10 @@ export class MessagesComponent implements OnDestroy {
       const data = snapshot.val();
       if (!this._utilsService.isNullOrEmpty(data)) {
         this.allMessages = cloneDeep(data);
+        setTimeout(() => {
+          const elemRef: Element = this.chatContainer?.nativeElement;
+          elemRef.getElementsByClassName('top')[0].scrollTo(0, elemRef.getElementsByClassName('top')[0].scrollHeight);
+        });
       }
     }, (err: Error) => {
       this.modalDetails = {
@@ -163,7 +167,7 @@ export class MessagesComponent implements OnDestroy {
   }
 
   onMouseEnter(): void {
-    this.copyText = GenericConst.Copied;
+    this.copyText = GenericConst.Copy;
   }
 
   closeModal(): void {

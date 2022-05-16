@@ -29,3 +29,8 @@ export interface IChat {
   currentUsers: IUser[];
   messages: IMessage[];
 }
+
+export interface IRsaKeyPair {
+  publicKey: string;
+  privateKey: string;
+}
