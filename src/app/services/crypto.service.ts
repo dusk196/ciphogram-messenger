@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { cloneDeep } from 'lodash';
 import { pki, util, cipher, random, pkcs5 } from 'node-forge';
 import { environment } from 'src/environments/environment';
-import { IRsaKeyPair } from '../types/sauf.types';
+import { UuidService } from 'src/app/services/uuid.service';
+import { IRsaKeyPair } from 'src/app/types/sauf.types';
 
 @Injectable({
   providedIn: 'root'
@@ -12,52 +13,9 @@ import { IRsaKeyPair } from '../types/sauf.types';
 export class CryptoService {
 
   private rsaKeyPair: IRsaKeyPair = { privateKey: '', publicKey: '' };
-  // private readonly rsaKeyPair: IRsaKeyPair = pki.rsa.generateKeyPair(environment.rsa, (err, keypair) => {
-  //   if (err) {
-  //     console.error(err);
-  //     return { privateKey: null, publicKey: null };
-  //   }
-  //   console.log('keypair: ', keypair);
-  //   // return keypair;
-  //   const priv = keypair.privateKey;
-  //   const pub = keypair.publicKey;
 
-  //   console.log(keypair);
-
-  //   console.log('priv: ', priv, 'pub: ', pub);
-  //   // PEM serialize: public key
-  //   const pubPem = pki.publicKeyToPem(pub);
-  //   console.log("Public Key PEM:", pubPem);
-  //   const pub2 = pki.publicKeyFromPem(pubPem);
-
-  //   // PEM serialize: private key
-  //   const privPem = pki.privateKeyToPem(priv);
-  //   console.log("Private Key PEM:", privPem);
-  //   const priv2 = pki.privateKeyFromPem(privPem);
-  //   return { privateKey: privPem, publicKey: pubPem };
-  // });
-
-  constructor(private readonly _router: Router,) {
+  constructor(private readonly _router: Router, private readonly _uuidService: UuidService) {
     this.letsTryAES();
-    pki.rsa.generateKeyPair(environment.rsa, (err, keypair) => {
-      if (err) {
-        console.error(err);
-        this._router.navigate(['/error']);
-      }
-      console.log('keypair: ', keypair);
-      const priv = keypair.privateKey;
-      const pub = keypair.publicKey;
-      console.log('priv: ', priv, 'pub: ', pub);
-      // PEM serialize: public key
-      const pubPem = pki.publicKeyToPem(pub);
-      console.log("Public Key PEM:", pubPem);
-      // const pub2 = pki.publicKeyFromPem(pubPem);
-      // PEM serialize: private key
-      const privPem = pki.privateKeyToPem(priv);
-      console.log("Private Key PEM:", privPem);
-      // const priv2 = pki.privateKeyFromPem(privPem);
-      this.rsaKeyPair = cloneDeep({ privateKey: privPem, publicKey: pubPem });
-    });
   }
 
   letsTryAES() {
@@ -67,6 +25,8 @@ export class CryptoService {
     const superSecretPassword = "I'm a super secret password!";
 
     const key = pkcs5.pbkdf2(superSecretPassword, salt, 100000, 256 / 8);
+
+    console.log('key: ', key);
 
     const varcipher = cipher.createCipher('AES-CBC', key);
 
@@ -105,6 +65,56 @@ export class CryptoService {
     console.log(decipher.output.toString());
   }
 
+  generateRsaKeyPair(): void {
+    pki.rsa.generateKeyPair(environment.rsa, (err, keypair) => {
+      if (err) {
+        console.error(err);
+        this._router.navigate(['/error']);
+      }
+      console.log('keypair: ', keypair);
+      const priv = keypair.privateKey;
+      const pub = keypair.publicKey;
+      console.log('priv: ', priv, 'pub: ', pub);
+      // PEM serialize: public key
+      const pubPem = pki.publicKeyToPem(pub);
+      console.log("Public Key PEM:", pubPem);
+      // const pub2 = pki.publicKeyFromPem(pubPem);
+      // PEM serialize: private key
+      const privPem = pki.privateKeyToPem(priv);
+      console.log("Private Key PEM:", privPem);
+      // const priv2 = pki.privateKeyFromPem(privPem);
+      this.rsaKeyPair = cloneDeep({ privateKey: privPem, publicKey: pubPem });
+    });
+  }
+
+  getAesSecret(): string {
+    const salt = random.getBytesSync(16);
+    const iv = random.getBytesSync(16);
+    const password = this._uuidService.generateUuid();
+    const key = pkcs5.pbkdf2(password, salt, 100000, 256 / 8);
+    const secret = iv + key;
+    console.log('secret: ', util.encode64(secret));
+    return secret;
+  }
+
+  encryptDataByAes(text: string): string {
+    const secret = this.getAesSecret();
+    const iv = secret.slice(0, 16);
+    const key = secret.slice(16, 48);
+    const aesCipher = cipher.createCipher('AES-CBC', key);
+    aesCipher.start({ iv: iv });
+    aesCipher.update(util.createBuffer(text));
+    aesCipher.finish();
+    const encrypted = aesCipher.output.bytes();
+    console.log('encrypted: ', encrypted);
+    const final = util.encode64(secret + encrypted);
+    return final;
+  }
+
+  getRsaPublicKey(): string {
+    return this.rsaKeyPair.publicKey;
+  }
+
   letsTryRSA() {
 
     // Max 256 chars
@@ -137,41 +147,6 @@ export class CryptoService {
     // console.log("encrypted(by Priv):", util.encode64(encrypted3));
     // const decrypted3 = priv.decrypt(encrypted3);
     // console.log("decrypted(by Obj):", decrypted3);
-  }
-
-  encryptMessage(msg: string) {
-    // let encodedMsg = this.getEncoded(msg);
-    // console.log('encodedMsg: ', encodedMsg);
-    // return window.crypto.subtle.encrypt(
-    //   { name: "RSA-OAEP" }, this.keyPair.publicKey, encodedMsg
-    // )
-  }
-
-  async decryptMessage(msg: any) {
-    // console.log('decryptMessage starts:');
-    // console.log('decryptMessage to decrypt: ', msg);
-    // let decrypted = await window.crypto.subtle.decrypt(
-    //   {
-    //     name: "RSA-OAEP"
-    //   },
-    //   this.keyPair.privateKey,
-    //   msg
-    // );
-    // let dec = new TextDecoder();
-    // console.log('decrypted', decrypted);
-    // const d = dec.decode(decrypted);
-    // console.log(d);
-  }
-
-
-  private getEncoded(text: string | undefined): Uint8Array {
-    const encodedText: Uint8Array = new TextEncoder().encode(text);
-    return encodedText;
-  }
-
-  private getDecoded(text: Uint8Array | undefined): string {
-    const decodedText: string = new TextDecoder().decode(text);
-    return decodedText;
   }
 
 }

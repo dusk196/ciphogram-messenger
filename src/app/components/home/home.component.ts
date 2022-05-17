@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.userDetails.id = this._uuidService.generateUuid();
     this.userDetails.associatedRoomId = this._uuidService.generateUuid();
-    // this._cryptoService.letsTryRSA();
+    this._cryptoService.generateRsaKeyPair();
   }
 
   onCopy(): void {
@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
     const user: IUser = {
       id: this.userDetails.id,
       name: this.userDetails.name,
-      publicKey: this.userDetails.name
+      publicKey: this._cryptoService.getAesSecret()
     };
     const details: IChat = {
       associatedRoomId: this.userDetails.associatedRoomId,
@@ -113,7 +113,7 @@ export class HomeComponent implements OnInit {
           users.push({
             id: this.userDetails.id,
             name: this.userDetails.name,
-            publicKey: this.userDetails.name
+            publicKey: this._cryptoService.getAesSecret()
           });
           this._dbService.updateUsers(roomDetails.associatedRoomId, users)
             .then(() => {

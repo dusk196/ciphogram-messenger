@@ -13,13 +13,13 @@ export interface ILocalUser {
 export interface IUser {
   id: string;
   name: string;
-  publicKey: string; // gonna keep private in local storage
+  publicKey: string;
 }
 
 export interface IMessage {
   id: string;
   intendedRecipientId: string;
-  content: string;
+  secretMessage: string;
   createdAt: Date;
   createdBy: string;
 }

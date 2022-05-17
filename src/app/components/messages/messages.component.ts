@@ -11,6 +11,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { DbService } from 'src/app/services/db.service';
 import { environment } from 'src/environments/environment';
 import { UuidService } from 'src/app/services/uuid.service';
+import { CryptoService } from 'src/app/services/crypto.service';
 
 @Component({
   selector: 'app-messages',
@@ -47,7 +48,8 @@ export class MessagesComponent implements OnDestroy {
     private readonly _router: Router,
     private readonly _utilsService: UtilsService,
     private readonly _uuidService: UuidService,
-    private readonly _dbService: DbService
+    private readonly _dbService: DbService,
+    private readonly _cryptoService: CryptoService
   ) {
     this.localUserSubs = this._utilsService.getAlias().subscribe((alias: ILocalUser) => {
       if (this._utilsService.isNullOrEmpty(alias.associatedRoomId)) {
@@ -131,14 +133,17 @@ export class MessagesComponent implements OnDestroy {
   sendMessage(): void {
     if (this.message.replace(/\n/g, '').length > 0) {
       this.isMsgPending = true;
-      const msg: IMessage = {
-        id: this._uuidService.generateUuid(),
-        content: this.message,
-        createdAt: new Date(),
-        createdBy: this.localUser.id,
-        intendedRecipientId: ''
-      };
-      this.allMessages.push(msg);
+      this.allConnectedUsers.forEach((user: IUser) => {
+        console.log(user.publicKey);
+        const msg: IMessage = {
+          id: this._uuidService.generateUuid(),
+          secretMessage: this._cryptoService.encryptDataByAes(this.message),
+          createdAt: new Date(),
+          createdBy: this.localUser.id,
+          intendedRecipientId: user.id
+        };
+        this.allMessages.push(msg);
+      });
       this._dbService.updateMessages(this.roomId, this.allMessages)
         .then(() => {
           const elemRef: Element = this.chatContainer?.nativeElement;
