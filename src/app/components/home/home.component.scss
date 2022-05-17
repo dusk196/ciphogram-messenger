@@ -88,11 +88,11 @@ $active-black: #202020;
               cursor: pointer;
 
               &.refresh-id {
-                background: url("./../../../assets/reload.svg") no-repeat center center;
+                background: url("/assets/reload.svg") no-repeat center center;
               }
 
               &.copy {
-                background: url("./../../../assets/copy.svg") no-repeat center center;
+                background: url("/assets/copy.svg") no-repeat center center;
               }
 
               &:active {

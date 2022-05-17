@@ -58,7 +58,7 @@
           cursor: pointer;
 
           &.copy {
-            background: url("./../../../assets/copy.svg") no-repeat center center;
+            background: url("/assets/copy.svg") no-repeat center center;
           }
 
           &:active {
@@ -127,6 +127,7 @@
             padding      : 20px;
             margin       : 20px;
             float        : right;
+            width        : -moz-fit-content;
             width        : fit-content;
             max-width    : 80%;
             color        : #FAEBD7;
@@ -176,7 +177,7 @@
           }
 
           button {
-            background: url("./../../../assets/send.svg") no-repeat center center;
+            background: url("/assets/send.svg") no-repeat center center;
             border    : none;
             height    : 64px;
             width     : 64px;
