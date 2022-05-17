@@ -134,10 +134,9 @@ export class MessagesComponent implements OnDestroy {
     if (this.message.replace(/\n/g, '').length > 0) {
       this.isMsgPending = true;
       this.allConnectedUsers.forEach((user: IUser) => {
-        console.log(user.publicKey);
         const msg: IMessage = {
           id: this._uuidService.generateUuid(),
-          secretMessage: this._cryptoService.encryptDataByAes(this.message),
+          secretMessage: this._cryptoService.encryptDataByAes(this.message, user.publicKey),
           createdAt: new Date(),
           createdBy: this.localUser.id,
           intendedRecipientId: user.id

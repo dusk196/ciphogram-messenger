@@ -18,7 +18,8 @@
     <div class="left" #chatContainer>
       <div class="top">
         <div class="chat-wrapper" *ngFor="let msg of allMessages">
-          <div [ngClass]="msg.createdBy === localUser.id ?'chat-right': 'chat-left'">
+          <div *ngIf="msg.intendedRecipientId === localUser.id"
+            [ngClass]="msg.createdBy === localUser.id ?'chat-right': 'chat-left'">
             <p class="name">{{msg.createdBy | userById: allConnectedUsers}}</p>
             <div [innerText]="(msg.secretMessage | decryptMsgs) || 'Decrypting...'"></div>
             <p class="time">{{msg.createdAt | date:'h:mm a, dd MMM yyyy'}}</p>
