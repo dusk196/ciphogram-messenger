@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,400;0,600;0,800;1,100;1,400;1,600;1,800&display=swap');
 
-$white: #FFFFFF;
-$black: #273036;
-$red  : #9E2A2B;
-$modal: #FAEBD7;
+$white : #FFFFFF;
+$black : #273036;
+$red   : #9E2A2B;
+$yellow: #FAEBD7;
 
 body {
   width                  : 100vw;
@@ -138,6 +138,13 @@ app-home {
       border-style: solid;
       border-color: transparent transparent $black transparent;
     }
+
+    &.tooltip-msg {
+      background-color: $yellow;
+      color           : $black;
+      border          : 1px solid $black;
+      top             : 100%;
+    }
   }
 
   &:hover {
@@ -162,7 +169,7 @@ app-home {
 
   .modal-content {
     position                  : relative;
-    background-color          : $modal;
+    background-color          : $yellow;
     margin                    : auto;
     padding                   : 0;
     border-radius             : 10px;
@@ -211,7 +218,7 @@ app-home {
       &:hover,
       &:focus {
         cursor    : pointer;
-        color     : $modal;
+        color     : $yellow;
         background: $black;
       }
 

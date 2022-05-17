@@ -73,6 +73,21 @@
       align-items : center;
       display     : flex;
       margin-right: 10px;
+
+      .switch {
+        height: 2em;
+        width : 2em;
+        border: 0;
+        cursor: pointer;
+
+        &.on {
+          background: url("/assets/switch-on.svg") no-repeat center center;
+        }
+
+        &.off {
+          background: url("/assets/switch-off.svg") no-repeat center center;
+        }
+      }
     }
   }
 
@@ -191,7 +206,7 @@
     .right {
       width           : 20%;
       text-align      : right;
-      background-color: #f6fae0;
+      background-color: #FAEBD7;
       box-shadow      : 3px 0px 6px 3px #273036;
 
       .list {

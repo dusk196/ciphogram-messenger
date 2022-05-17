@@ -12,6 +12,10 @@
         <button type="button" class="action-btns" (click)="generateAlias()"
           [disabled]="(isLoading || isChecking)">Random</button>
       </div>
+      <div class="prod-mode">
+        <input (change)="onModeChange()" [checked]="isProdMode" type="checkbox" name="Demo" title="Demo" />
+        <label for="Demo" (click)="onModeChange()" [innerText]="'Production mode'"></label>
+      </div>
       <div class="inner-container">
         <div class="left-container">
           <div class="new-room">

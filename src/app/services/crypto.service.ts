@@ -18,6 +18,10 @@ export class CryptoService {
     this.generateRsaKeyPair();
   }
 
+  /**
+   * Generate RSA key pair
+   * @returns {IRsaKeyPair}
+   */
   private generateRsaKeyPair(): void {
     pki.rsa.generateKeyPair(environment.rsa, (err, keypair) => {
       if (err) {
@@ -30,22 +34,41 @@ export class CryptoService {
     });
   }
 
+  /**
+   * Returns RSA public key
+   * @returns {string}
+   */
   getRsaPublicKey(): string {
     return this.rsaKeyPair.publicKey;
   }
 
+  /**
+   * Encrypts data by RSA
+   * @param data
+   * @param publicKey
+   * @returns {string}
+   */
   encryptDataByRsa(data: string, publicKey: string): string {
     const pub = pki.publicKeyFromPem(publicKey);
     const encrypted = pub.encrypt(data);
     return util.encode64(encrypted);
   }
 
+  /**
+   * Decrypts data by RSA
+   * @param data
+   * @returns  {string}
+   */
   decryptDataByRsa(data: string): string {
     const priv = pki.privateKeyFromPem(this.rsaKeyPair.privateKey);
     const decrypted = priv.decrypt(util.decode64(data));
     return decrypted;
   }
 
+  /**
+   * Fetches a random AES secret
+   * @returns {string}
+   */
   private getAesSecret(): string {
     const salt = random.getBytesSync(16);
     const iv = random.getBytesSync(16);
@@ -55,6 +78,12 @@ export class CryptoService {
     return secret;
   }
 
+  /**
+   * Encrypts data by AES
+   * @param text
+   * @param rsaPublicKey
+   * @returns {string}
+   */
   encryptDataByAes(text: string, rsaPublicKey: string): string {
     const secret = this.getAesSecret();
     const iv = secret.slice(0, 16);
@@ -69,6 +98,11 @@ export class CryptoService {
     return final;
   }
 
+  /**
+   * Decrypts data by AES
+   * @param text
+   * @returns {string}
+   */
   decryptDataByAes(text: string): string {
     const superSecret = this.decryptDataByRsa(text.slice(0, 88));
     const encrypted = util.decode64(text.slice(88));

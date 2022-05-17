@@ -21,7 +21,8 @@ export enum NoUserModal {
 }
 
 export enum MessageConst {
-  Placeholder = 'Enter your messege... \nPress Enter to send, Ctrl + Enter OR Shift + Enter to add new line.\nHave fun!'
+  Placeholder = 'Enter your messege... \nPress Enter to send, Ctrl + Enter OR Shift + Enter to add new line.\nHave fun! 😉\n\nOhh bdw, 2000 chars max. (free DB bruh) 😒',
+  ProdPlaceholder = '\n\nALERT! Don\'t use Non-Prod mode to send sensitive messages! 😒 It\'s for testing purpose only. However, don\'t forget to check the console! 😎',
 }
 
 export enum GenericConst {

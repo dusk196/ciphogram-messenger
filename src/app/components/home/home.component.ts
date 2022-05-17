@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataSnapshot } from '@angular/fire/database';
 
@@ -18,16 +18,12 @@ import { CryptoService } from 'src/app/services/crypto.service';
 
 export class HomeComponent implements OnInit {
 
-  private readonly initialInfo: IChat = {
-    associatedRoomId: '',
-    currentUsers: [],
-    messages: []
-  };
   userRoomId: string = '';
   isValidUserRoomId: boolean = false;
   copyText: string = GenericConst.Copy;
   isLoading: boolean = false;
   isChecking: boolean = false;
+  isProdMode: boolean = true;
   userDetails: ILocalUser = {
     id: '',
     name: '',
@@ -50,6 +46,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.userDetails.id = this._uuidService.generateUuid();
     this.userDetails.associatedRoomId = this._uuidService.generateUuid();
+    this._utilsService.devConsoleLog('Generated alias: ' + this.userDetails.name);
+    this._utilsService.devConsoleLog('Generated Room ID: ' + this.userDetails.associatedRoomId);
   }
 
   onCopy(): void {
@@ -59,6 +57,7 @@ export class HomeComponent implements OnInit {
 
   refreshId(): void {
     this.userDetails.associatedRoomId = this._uuidService.generateUuid();
+    this._utilsService.devConsoleLog('Generated Room ID: ' + this.userDetails.associatedRoomId);
   }
 
   checkRoomId(): void {
@@ -151,6 +150,7 @@ export class HomeComponent implements OnInit {
 
   generateAlias(): void {
     this.userDetails.name = this._utilsService.generateRandomAlias();
+    this._utilsService.devConsoleLog('Generated alias: ' + this.userDetails.name);
   }
 
   onMouseEnter(): void {
@@ -159,6 +159,11 @@ export class HomeComponent implements OnInit {
 
   closeModal(): void {
     this.modalDetails.show = false;
+  }
+
+  onModeChange(): void {
+    this.isProdMode = !this.isProdMode;
+    this._utilsService.updateMode(this.isProdMode);
   }
 
 }

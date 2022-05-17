@@ -11,7 +11,9 @@ import { ILocalUser } from 'src/app/types/sauf.types';
 export class UtilsService {
 
   private readonly initialAlias: ILocalUser = { id: '', name: '', associatedRoomId: '' };
-  private alias$: BehaviorSubject<ILocalUser> = new BehaviorSubject(this.initialAlias);
+  private readonly alias$: BehaviorSubject<ILocalUser> = new BehaviorSubject(this.initialAlias);
+  private readonly initialMode: boolean = true;
+  private readonly prodMode$: BehaviorSubject<boolean> = new BehaviorSubject(this.initialMode);
 
   /**
    * Returns an observable that emits the alias
@@ -22,8 +24,25 @@ export class UtilsService {
   }
 
   /**
+   * Returns an observable that emits the mode (Dev or Prod)
+   * @returns {Observable<boolean>}
+   */
+  getMode(): Observable<boolean> {
+    return this.prodMode$.asObservable();
+  }
+
+  /**
+   * Updates the mode with the given value
+   * @param mode  The operation mode `boolean` (Dev or Prod)
+   * @returns {void}
+   */
+  updateMode(mode: boolean): void {
+    this.prodMode$.next(mode);
+  }
+
+  /**
    * Updates the alias with the given value
-   * @param newAlias
+   * @param newAlias The new alias of `ILocalUser` to be updated
    * @returns {void}
    */
   updateAlias(newAlias: ILocalUser): void {
@@ -48,7 +67,7 @@ export class UtilsService {
 
   /**
    * Checks if the given value is null or empty or undefined
-   * @param value
+   * @param value The value to be checked
    * @returns {boolean}
    */
   isNullOrEmpty(value: any): boolean {
@@ -63,6 +82,17 @@ export class UtilsService {
     const randomNumber1: number = Math.floor(Math.random() * 1000);
     const randomNumber2: number = Math.floor(Math.random() * 1000);
     return `${FirstNames[randomNumber1]} ${LastNames[randomNumber2]}`;
+  }
+
+  /**
+   * A function that prints the given message to the console based on the mode (Dev or Prod)
+   * @param message The message to be displayed in the console
+   */
+  devConsoleLog(message: string): void {
+    const mode = this.prodMode$.getValue();
+    if (!mode) {
+      console.log(message);
+    }
   }
 
 }

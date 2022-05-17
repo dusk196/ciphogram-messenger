@@ -2,7 +2,7 @@ import { Component, ElementRef, Inject, OnDestroy, ViewChild, ViewChildren } fro
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
 
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { cloneDeep } from 'lodash';
 
 import { RoutePaths, ErrorModal, GenericConst, MessageConst, NoUserModal } from 'src/app/types/enums';
@@ -33,9 +33,11 @@ export class MessagesComponent implements OnDestroy {
   localUserSubs: Subscription;
   message: string = '';
   copyText: string = GenericConst.Copy;
-  placeholderText: string = MessageConst.Placeholder;
+  placeholderText: string = '';
   modalDismiss: boolean = false;
-  isMsgPending: boolean = false;
+  isEncrypted: boolean = false;
+  isProdMode: boolean = true;
+  unsubscibe$: any = new Subject();
   modalDetails: IModal = {
     title: '',
     message: '',
@@ -51,14 +53,21 @@ export class MessagesComponent implements OnDestroy {
     private readonly _dbService: DbService,
     private readonly _cryptoService: CryptoService
   ) {
-    this.localUserSubs = this._utilsService.getAlias().subscribe((alias: ILocalUser) => {
-      if (this._utilsService.isNullOrEmpty(alias.associatedRoomId)) {
-        this._router.navigate([`/${RoutePaths.Home}`]);
-      } else {
-        this.localUser = { ...alias };
-        this.aliasFormData = cloneDeep(alias.name);
-      }
-    });
+    this._utilsService.getMode()
+      .pipe(takeUntil(this.unsubscibe$))
+      .subscribe((mode: boolean) => {
+        this.isProdMode = mode;
+        this.placeholderText = this.isProdMode ? MessageConst.Placeholder : MessageConst.Placeholder + MessageConst.ProdPlaceholder;
+      });
+    this.localUserSubs = this._utilsService.getAlias()
+      .subscribe((alias: ILocalUser) => {
+        if (this._utilsService.isNullOrEmpty(alias.associatedRoomId)) {
+          this._router.navigate([`/${RoutePaths.Home}`]);
+        } else {
+          this.localUser = { ...alias };
+          this.aliasFormData = cloneDeep(alias.name);
+        }
+      });
     const dbRef: DatabaseReference = this._dbService.getDbRef();
     const userParams: string = `${environment.dbKey}/${this.roomId}/currentUsers`;
     this.allUsersHook = onValue(child(dbRef, userParams), (snapshot) => {
@@ -131,8 +140,7 @@ export class MessagesComponent implements OnDestroy {
   }
 
   sendMessage(): void {
-    if (this.message.replace(/\n/g, '').length > 0) {
-      this.isMsgPending = true;
+    if (this.message.replace(/\n/g, '').length > 0 && this.message.length <= 2000) {
       this.allConnectedUsers.forEach((user: IUser) => {
         const msg: IMessage = {
           id: this._uuidService.generateUuid(),
@@ -143,6 +151,7 @@ export class MessagesComponent implements OnDestroy {
         };
         this.allMessages.push(msg);
       });
+      this.message = '';
       this._dbService.updateMessages(this.roomId, this.allMessages)
         .then(() => {
           const elemRef: Element = this.chatContainer?.nativeElement;
@@ -150,8 +159,6 @@ export class MessagesComponent implements OnDestroy {
           setTimeout(() => {
             elemRef.getElementsByTagName('textarea')[0].focus();
           });
-          this.message = '';
-          this.isMsgPending = false;
         })
         .catch((err: Error) => {
           this.modalDetails = {
@@ -160,9 +167,7 @@ export class MessagesComponent implements OnDestroy {
             show: true
           };
           this.modalDismiss = true;
-          this.message = '';
           this.allMessages.pop();
-          this.isMsgPending = false;
           console.error(err);
         });
     } else {
@@ -188,6 +193,8 @@ export class MessagesComponent implements OnDestroy {
     this.localUserSubs.unsubscribe();
     this.allUsersHook();
     this.allMsgsHook();
+    this.unsubscibe$.next();
+    this.unsubscibe$.complete();
   }
 
 }

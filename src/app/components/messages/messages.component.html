@@ -6,11 +6,16 @@
         <h3>Room ID: {{roomId}}</h3>
         <button type="button" class="copy tooltip" (click)="onCopy()" (mouseenter)="onMouseEnter()">
           <span class="d-none">copy new room id</span>
-          <span class="tooltip-text" [innerText]="copyText"></span>
+          <span class="tooltip-text tooltip-msg" [innerText]="copyText"></span>
         </button>
       </div>
     </div>
     <div class="right">
+      <button *ngIf="!isProdMode" type="button" class="switch tooltip" [ngClass]="isEncrypted ? 'on':'off'"
+        (click)="isEncrypted = !isEncrypted">
+        <span class="d-none">toggle encryption</span>
+        <span class="tooltip-text tooltip-msg" [innerText]="isEncrypted?'Show decrypted!':'Show encrypted!'"></span>
+      </button>
       <button type="button" [routerLink]="'/home'">Exit</button>
     </div>
   </header>
@@ -20,8 +25,10 @@
         <div class="chat-wrapper" *ngFor="let msg of allMessages">
           <div *ngIf="msg.intendedRecipientId === localUser.id"
             [ngClass]="msg.createdBy === localUser.id ?'chat-right': 'chat-left'">
-            <p class="name">{{msg.createdBy | userById: allConnectedUsers}}</p>
-            <div [innerText]="(msg.secretMessage | decryptMsgs) || 'Decrypting...'"></div>
+            <p class="name" [innerText]="isEncrypted ? msg.createdBy : msg.createdBy | userById: allConnectedUsers"></p>
+            <div
+              [innerText]="isEncrypted ? msg.secretMessage : ((msg.secretMessage | decryptMsgs) || 'ALERT: Unable to decrypt!')">
+            </div>
             <p class="time">{{msg.createdAt | date:'h:mm a, dd MMM yyyy'}}</p>
           </div>
         </div>
@@ -29,8 +36,8 @@
       <div class="bottom">
         <div class="text-container">
           <textarea title="msg" class="text" [placeholder]="placeholderText" [(ngModel)]="message"
-            (keyup.enter)="sendMessage()" [disabled]="isMsgPending" autofocus></textarea>
-          <button type="button" class="send" (click)="sendMessage()" [disabled]="isMsgPending">
+            (keyup.enter)="sendMessage()" maxlength="2000" autofocus></textarea>
+          <button type="button" class="send" (click)="sendMessage()">
             <span class="d-none">send</span>
           </button>
         </div>
@@ -42,7 +49,8 @@
           <h3>Online: {{allConnectedUsers.length}}</h3>
           <ul>
             <li *ngFor="let user of allConnectedUsers">
-              <span [ngClass]="{'bold': user.id === localUser.id}">{{user.name}}</span>
+              <span [ngClass]="{'bold': user.id === localUser.id}"
+                [innerText]="isEncrypted ? user.id : user.name"></span>
             </li>
           </ul>
         </div>

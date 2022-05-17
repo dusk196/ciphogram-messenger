@@ -138,7 +138,7 @@ $active-black: #202020;
 
       .alias-container {
         .alias {
-          margin       : 50px 10px 50px 10px;
+          margin       : 50px 10px 10px 10px;
           width        : 30vw;
           border       : solid $white;
           border-width : 1px 0px 1px 1px;
@@ -166,6 +166,24 @@ $active-black: #202020;
             color     : $active-black;
             background: $white;
           }
+        }
+      }
+
+      .prod-mode {
+        display      : flex;
+        margin-bottom: 50px;
+
+        input {
+          width : 1em;
+          height: 1em;
+          cursor: pointer;
+        }
+
+        label {
+          padding            : 7px 0px 7px;
+          cursor             : pointer;
+          -webkit-user-select: none;
+          user-select        : none;
         }
       }
     }
