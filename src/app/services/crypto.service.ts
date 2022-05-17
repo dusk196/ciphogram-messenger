@@ -111,6 +111,24 @@ export class CryptoService {
     return final;
   }
 
+  decryptDataByAes(text: string): string {
+    const decodedSecret = util.decode64(text);
+    const secret = decodedSecret.slice(0, 48);
+    const encrypted = decodedSecret.slice(48);
+    const iv = secret.slice(0, 16);
+    const key = secret.slice(16, 48);
+    const aesCipher = cipher.createDecipher('AES-CBC', key);
+    aesCipher.start({ iv: iv });
+    aesCipher.update(util.createBuffer(encrypted));
+    aesCipher.finish();
+    const decrypted = aesCipher.output.toString();
+    console.log('decrypted: ', decrypted);
+    for (let i = 0; i < 20000; i++) {
+      console.log(i)
+    }
+    return decrypted;
+  }
+
   getRsaPublicKey(): string {
     return this.rsaKeyPair.publicKey;
   }
