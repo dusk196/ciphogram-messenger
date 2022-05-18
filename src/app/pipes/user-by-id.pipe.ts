@@ -8,7 +8,12 @@ import { IUser } from 'src/app/types/sauf.types';
 export class UserByIdPipe implements PipeTransform {
 
   transform(value: string, args: IUser[]): string {
-    return args.filter(x => x.id === value)[0].name;
+    const filteredUser = args.filter(x => x.id === value);
+    if (filteredUser.length === 0) {
+      return 'Unknown User';
+    } else {
+      return filteredUser[0].name;;
+    }
   }
 
 }
