@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnDestroy, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, OnDestroy, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
 
@@ -189,12 +189,29 @@ export class MessagesComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.allConnectedUsers.filter((x: IUser, index: number) => {
+      if (x.id === this.localUser.id) {
+        this.allConnectedUsers.splice(index, 1);
+        if (this.allConnectedUsers.length === 0) {
+          this._dbService.deleteRoom(this.roomId);
+        } else {
+          this._dbService.updateUsers(this.roomId, this.allConnectedUsers);
+        }
+      }
+    });
     this._utilsService.resetAlias();
     this.localUserSubs.unsubscribe();
     this.allUsersHook();
     this.allMsgsHook();
     this.unsubscibe$.next();
     this.unsubscibe$.complete();
+  }
+
+  @HostListener('window:beforeunload')
+  onBeforeUnload() {
+    console.log('beforeunload');
+    this.ngOnDestroy();
+    return;
   }
 
 }

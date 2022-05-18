@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Database, DatabaseReference, DataSnapshot, get, ref, set, update, child } from "@angular/fire/database";
+import { Database, DatabaseReference, DataSnapshot, get, ref, set, update, remove, child } from "@angular/fire/database";
 import { UtilsService } from 'src/app/services/utils.service';
 import { environment } from 'src/environments/environment';
 import { IChat, IMessage, IUser } from 'src/app/types/sauf.types';
@@ -20,6 +20,16 @@ export class DbService {
   createRoom(details: IChat): Promise<void> {
     const dbRef: DatabaseReference = this.getDbRef(`${environment.dbKey}/${details.associatedRoomId}`);
     return set(dbRef, details);
+  }
+
+  /**
+   * Deletes the room with the provided unique id
+   * @param roomId  - { roomId: string }
+   * @returns {Promise<void>}
+   */
+  deleteRoom(roomId: string): Promise<void> {
+    const dbRef: DatabaseReference = this.getDbRef(`${environment.dbKey}/${roomId}`);
+    return remove(dbRef);
   }
 
   /**
