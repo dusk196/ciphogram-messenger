@@ -1,27 +1,47 @@
-# Sauf Messenger [In-Progress]
+# S.A.U.F Messenger
+
+[![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.io/)
+[![Angular Material](https://img.shields.io/badge/Angular_Material-3f51b5?style=for-the-badge&logo=angular&logoColor=white)](https://material.angular.io/)
+
+[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)](http://perso.crans.org/besson/LICENSE.html)
+[![Open Source? Yes!](https://img.shields.io/badge/Open_Source%3F-Yes!-blue?style=for-the-badge&logo=gitHub&logoColor=white)](https://opensource.com/resources/what-open-source/)
+![Language](https://img.shields.io/github/languages/top/dusk196/sauf-messenger?style=for-the-badge)
+![Size](https://img.shields.io/github/languages/code-size/dusk196/sauf-messenger?style=for-the-badge)
+
+## Safe & Secure, Anonymous, Untrackable and Fast
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.4.
 
-## Development server
+[**DEMO**: https://sauf-messenger.web.app/](https://sauf-messenger.web.app/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Introduction
 
-## Code scaffolding
+Have you ever felt the need of safe & secure, 100% anonymous, untrackable & still quite fast messenger? I sure did! Personally, I take privacy very seriously. I don't even support using WhatsApp or even Google only because of my privacy concerns. Hence, the **SAUF Messenger**!
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## How it is different?
 
-## Build
+* No session, no cookie, no tracking! 100% anonymous.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+* No accounts required. Only real-time usage!
 
-## Running unit tests
+* Uses true end-to-end (E2EE) encryption for both 1 to 1 and group chats without taking any toll on performance… How ? By the power of both symmetrical (AES CBC) & asymmetrical encryption (RSA)!
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* No backend… Well, sort of! Thanks to Firebase’s real time database. How else it’d be this fast?
 
-## Running end-to-end tests
+* Your messages are self-destructive as soon as you leave the system. C'mon, afterall it's the free tier of Firebase! :P
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## How the encryption works here in details (combination of symmetrical AES-CBC & asymmetrical RSA)
 
-## Further help
+1. User gets a `RSA Key pair` that includes a `Public Key` & a super super super secret `Private Key`.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+2. A random room is created/joined.
+
+3. User (let's say A) shares his `Public Key` with other members (let's say B & C) of the room.
+
+4. Now, if B needs to send any message to A, he will generate a random super secret `AES Key` and encrypt the plaintext message (let's call that `Cipher Text`).
+
+5. Then B will encrypt the `AES Key` using A's `Public RSA Key` and share it along with `Cipher Text`. Note that, **Cipher Text can only be decrypted by that particular super secret AES Key**. And in RSA, **anything that's encrypted with a Public Key can only be decrypted by a Public Key of the same pair**.
+
+6. Now, A will use his `Private Key` (_which is only in his system in real time & never left it_) to get the super secret `AES Key`.
+
+7. Once A gets the super secret `AES Key`, now he can finally use it to decrypt the `Cipher Text`.

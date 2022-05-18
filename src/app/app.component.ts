@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
 
   ngOnInit(): void {
-    const intro = 'color: tomato; background: #FAEBD7; -webkit-text-stroke: 1px black; font-size: 20px;';
+    const intro = 'color: tomato; background: #FAEBD7; -webkit-text-stroke: 1px black; font-size: 20px; border-radius: 25px;';
     const body = 'color: #9E2A2B; background: #FAEBD7; font-size: 14px; border-radius: 25px;';
     console.log('%c  Checking under the hoods, eh?!! 😏😏  ', intro);
     console.group('%c  Surprise!! Surprise!! 😎  ', intro);
