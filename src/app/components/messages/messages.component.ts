@@ -209,7 +209,6 @@ export class MessagesComponent implements OnDestroy {
 
   @HostListener('window:beforeunload')
   onBeforeUnload() {
-    console.log('beforeunload');
     this.ngOnDestroy();
     return;
   }

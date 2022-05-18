@@ -4,8 +4,8 @@
       <button type="button" (click)="closeModal()">&times;</button>
     </div>
     <div class="modal-body">
-      <p>{{modalDetails.title}}</p>
-      <p>{{modalDetails.message}}</p>
+      <div class="title" [innerText]="modalDetails.title"></div>
+      <div [innerText]="modalDetails.message"></div>
     </div>
     <div class="modal-footer">
       <button type="button" (click)="closeModal()">Got it!</button>

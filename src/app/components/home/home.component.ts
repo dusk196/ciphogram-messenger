@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataSnapshot } from '@angular/fire/database';
 
 import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/sauf.types';
-import { RoutePaths, ErrorModal, NoRoomModal, GenericConst } from 'src/app/types/enums';
+import { RoutePaths, ErrorModal, NoRoomModal, HowModal, GenericConst } from 'src/app/types/enums';
 
 import { UuidService } from 'src/app/services/uuid.service';
 import { UtilsService } from 'src/app//services/utils.service';
@@ -158,6 +158,14 @@ export class HomeComponent implements OnInit {
 
   closeModal(): void {
     this.modalDetails.show = false;
+  }
+
+  showHow(): void {
+    this.modalDetails = {
+      title: HowModal.Title,
+      message: HowModal.Message,
+      show: true
+    };
   }
 
   onModeChange(): void {

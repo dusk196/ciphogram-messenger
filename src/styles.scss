@@ -197,8 +197,14 @@ app-home {
   }
 
   .modal-body {
-    padding  : 0px 64px;
-    font-size: 2em;
+    padding   : 0px 64px;
+    font-size : 2em;
+    max-height: 300px;
+    overflow-x: auto;
+
+    .title {
+      font-weight: 600;
+    }
   }
 
   .modal-footer {
