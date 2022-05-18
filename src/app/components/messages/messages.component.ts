@@ -140,18 +140,19 @@ export class MessagesComponent implements OnDestroy {
   }
 
   sendMessage(): void {
-    if (this.message.replace(/\n/g, '').length > 0 && this.message.length <= 2000) {
+    const localMsg = cloneDeep(this.message);
+    this.message = '';
+    if (localMsg.replace(/\n/g, '').length > 0 && localMsg.length <= 2000) {
       this.allConnectedUsers.forEach((user: IUser) => {
         const msg: IMessage = {
           id: this._uuidService.generateUuid(),
-          secretMessage: this._cryptoService.encryptDataByAes(this.message, user.publicKey),
+          secretMessage: this._cryptoService.encryptDataByAes(localMsg, user.publicKey),
           createdAt: new Date(),
           createdBy: this.localUser.id,
           intendedRecipientId: user.id
         };
         this.allMessages.push(msg);
       });
-      this.message = '';
       this._dbService.updateMessages(this.roomId, this.allMessages)
         .then(() => {
           const elemRef: Element = this.chatContainer?.nativeElement;
@@ -170,8 +171,6 @@ export class MessagesComponent implements OnDestroy {
           this.allMessages.pop();
           console.error(err);
         });
-    } else {
-      this.message = '';
     }
   }
 
