@@ -40,7 +40,7 @@ Have you ever felt the need of safe & secure, 100% anonymous, untrackable & stil
 
 4. Now, if B needs to send any message to A, he will generate a random super secret `AES Key` and encrypt the plaintext message (let's call that `Cipher Text`).
 
-5. Then B will encrypt the `AES Key` using A's `Public RSA Key` and share it along with `Cipher Text`. Note that, **Cipher Text can only be decrypted by that particular super secret AES Key**. And in RSA, **anything that's encrypted with a Public Key can only be decrypted by a Public Key of the same pair**.
+5. Then B will encrypt the `AES Key` using A's `Public RSA Key` and share it along with `Cipher Text`. Note that, **Cipher Text can only be decrypted by that particular super secret AES Key**. And in RSA, **anything that's encrypted with a Public Key can only be decrypted by a Private Key of the same pair**.
 
 6. Now, A will use his `Private Key` (_which is only in his system in real time & never left it_) to get the super secret `AES Key`.
 
