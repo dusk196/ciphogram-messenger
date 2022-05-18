@@ -1,6 +1,6 @@
 export const environment = {
   firebase: {
-    projectId: 'sauf-messenger',
+    projectId: '',
     appId: '',
     databaseURL: '',
     storageBucket: '',
@@ -10,5 +10,9 @@ export const environment = {
     measurementId: '',
   },
   dbKey: '',
+  rsa: {
+    bits: 512,
+    workers: 2,
+  },
   production: true
 };
