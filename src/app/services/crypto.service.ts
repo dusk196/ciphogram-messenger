@@ -4,6 +4,7 @@ import { cloneDeep } from 'lodash';
 import { pki, util, cipher, random, pkcs5 } from 'node-forge';
 import { environment } from 'src/environments/environment';
 import { UuidService } from 'src/app/services/uuid.service';
+import { UtilsService } from 'src/app/services/utils.service';
 import { IRsaKeyPair } from 'src/app/types/sauf.types';
 
 @Injectable({
@@ -14,7 +15,11 @@ export class CryptoService {
 
   private rsaKeyPair: IRsaKeyPair = { privateKey: '', publicKey: '' };
 
-  constructor(private readonly _router: Router, private readonly _uuidService: UuidService) {
+  constructor(
+    private readonly _router: Router,
+    private readonly _uuidService: UuidService,
+    private readonly _utilsService: UtilsService
+  ) {
     this.generateRsaKeyPair();
   }
 
@@ -39,6 +44,8 @@ export class CryptoService {
    * @returns {string}
    */
   getRsaPublicKey(): string {
+    this._utilsService.devConsoleLog('Your RSA Public key:', this.rsaKeyPair.publicKey);
+    this._utilsService.devConsoleLog('Your super super super secret RSA Private key:', this.rsaKeyPair.privateKey);
     return this.rsaKeyPair.publicKey;
   }
 
@@ -50,8 +57,9 @@ export class CryptoService {
    */
   encryptDataByRsa(data: string, publicKey: string): string {
     const pub = pki.publicKeyFromPem(publicKey);
-    const encrypted = pub.encrypt(data);
-    return util.encode64(encrypted);
+    const encrypted = util.encode64(pub.encrypt(data));
+    this._utilsService.devConsoleLog('AES Secret encrypted by RSA public key:', encrypted);
+    return encrypted;
   }
 
   /**
@@ -62,20 +70,24 @@ export class CryptoService {
   decryptDataByRsa(data: string): string {
     const priv = pki.privateKeyFromPem(this.rsaKeyPair.privateKey);
     const decrypted = priv.decrypt(util.decode64(data));
+    this._utilsService.devConsoleLog('AES Secret decrypted by RSA private key:', util.encode64(decrypted));
     return decrypted;
   }
 
   /**
    * Fetches a random AES secret
-   * @returns {string}
+   * @returns {iv, key}
    */
-  private getAesSecret(): string {
+  private getAesSecret(): { iv: string, key: string } {
     const salt = random.getBytesSync(16);
     const iv = random.getBytesSync(16);
     const password = this._uuidService.generateUuid();
     const key = pkcs5.pbkdf2(password, salt, 100000, 256 / 8);
-    const secret = iv + key;
-    return secret;
+    this._utilsService.devConsoleLog('AES Salt: ', util.encode64(salt));
+    this._utilsService.devConsoleLog('AES initialization vector (IV): ', util.encode64(iv));
+    this._utilsService.devConsoleLog('AES password: ', util.encode64(password));
+    this._utilsService.devConsoleLog('AES secret key: ', util.encode64(key));
+    return { iv, key };
   }
 
   /**
@@ -85,16 +97,15 @@ export class CryptoService {
    * @returns {string}
    */
   encryptDataByAes(text: string, rsaPublicKey: string): string {
-    const secret = this.getAesSecret();
-    const iv = secret.slice(0, 16);
-    const key = secret.slice(16, 48);
+    const { iv, key } = this.getAesSecret();
     const aesCipher = cipher.createCipher('AES-CBC', key);
     aesCipher.start({ iv: iv });
     aesCipher.update(util.createBuffer(text));
     aesCipher.finish();
     const encrypted = util.encode64(aesCipher.output.bytes());
-    const superSecret = this.encryptDataByRsa(secret, rsaPublicKey);
+    const superSecret = this.encryptDataByRsa(iv + key, rsaPublicKey);
     const final = superSecret + encrypted;
+    this._utilsService.devConsoleLog('Message encrypted by AES using AES Secret key & IV:', encrypted);
     return final;
   }
 
@@ -113,6 +124,7 @@ export class CryptoService {
     aesCipher.update(util.createBuffer(encrypted));
     aesCipher.finish();
     const decrypted = aesCipher.output.toString();
+    this._utilsService.devConsoleLog('Message decrypted by AES using AES Secret key & IV:', decrypted);
     return decrypted;
   }
 

@@ -21,8 +21,6 @@ body {
 }
 
 * {
-  scrollbar-color: $black transparent;
-
   &::-webkit-scrollbar {
     width: 10px;
   }

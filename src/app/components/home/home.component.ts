@@ -46,8 +46,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.userDetails.id = this._uuidService.generateUuid();
     this.userDetails.associatedRoomId = this._uuidService.generateUuid();
-    this._utilsService.devConsoleLog('Generated alias: ' + this.userDetails.name);
-    this._utilsService.devConsoleLog('Generated Room ID: ' + this.userDetails.associatedRoomId);
   }
 
   onCopy(): void {
@@ -57,7 +55,7 @@ export class HomeComponent implements OnInit {
 
   refreshId(): void {
     this.userDetails.associatedRoomId = this._uuidService.generateUuid();
-    this._utilsService.devConsoleLog('Generated Room ID: ' + this.userDetails.associatedRoomId);
+    this._utilsService.devConsoleLog('Generated Room ID:', this.userDetails.associatedRoomId);
   }
 
   checkRoomId(): void {
@@ -150,7 +148,8 @@ export class HomeComponent implements OnInit {
 
   generateAlias(): void {
     this.userDetails.name = this._utilsService.generateRandomAlias();
-    this._utilsService.devConsoleLog('Generated alias: ' + this.userDetails.name);
+    this._utilsService.devConsoleLog('Generated alias ID: ', this.userDetails.id);
+    this._utilsService.devConsoleLog('Generated alias: ', this.userDetails.name);
   }
 
   onMouseEnter(): void {

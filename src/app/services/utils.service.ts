@@ -88,10 +88,13 @@ export class UtilsService {
    * A function that prints the given message to the console based on the mode (Dev or Prod)
    * @param message The message to be displayed in the console
    */
-  devConsoleLog(message: string): void {
+  devConsoleLog(header: string, message: string): void {
+    const headerStyle = 'color: red; font-size: 14px;';
+    const msgStyle = 'font-size: 10px;';
     const mode = this.prodMode$.getValue();
     if (!mode) {
-      console.log(message);
+      console.log(`%c${header}`, headerStyle);
+      console.log(`%c${message}`, msgStyle);
     }
   }
 
