@@ -103,9 +103,9 @@ export class CryptoService {
     aesCipher.update(util.createBuffer(text));
     aesCipher.finish();
     const encrypted = util.encode64(aesCipher.output.bytes());
+    this._utilsService.devConsoleLog('Message encrypted by AES using AES Secret key & IV:', encrypted);
     const superSecret = this.encryptDataByRsa(iv + key, rsaPublicKey);
     const final = superSecret + encrypted;
-    this._utilsService.devConsoleLog('Message encrypted by AES using AES Secret key & IV:', encrypted);
     return final;
   }
 
