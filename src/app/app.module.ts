@@ -18,6 +18,7 @@ import { ModalComponent } from './components/shared/modal/modal.component';
 
 import { UserByIdPipe } from './pipes/user-by-id.pipe';
 import { DecryptMsgsPipe } from './pipes/decrypt-msgs.pipe';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,13 @@ import { DecryptMsgsPipe } from './pipes/decrypt-msgs.pipe';
     AppRoutingModule,
     FormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideDatabase(() => getDatabase())
+    provideDatabase(() => getDatabase()),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
