@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataSnapshot } from '@angular/fire/database';
+import { child, DatabaseReference, DataSnapshot, onValue, Unsubscribe } from '@angular/fire/database';
 
 import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/sauf.types';
 import { RoutePaths, ErrorModal, NoRoomModal, HowModal, GenericConst } from 'src/app/types/enums';
@@ -9,6 +9,7 @@ import { UuidService } from 'src/app/services/uuid.service';
 import { UtilsService } from 'src/app//services/utils.service';
 import { DbService } from 'src/app/services/db.service';
 import { CryptoService } from 'src/app/services/crypto.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,8 @@ import { CryptoService } from 'src/app/services/crypto.service';
 
 export class HomeComponent implements OnInit {
 
+  private counterHook: Unsubscribe;
+  counter: number = 0;
   userRoomId: string = '';
   isValidUserRoomId: boolean = false;
   copyText: string = GenericConst.Copy;
@@ -41,7 +44,16 @@ export class HomeComponent implements OnInit {
     private readonly _dbService: DbService,
     private readonly _router: Router,
     private readonly _cryptoService: CryptoService
-  ) { }
+  ) {
+    const dbRef: DatabaseReference = this._dbService.getDbRef();
+    const counterParams: string = `${environment.dbKey}/totalMsgs`;
+    this.counterHook = onValue(child(dbRef, counterParams), (snapshot) => {
+      const data = snapshot.val();
+      this.counter = data ? data : 0;
+    }, (err: Error) => {
+      console.error(err);
+    });
+  }
 
   ngOnInit(): void {
     this.userDetails.id = this._uuidService.generateUuid();

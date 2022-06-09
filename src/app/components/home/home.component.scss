@@ -199,6 +199,8 @@ $active-black: #202020;
     align-items  : flex-end;
     color        : $white;
     margin-bottom: 20px;
+    width        : 100%;
+    text-align   : center;
 
     a:link,
     a:visited {

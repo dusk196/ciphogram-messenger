@@ -43,6 +43,16 @@ export class DbService {
   }
 
   /**
+   * Increases the number of counter
+   * @param counter - number to increase
+   * @returns {Promise<void>}
+   */
+  updateCounter(counter: number): Promise<void> {
+    const dbRef: DatabaseReference = this.getDbRef(`${environment.dbKey}`);
+    return update(dbRef, { totalMsgs: counter });
+  }
+
+  /**
    * Adds a new user to the room
    * @param roomId - room id
    * @param currentUsers - array of users

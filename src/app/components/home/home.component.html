@@ -56,8 +56,13 @@
     </div>
   </main>
   <footer>
-    Made with ❤️ by Sayantan Roy. Source code:
-    <a rel="noopener" href="https://github.com/dusk196/sauf-messenger" target="_blank">GitHub</a>
+    <div>
+      <p>
+        Made with ❤️ by Sayantan Roy. Source code:
+        <a rel="noopener" href="https://github.com/dusk196/sauf-messenger" target="_blank">GitHub</a>
+      </p>
+    </div>
+    <p>Total messages exchanged: {{counter}}</p>
   </footer>
 </div>
 <app-modal [modalDetails]="modalDetails" (closeModalEvent)="closeModal()"></app-modal>

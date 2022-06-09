@@ -26,6 +26,7 @@ export class MessagesComponent implements OnDestroy {
   readonly roomId: string = this._activatedroute.snapshot.params['roomId'];
   private allUsersHook: Unsubscribe;
   private allMsgsHook: Unsubscribe;
+  private counterHook: Unsubscribe;
   localUser: ILocalUser = { id: '', name: '', associatedRoomId: '' }
   allConnectedUsers: IUser[] = [];
   allMessages: IMessage[] = [];
@@ -37,6 +38,7 @@ export class MessagesComponent implements OnDestroy {
   modalDismiss: boolean = false;
   isEncrypted: boolean = false;
   isProdMode: boolean = true;
+  counter: number = 0;
   unsubscibe$: any = new Subject();
   modalDetails: IModal = {
     title: '',
@@ -69,6 +71,13 @@ export class MessagesComponent implements OnDestroy {
         }
       });
     const dbRef: DatabaseReference = this._dbService.getDbRef();
+    const counterParams: string = `${environment.dbKey}/totalMsgs`;
+    this.counterHook = onValue(child(dbRef, counterParams), (snapshot) => {
+      const data = snapshot.val();
+      this.counter = data ? data : 0;
+    }, (err: Error) => {
+      console.error(err);
+    });
     const userParams: string = `${environment.dbKey}/${this.roomId}/currentUsers`;
     this.allUsersHook = onValue(child(dbRef, userParams), (snapshot) => {
       const data = snapshot.val();
@@ -153,6 +162,7 @@ export class MessagesComponent implements OnDestroy {
         };
         this.allMessages.push(msg);
       });
+      this._dbService.updateCounter(this.counter + 1);
       this._dbService.updateMessages(this.roomId, this.allMessages)
         .then(() => {
           const elemRef: Element = this.chatContainer?.nativeElement;
@@ -202,6 +212,7 @@ export class MessagesComponent implements OnDestroy {
     this.localUserSubs.unsubscribe();
     this.allUsersHook();
     this.allMsgsHook();
+    this.counterHook();
     this.unsubscibe$.next();
     this.unsubscibe$.complete();
   }
