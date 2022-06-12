@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Database, DatabaseReference, DataSnapshot, get, ref, set, update, remove, child } from "@angular/fire/database";
 import { UtilsService } from 'src/app/services/utils.service';
 import { environment } from 'src/environments/environment';
-import { IChat, IMessage, IUser } from 'src/app/types/sauf.types';
+import { IChat, IMessage, IUser } from 'src/app/types/types';
 
 @Injectable({
   providedIn: 'root'

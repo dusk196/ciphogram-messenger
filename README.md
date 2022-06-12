@@ -1,12 +1,18 @@
-# S.A.U.F Messenger
+# MAZE - be amazed! 😎
+
+## The  safe & secure, 100% anonymous, untrackable & still quite fast messenger made for privacy enthusiasts
 
 [![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.io/)
 [![Angular Material](https://img.shields.io/badge/Angular_Material-3f51b5?style=for-the-badge&logo=angular&logoColor=white)](https://material.angular.io/)
 
+🤐 The 1st rule about MAZE is you don't talk about MAZE!
+
+* The 2nd rule about MAZE is you don't talk about MAZE!
+
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)](http://perso.crans.org/besson/LICENSE.html)
 [![Open Source? Yes!](https://img.shields.io/badge/Open_Source%3F-Yes!-blue?style=for-the-badge&logo=gitHub&logoColor=white)](https://opensource.com/resources/what-open-source/)
-![Language](https://img.shields.io/github/languages/top/dusk196/sauf-messenger?style=for-the-badge)
-![Size](https://img.shields.io/github/languages/code-size/dusk196/sauf-messenger?style=for-the-badge)
+![Language](https://img.shields.io/github/languages/top/dusk196/maze-messenger?style=for-the-badge)
+![Size](https://img.shields.io/github/languages/code-size/dusk196/maze-messenger?style=for-the-badge)
 
 ## Safe & Secure, Anonymous, Untrackable and Fast
 
@@ -16,7 +22,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Introduction
 
-Have you ever felt the need of safe & secure, 100% anonymous, untrackable & still quite fast messenger? I sure did! Personally, I take privacy very seriously. I don't even support using WhatsApp or even Google only because of my privacy concerns. Hence, the **SAUF Messenger**!
+Have you ever felt the need of safe & secure, 100% anonymous, untrackable & still quite fast messenger? I sure did! Personally, I take privacy very seriously. I don't even support using WhatsApp or even Google services; only because of my privacy concerns. Hence, the **MAZE Messenger**!
 
 ## How it is different?
 

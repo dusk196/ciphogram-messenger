@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { isNull, isEmpty, isUndefined } from 'lodash';
 import { FirstNames, LastNames } from 'src/app/utils/names';
-import { ILocalUser } from 'src/app/types/sauf.types';
+import { ILocalUser } from 'src/app/types/types';
 
 @Injectable({
   providedIn: 'root'

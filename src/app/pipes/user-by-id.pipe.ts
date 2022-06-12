@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { IUser } from 'src/app/types/sauf.types';
+import { IUser } from 'src/app/types/types';
 
 @Pipe({
   name: 'userById'

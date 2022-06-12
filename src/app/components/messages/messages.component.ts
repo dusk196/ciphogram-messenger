@@ -6,7 +6,7 @@ import { Subject, Subscription, takeUntil } from 'rxjs';
 import { cloneDeep } from 'lodash';
 
 import { RoutePaths, ErrorModal, GenericConst, MessageConst, NoUserModal } from 'src/app/types/enums';
-import { ILocalUser, IMessage, IModal, IUser } from 'src/app/types/sauf.types';
+import { ILocalUser, IMessage, IModal, IUser } from 'src/app/types/types';
 import { UtilsService } from 'src/app/services/utils.service';
 import { DbService } from 'src/app/services/db.service';
 import { environment } from 'src/environments/environment';

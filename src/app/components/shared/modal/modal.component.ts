@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IModal } from 'src/app/types/sauf.types';
+import { IModal } from 'src/app/types/types';
 
 @Component({
   selector: 'app-modal',

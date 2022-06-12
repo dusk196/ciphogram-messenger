@@ -5,7 +5,7 @@ import { pki, util, cipher, random, pkcs5 } from 'node-forge';
 import { environment } from 'src/environments/environment';
 import { UuidService } from 'src/app/services/uuid.service';
 import { UtilsService } from 'src/app/services/utils.service';
-import { IRsaKeyPair } from 'src/app/types/sauf.types';
+import { IRsaKeyPair } from 'src/app/types/types';
 
 @Injectable({
   providedIn: 'root'

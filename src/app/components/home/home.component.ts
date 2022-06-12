@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { child, DatabaseReference, DataSnapshot, onValue, Unsubscribe } from '@angular/fire/database';
 
-import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/sauf.types';
+import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/types';
 import { RoutePaths, ErrorModal, NoRoomModal, HowModal, GenericConst } from 'src/app/types/enums';
 
 import { UuidService } from 'src/app/services/uuid.service';

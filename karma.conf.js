@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/sauf-messenger'),
+      dir: require('path').join(__dirname, './coverage/maze-messenger'),
       subdir: '.',
       reporters: [
         { type: 'html' },

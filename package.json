@@ -1,13 +1,13 @@
 {
-  "name": "sauf-messenger",
+  "name": "maze-messenger",
   "version": "1.0.0",
-  "description": "A highly Safe & Secure, Anonymous, Untrackable and Fast (SAUF) Messenger!",
+  "description": "A highly Safe & Secure, Anonymous, Untrackable and Fast (MAZE) Messenger!",
   "contributors": [
     "Sayantan Roy <sayantan.roy@gmail.com>"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/dusk196/sauf-messenger"
+    "url": "https://github.com/dusk196/maze-messenger"
   },
   "license": "GPL-3.0-only",
   "scripts": {
@@ -17,7 +17,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "start-pwa": "ng build && http-server -p 8080 -c-1 dist/sauf-messenger"
+    "start-pwa": "ng build && http-server -p 8080 -c-1 dist/maze-messenger"
   },
   "dependencies": {
     "@angular/animations": "~13.3.0",
