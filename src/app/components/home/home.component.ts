@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { child, DatabaseReference, DataSnapshot, onValue, Unsubscribe } from '@angular/fire/database';
 
@@ -17,7 +17,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./home.component.scss']
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   private counterHook: Unsubscribe;
   counter: number = 0;
@@ -183,6 +183,10 @@ export class HomeComponent implements OnInit {
   onModeChange(): void {
     this.isProdMode = !this.isProdMode;
     this._utilsService.updateMode(this.isProdMode);
+  }
+
+  ngOnDestroy(): void {
+    this.counterHook();
   }
 
 }
