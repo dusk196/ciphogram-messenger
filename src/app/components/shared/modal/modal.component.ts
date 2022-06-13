@@ -3,8 +3,7 @@ import { IModal } from 'src/app/types/types';
 
 @Component({
   selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  templateUrl: './modal.component.html'
 })
 
 export class ModalComponent {

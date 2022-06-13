@@ -7,7 +7,7 @@
 
 🤐 The 2nd rule of MAZE is you DO NOT talk about MAZE!
 
-## The  safe & secure, 100% anonymous, untrackable yet quite fast messenger made for privacy enthusiasts
+## The  safe & secure, 100% anonymous, untrackable yet quite fast messenger made for privacy enthusiasts ❤️
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.4.
 
@@ -20,9 +20,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Introduction
 
-Have you ever felt the need of safe & secure, 100% anonymous, untrackable & still quite fast messenger? I sure did! Personally, I take privacy very seriously. I don't even support using WhatsApp or even Google services; only because of my privacy concerns. Hence, the **MAZE Messenger**!
+Have you ever felt not safe using big corporates messaging platform? Have you ever felt the need of safe & secure, 100% anonymous, untrackable & yet fast messenger with is truly end-to-end encrypted? I sure did! Personally, I take privacy very seriously. I don't even support using WhatsApp or even Google services; only because of my privacy concerns. Hence, the **MAZE Messenger**!
 
-## How is it different?
+## How is it different
 
 * No session, no cookie, no tracking! 100% anonymous.
 
@@ -36,7 +36,7 @@ Have you ever felt the need of safe & secure, 100% anonymous, untrackable & stil
 
 * Your messages are self-destructive as soon as you leave the system. C'mon, afterall it's the free tier of Firebase! :P
 
-## How the encryption works here in details (combination of symmetrical AES-CBC & asymmetrical RSA)
+## So, how the encryption works here in details (combination of symmetrical AES-CBC & asymmetrical RSA)
 
 1. User gets a `RSA Key pair` that includes a `Public Key` & a super super super secret `Private Key`.
 
