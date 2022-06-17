@@ -27,7 +27,7 @@ export class MessagesComponent implements OnDestroy {
   private allUsersHook: Unsubscribe;
   private allMsgsHook: Unsubscribe;
   private counterHook: Unsubscribe;
-  localUser: ILocalUser = { id: '', name: '', associatedRoomId: '' }
+  localUser: ILocalUser = { id: '', name: '', associatedRoomId: '', quickJoinId: '' };
   allConnectedUsers: IUser[] = [];
   allMessages: IMessage[] = [];
   aliasFormData: string = '';

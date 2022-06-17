@@ -10,7 +10,7 @@ import { ILocalUser } from 'src/app/types/types';
 
 export class UtilsService {
 
-  private readonly initialAlias: ILocalUser = { id: '', name: '', associatedRoomId: '' };
+  private readonly initialAlias: ILocalUser = { id: '', name: '', associatedRoomId: '', quickJoinId: '' };
   private readonly alias$: BehaviorSubject<ILocalUser> = new BehaviorSubject(this.initialAlias);
   private readonly initialMode: boolean = true;
   private readonly prodMode$: BehaviorSubject<boolean> = new BehaviorSubject(this.initialMode);

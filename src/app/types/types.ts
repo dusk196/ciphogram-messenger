@@ -8,6 +8,7 @@ export interface ILocalUser {
   id: string;
   name: string;
   associatedRoomId: string;
+  quickJoinId: string;
 }
 
 export interface IUser {
@@ -26,6 +27,7 @@ export interface IMessage {
 
 export interface IChat {
   associatedRoomId: string;
+  quickJoinId: string;
   currentUsers: IUser[];
   messages: IMessage[];
 }

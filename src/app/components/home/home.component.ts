@@ -27,10 +27,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   isChecking: boolean = false;
   isProdMode: boolean = true;
+  quickJoin: string = '';
+  createRoom: boolean = true;
+  timeOut: any;
   userDetails: ILocalUser = {
     id: '',
     name: '',
-    associatedRoomId: ''
+    associatedRoomId: '',
+    quickJoinId: ''
   };
   modalDetails: IModal = {
     title: '',
@@ -57,17 +61,24 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userDetails.id = this._uuidService.generateUuid();
-    this.userDetails.associatedRoomId = this._uuidService.generateUuid();
+    this.refreshId();
   }
 
   onCopy(): void {
     navigator.clipboard.writeText(this.userDetails.associatedRoomId);
     this.copyText = GenericConst.Copied;
+    clearTimeout(this.timeOut);
+    this.timeOut = setTimeout(() => {
+      this.copyText = GenericConst.Copy;
+    }, GenericConst.delay);
   }
 
   refreshId(): void {
     this.userDetails.associatedRoomId = this._uuidService.generateUuid();
     this._utilsService.devConsoleLog('Generated Room ID:', this.userDetails.associatedRoomId);
+    this.userDetails.quickJoinId = this._uuidService.generateUuid();
+    this._utilsService.devConsoleLog('Generated Quick Join ID:', this.userDetails.quickJoinId);
+    this.quickJoin = `${window.location.origin}/join/${this.userDetails.quickJoinId}`;
   }
 
   checkRoomId(): void {
@@ -88,6 +99,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
     const details: IChat = {
       associatedRoomId: this.userDetails.associatedRoomId,
+      quickJoinId: this.userDetails.quickJoinId,
       currentUsers: [user],
       messages: []
     };
@@ -164,9 +176,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this._utilsService.devConsoleLog('Generated alias: ', this.userDetails.name);
   }
 
-  onMouseEnter(): void {
-    this.copyText = GenericConst.Copy;
-  }
+  // onMouseEnter(): void {
+  //   this.copyText = GenericConst.Copy;
+  // }
 
   closeModal(): void {
     this.modalDetails.show = false;

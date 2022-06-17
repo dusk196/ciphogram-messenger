@@ -45,5 +45,6 @@ export enum MessageConst {
 
 export enum GenericConst {
   Copy = 'Copy',
-  Copied = 'Copied'
+  Copied = 'Copied!',
+  delay = 3000
 }
