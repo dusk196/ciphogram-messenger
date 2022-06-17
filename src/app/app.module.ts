@@ -19,6 +19,7 @@ import { ModalComponent } from './components/shared/modal/modal.component';
 import { UserByIdPipe } from './pipes/user-by-id.pipe';
 import { DecryptMsgsPipe } from './pipes/decrypt-msgs.pipe';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
