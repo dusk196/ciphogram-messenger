@@ -4,7 +4,7 @@ import { child, DatabaseReference, DataSnapshot, onValue, Unsubscribe } from '@a
 import { faUser, faPeopleRoof, faRotateRight, faPaste, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/types';
-import { RoutePaths, ErrorModal, ErrorPaste, NoRoomModal, HowModal, GenericConst } from 'src/app/types/enums';
+import { RoutePaths, ErrorModal, ErrorPaste, NoRoomModal, HowModal } from 'src/app/types/enums';
 
 import { UuidService } from 'src/app/services/uuid.service';
 import { UtilsService } from 'src/app//services/utils.service';
@@ -20,7 +20,7 @@ import { environment } from 'src/environments/environment';
 export class HomeComponent implements OnInit, OnDestroy {
 
   private counterHook: Unsubscribe;
-  readonly quickJoin: string = `${window.location.origin}/start`;
+  readonly quickJoin: string = `${window.location.origin}/${RoutePaths.Start}`;
   counter: number = 0;
   userRoomId: string = '';
   isValidUserRoomId: boolean = false;

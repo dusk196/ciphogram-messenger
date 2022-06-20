@@ -1,6 +1,7 @@
 export enum RoutePaths {
   Home = 'home',
   Messages = 'messages',
+  Start = 'start',
   RoomId = 'roomId',
   Error = 'error'
 }

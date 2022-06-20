@@ -67,7 +67,7 @@
         </div>
         <div *ngIf="!createRoom" class="field is-horizontal">
           <div class="field-label is-normal">
-            <label class="label"> Room ID: </label>
+            <label class="label"> Valid Room ID: </label>
           </div>
           <div class="field-body">
             <div class="field has-addons">
@@ -139,7 +139,7 @@
         <p *ngIf="createRoom">
           🔥 You can also use the <strong> Quick Start </strong> link:
           <strong>
-            <a [href]="quickJoin" target="_blank"> {{quickJoin}} </a>
+            <a [href]="quickJoin" target="_self"> {{quickJoin}} </a>
           </strong>
           to create a random room with a random alias and start chatting in no time!
         </p>
