@@ -44,7 +44,8 @@ export enum MessageConst {
 }
 
 export enum GenericConst {
-  Copy = 'Copy',
+  CopyLink = 'Copy Link',
+  CopyID = 'Copy ID',
   Copied = 'Copied!',
   delay = 3000
 }

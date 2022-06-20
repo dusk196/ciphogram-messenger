@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { child, DatabaseReference, DataSnapshot, onValue, Unsubscribe } from '@angular/fire/database';
+import { faUser, faPeopleRoof, faArrowRightToBracket, faCopy, faRotateRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/types';
 import { RoutePaths, ErrorModal, NoRoomModal, HowModal, GenericConst } from 'src/app/types/enums';
@@ -23,13 +24,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   counter: number = 0;
   userRoomId: string = '';
   isValidUserRoomId: boolean = false;
-  copyText: string = GenericConst.Copy;
+  copyLink: string = GenericConst.CopyLink;
+  copyID: string = GenericConst.CopyID;
   isLoading: boolean = false;
   isChecking: boolean = false;
   isProdMode: boolean = true;
   quickJoin: string = '';
   createRoom: boolean = true;
-  timeOut: any;
+  timeOutLink: any;
+  timeOutId: any;
+  faUser: IconDefinition = faUser;
+  faPeopleRoof: IconDefinition = faPeopleRoof;
+  faArrowRightToBracket: IconDefinition = faArrowRightToBracket;
+  faCopy: IconDefinition = faCopy;
+  faRotateRight: IconDefinition = faRotateRight;
   userDetails: ILocalUser = {
     id: '',
     name: '',
@@ -64,12 +72,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.refreshId();
   }
 
-  onCopy(): void {
+  onCopyLink(): void {
+    navigator.clipboard.writeText(this.quickJoin);
+    this.copyLink = GenericConst.Copied;
+    clearTimeout(this.timeOutLink);
+    this.timeOutLink = setTimeout(() => {
+      this.copyLink = GenericConst.CopyLink;
+    }, GenericConst.delay);
+  }
+
+  onCopyID(): void {
     navigator.clipboard.writeText(this.userDetails.associatedRoomId);
-    this.copyText = GenericConst.Copied;
-    clearTimeout(this.timeOut);
-    this.timeOut = setTimeout(() => {
-      this.copyText = GenericConst.Copy;
+    this.copyID = GenericConst.Copied;
+    clearTimeout(this.timeOutId);
+    this.timeOutId = setTimeout(() => {
+      this.copyID = GenericConst.CopyID;
     }, GenericConst.delay);
   }
 
@@ -175,10 +192,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this._utilsService.devConsoleLog('Generated alias ID: ', this.userDetails.id);
     this._utilsService.devConsoleLog('Generated alias: ', this.userDetails.name);
   }
-
-  // onMouseEnter(): void {
-  //   this.copyText = GenericConst.Copy;
-  // }
 
   closeModal(): void {
     this.modalDetails.show = false;

@@ -33,7 +33,7 @@ export class MessagesComponent implements OnDestroy {
   aliasFormData: string = '';
   localUserSubs: Subscription;
   message: string = '';
-  copyText: string = GenericConst.Copy;
+  copyText: string = GenericConst.Copied;
   placeholderText: string = '';
   modalDismiss: boolean = false;
   isEncrypted: boolean = false;
@@ -185,7 +185,7 @@ export class MessagesComponent implements OnDestroy {
   }
 
   onMouseEnter(): void {
-    this.copyText = GenericConst.Copy;
+    this.copyText = GenericConst.Copied;
   }
 
   closeModal(): void {

@@ -28,11 +28,11 @@
 </header>
 <main class="main">
   <section class="section">
-    <p *ngIf="createRoom" class="field">
+    <p *ngIf="createRoom" class="block">
       Getting started with this messenger is really easy. Just create a room and share either the secret Room ID or the
       <strong> Quick Join </strong> link (easiest way) with whomever you like.
     </p>
-    <p *ngIf="!createRoom" class="field">
+    <p *ngIf="!createRoom" class="block">
       Don't have the <strong> Quick Join </strong> link? You can ask the sender for it ot provide the Room ID below to
       join a room.
     </p>
@@ -43,10 +43,22 @@
             <label class="label"> Alias: </label>
           </div>
           <div class="field-body">
-            <div class="field">
-              <div class="control">
+            <div class="field has-addons">
+              <div class="control has-icons-left is-expanded">
                 <input class="field input is-primary" type="text" placeholder="Your Alias (required)"
                   [(ngModel)]="userDetails.name" maxlength=30 [disabled]="(isLoading || isChecking)" />
+                <span class="icon is-small is-left">
+                  <fa-icon [icon]="faUser"> </fa-icon>
+                </span>
+              </div>
+              <div class="control">
+                <button type="button" class="button is-primary" (click)="generateAlias()"
+                  [disabled]="(isLoading || isChecking)">
+                  <span class="icon is-small">
+                    <fa-icon [icon]="faRotateRight"> </fa-icon>
+                  </span>
+                  <span> Random </span>
+                </button>
               </div>
             </div>
           </div>
@@ -57,7 +69,8 @@
             <div class="field">
               <div class="control">
                 <label class="checkbox" for="Demo" (click)="onModeChange()">
-                  <input (change)="onModeChange()" [checked]="isProdMode" type="checkbox" name="Demo" title="Demo" />
+                  <input (change)="onModeChange()" [checked]="isProdMode" type="checkbox" name="is Production Mode"
+                    title="is Production Mode" />
                   Production mode (recommended)
                 </label>
               </div>
@@ -69,16 +82,10 @@
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <div class="buttons">
-                  <button type="button" class="button is-primary" (click)="generateAlias()"
-                    [disabled]="(isLoading || isChecking)">
-                    Random Alias
-                  </button>
-                  <button type="button" class="button is-primary" (click)="generateAlias()" (click)="jumpToRoom()"
-                    [disabled]="userDetails.name.length === 0 || isChecking" [ngClass]="{'is-loading': isLoading}">
-                    Get Started
-                  </button>
-                </div>
+                <button type="button" class="button is-primary" (click)="generateAlias()" (click)="jumpToRoom()"
+                  [disabled]="userDetails.name.length === 0 || isChecking" [ngClass]="{'is-loading': isLoading}">
+                  Get Started
+                </button>
               </div>
             </div>
           </div>
@@ -87,25 +94,47 @@
       <div class="column is-6">
         <div class="field is-horizontal">
           <div class="field-label is-normal">
-            <label class="label"> Room ID: </label>
+            <label class="label"> Quick Join Link: </label>
           </div>
           <div class="field-body">
-            <div class="field">
+            <div class="field has-addons">
+              <div class="control has-icons-left is-expanded">
+                <input class="input is-primary" title="Quick Join Link" type="text" readonly [value]="quickJoin" />
+                <span class="icon is-small is-left">
+                  <fa-icon [icon]="faArrowRightToBracket"> </fa-icon>
+                </span>
+              </div>
               <div class="control">
-                <input class="input is-primary" title="Room ID" type="text" readonly
-                  [value]="userDetails.associatedRoomId" />
+                <button type="button" class="button is-primary" (click)="onCopyLink()">
+                  <span class="icon is-small">
+                    <fa-icon [icon]="faCopy"> </fa-icon>
+                  </span>
+                  <span> {{copyLink}} </span>
+                </button>
               </div>
             </div>
           </div>
         </div>
         <div class="field is-horizontal">
           <div class="field-label is-normal">
-            <label class="label"> Quick Join Link: </label>
+            <label class="label"> Room ID: </label>
           </div>
           <div class="field-body">
-            <div class="field">
+            <div class="field has-addons">
+              <div class="control has-icons-left is-expanded">
+                <input class="input is-primary" title="Room ID" type="text" readonly
+                  [value]="userDetails.associatedRoomId" />
+                <span class="icon is-small is-left">
+                  <fa-icon [icon]="faPeopleRoof"> </fa-icon>
+                </span>
+              </div>
               <div class="control">
-                <input class="input is-primary" title="Quick Join Link" type="text" readonly [value]="quickJoin" />
+                <button type="button" class="button is-primary" (click)="onCopyID()">
+                  <span class="icon is-small">
+                    <fa-icon [icon]="faCopy"> </fa-icon>
+                  </span>
+                  <span> {{copyID}} </span>
+                </button>
               </div>
             </div>
           </div>
@@ -115,15 +144,10 @@
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <div class="buttons">
-                  <button type="button" class="button is-primary" (click)="refreshId()"
-                    [disabled]="(isLoading || isChecking)">
-                    Refresh ID
-                  </button>
-                  <button type="button" class="button is-primary" (click)="onCopy()">
-                    {{copyText}}
-                  </button>
-                </div>
+                <button type="button" class="button is-primary" (click)="refreshId()"
+                  [disabled]="(isLoading || isChecking)">
+                  Refresh IDs
+                </button>
               </div>
             </div>
           </div>
@@ -202,9 +226,9 @@
               </button>
               <input title="Room ID" type="text" readonly [value]="userDetails.associatedRoomId"
                 [disabled]="(isLoading || isChecking)" />
-              <button type="button" class="copy tooltip" (click)="onCopy()">
+              <button type="button" class="copy tooltip" (click)="onCopyLink()">
                 <span class="d-none">copy new room id</span>
-                <span class="tooltip-text" [innerText]="copyText"></span>
+                <span class="tooltip-text" [innerText]="copyLink"></span>
               </button>
             </div>
           </div>
