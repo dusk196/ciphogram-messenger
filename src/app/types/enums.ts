@@ -10,6 +10,11 @@ export enum ErrorModal {
   Message = 'We are facing some difficulties while connecting you to the server. 😒 Please try again.'
 }
 
+export enum ErrorPaste {
+  Title = 'Oh crap! 😱',
+  Message = 'It seems like your browser is preventing us from accessing the clipboard. 😒 Please allow it from the settings & try again.'
+}
+
 export enum NoRoomModal {
   Title = 'Oops! 😒',
   Message = 'We are unable to find that room. You sure you entered correct ID? 🙄 Please try again.'

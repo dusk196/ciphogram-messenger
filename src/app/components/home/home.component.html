@@ -14,10 +14,10 @@
       <nav class="tabs is-boxed is-fullwidth">
         <div class="container">
           <ul>
-            <li [ngClass]="{'is-active': createRoom}" (click)="createRoom=true;">
+            <li [ngClass]="{'is-active': createRoom}" (click)="toogleCreateRoom(true)">
               <a>Create room</a>
             </li>
-            <li [ngClass]="{'is-active': !createRoom}" (click)="createRoom=false;">
+            <li [ngClass]="{'is-active': !createRoom}" (click)="toogleCreateRoom(false)">
               <a>Join Room</a>
             </li>
           </ul>
@@ -29,15 +29,17 @@
 <main class="main">
   <section class="section">
     <p *ngIf="createRoom" class="block">
-      Getting started with this messenger is really easy. Just create a room and share either the secret Room ID or the
-      <strong> Quick Join </strong> link (easiest way) with whomever you like.
+      Since this messenger is completely anonymous, there is no account associated with it. Just create a private room
+      where you can share either the secret <strong> Room ID </strong> or the <strong> Quick Join Link </strong>
+      (easiest way) with the other participants.
     </p>
     <p *ngIf="!createRoom" class="block">
-      Don't have the <strong> Quick Join </strong> link? You can ask the sender for it ot provide the Room ID below to
-      join a room.
+      Don't have the <strong> Quick Join </strong> link? You can ask the sender for it (easiest way to join) or provide
+      the secret Room ID below to join a room.
     </p>
-    <div *ngIf="createRoom" class="columns is-variable is-8">
-      <div class="column is-6">
+    <div class="columns is-variable is-8">
+      <div
+        class="column is-full-mobile is-four-fifths-tablet is-three-quarters-desktop is-two-thirds-widescreen is-half-fullhd">
         <div class="field is-horizontal">
           <div class="field-label is-normal">
             <label class="label"> Alias: </label>
@@ -63,6 +65,31 @@
             </div>
           </div>
         </div>
+        <div *ngIf="!createRoom" class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label"> Room ID: </label>
+          </div>
+          <div class="field-body">
+            <div class="field has-addons">
+              <div class="control has-icons-left is-expanded">
+                <input class="field input is-primary" type="text" maxlength=36 placeholder="Room ID (required)"
+                  [(ngModel)]="userRoomId" (ngModelChange)="checkRoomId()" [disabled]="(isLoading || isChecking)" />
+                <span class="icon is-small is-left">
+                  <fa-icon [icon]="faPeopleRoof"> </fa-icon>
+                </span>
+              </div>
+              <div class="control">
+                <button type="button" class="button is-primary" (click)="pasteRoomId()"
+                  [disabled]="(isLoading || isChecking)">
+                  <span class="icon is-small">
+                    <fa-icon [icon]="faPaste"> </fa-icon>
+                  </span>
+                  <span> Paste </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="field is-horizontal">
           <div class="field-label is-normal"> </div>
           <div class="field-body">
@@ -77,7 +104,7 @@
             </div>
           </div>
         </div>
-        <div class="field is-horizontal">
+        <div *ngIf="createRoom" class="field is-horizontal">
           <div class="field-label is-normal"> </div>
           <div class="field-body">
             <div class="field">
@@ -90,63 +117,15 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="column is-6">
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <label class="label"> Quick Join Link: </label>
-          </div>
-          <div class="field-body">
-            <div class="field has-addons">
-              <div class="control has-icons-left is-expanded">
-                <input class="input is-primary" title="Quick Join Link" type="text" readonly [value]="quickJoin" />
-                <span class="icon is-small is-left">
-                  <fa-icon [icon]="faArrowRightToBracket"> </fa-icon>
-                </span>
-              </div>
-              <div class="control">
-                <button type="button" class="button is-primary" (click)="onCopyLink()">
-                  <span class="icon is-small">
-                    <fa-icon [icon]="faCopy"> </fa-icon>
-                  </span>
-                  <span> {{copyLink}} </span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <label class="label"> Room ID: </label>
-          </div>
-          <div class="field-body">
-            <div class="field has-addons">
-              <div class="control has-icons-left is-expanded">
-                <input class="input is-primary" title="Room ID" type="text" readonly
-                  [value]="userDetails.associatedRoomId" />
-                <span class="icon is-small is-left">
-                  <fa-icon [icon]="faPeopleRoof"> </fa-icon>
-                </span>
-              </div>
-              <div class="control">
-                <button type="button" class="button is-primary" (click)="onCopyID()">
-                  <span class="icon is-small">
-                    <fa-icon [icon]="faCopy"> </fa-icon>
-                  </span>
-                  <span> {{copyID}} </span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="field is-horizontal">
+        <div *ngIf="!createRoom" class="field is-horizontal">
           <div class="field-label is-normal"> </div>
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <button type="button" class="button is-primary" (click)="refreshId()"
-                  [disabled]="(isLoading || isChecking)">
-                  Refresh IDs
+                <button type="button" class="button is-primary" (click)="jumpToRoomId()"
+                  [disabled]="userDetails.name.length === 0 || !isValidUserRoomId || isChecking || isLoading"
+                  [ngClass]="{'is-loading': isChecking}">
+                  Join Room
                 </button>
               </div>
             </div>
@@ -160,7 +139,7 @@
         <p *ngIf="createRoom">
           🔥 You can also use the <strong> Quick Start </strong> link:
           <strong>
-            <a href="abc.com/xyz" target="_blank"> abc.com/xyz </a>
+            <a [href]="quickJoin" target="_blank"> {{quickJoin}} </a>
           </strong>
           to create a random room with a random alias and start chatting in no time!
         </p>
@@ -168,7 +147,8 @@
           🔥 You can ask for the <strong> Quick Join </strong> link to the sender instead of Room ID which will directly
           redirect you to a room with a random alias.
         </p>
-        <p> 😎 Aliases can be changed later. </p>
+        <p> 😎 Alias can be changed later anytime. </p>
+        <p> 💣 Rooms are auto-destroyed for enhanced security as soon as every user leaves it. </p>
       </div>
     </article>
   </section>
@@ -196,71 +176,4 @@
     <a class="is-underlined" rel="noopener" href="https://github.com/dusk196/maze-messenger" target="_blank">GitHub</a>
   </p>
 </footer>
-<div class="home full-viewport flex-center">
-  <header class="flex-center">
-    <h1>MAZE - be amazed!</h1>
-    <h2>Safe & Secure, Anonymous, Untrackable and Fast</h2>
-    <h2 class="sublink" (click)="showHow()">Here's how...</h2>
-  </header>
-  <main>
-    <div class="container">
-      <div class="alias-container">
-        <input class="alias" type="text" placeholder="Your Alias (required)" [(ngModel)]="userDetails.name" maxlength=30
-          [disabled]="(isLoading || isChecking)" />
-        <button type="button" class="action-btns" (click)="generateAlias()"
-          [disabled]="(isLoading || isChecking)">Random</button>
-      </div>
-      <div class="prod-mode">
-        <input (change)="onModeChange()" [checked]="isProdMode" type="checkbox" name="Demo" title="Demo" />
-        <label for="Demo" (click)="onModeChange()" [innerText]="'Production mode'"></label>
-      </div>
-      <div class="inner-container">
-        <div class="left-container">
-          <div class="new-room">
-            <span>New Room ID:</span>
-            <div class="new-room-input">
-              <button type="button" class="refresh-id tooltip" (click)="refreshId()"
-                [disabled]="(isLoading || isChecking)">
-                <span class="d-none">generate new Room ID</span>
-                <span class="tooltip-text">Get a new one</span>
-              </button>
-              <input title="Room ID" type="text" readonly [value]="userDetails.associatedRoomId"
-                [disabled]="(isLoading || isChecking)" />
-              <button type="button" class="copy tooltip" (click)="onCopyLink()">
-                <span class="d-none">copy new room id</span>
-                <span class="tooltip-text" [innerText]="copyLink"></span>
-              </button>
-            </div>
-          </div>
-          <button class="action-btns" type="button" [ngClass]="{'d-none': isLoading}"
-            [disabled]="userDetails.name.length === 0 || isChecking" (click)="jumpToRoom()">
-            Get Started
-          </button>
-          <span *ngIf="isLoading">Connecting...</span>
-        </div>
-        <div class=" seperator">
-        </div>
-        <div class="right-container">
-          <span>Already have a Room ID? Join now:</span>
-          <input type="text" maxlength=36 placeholder="Paste a valid Room ID" [(ngModel)]="userRoomId"
-            (ngModelChange)="checkRoomId()" [disabled]="(isLoading || isChecking)" />
-          <button class="action-btns" type="button" (click)="jumpToRoomId()" [ngClass]="{'d-none': isChecking}"
-            [disabled]="userDetails.name.length === 0 || !isValidUserRoomId || isChecking || (userRoomId === userDetails.associatedRoomId)">
-            Join
-          </button>
-          <span *ngIf="isChecking">Getting Details...</span>
-        </div>
-      </div>
-    </div>
-  </main>
-  <footer>
-    <div>
-      <p>
-        Made with ❤️ by Sayantan Roy. Source code:
-        <a rel="noopener" href="https://github.com/dusk196/maze-messenger" target="_blank">GitHub</a>
-      </p>
-    </div>
-    <p>Total messages exchanged: {{counter}}</p>
-  </footer>
-</div>
 <app-modal [modalDetails]="modalDetails" (closeModalEvent)="closeModal()"></app-modal>

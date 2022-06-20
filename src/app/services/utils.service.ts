@@ -10,6 +10,7 @@ import { ILocalUser } from 'src/app/types/types';
 
 export class UtilsService {
 
+  private readonly _navigator: Navigator = navigator;
   private readonly initialAlias: ILocalUser = { id: '', name: '', associatedRoomId: '', quickJoinId: '' };
   private readonly alias$: BehaviorSubject<ILocalUser> = new BehaviorSubject(this.initialAlias);
   private readonly initialMode: boolean = true;
@@ -97,5 +98,14 @@ export class UtilsService {
       console.log(`%c${message}`, msgStyle);
     }
   }
+
+  /**
+   * A function that paste from the clipboard
+   *  @returns {Promise<string>}
+   */
+  pasteFromClipboard(): Promise<string> {
+    return this._navigator.clipboard.readText();
+  }
+
 
 }

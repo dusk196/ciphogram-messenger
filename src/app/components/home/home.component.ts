@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { child, DatabaseReference, DataSnapshot, onValue, Unsubscribe } from '@angular/fire/database';
-import { faUser, faPeopleRoof, faArrowRightToBracket, faCopy, faRotateRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faPeopleRoof, faRotateRight, faPaste, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/types';
-import { RoutePaths, ErrorModal, NoRoomModal, HowModal, GenericConst } from 'src/app/types/enums';
+import { RoutePaths, ErrorModal, ErrorPaste, NoRoomModal, HowModal, GenericConst } from 'src/app/types/enums';
 
 import { UuidService } from 'src/app/services/uuid.service';
 import { UtilsService } from 'src/app//services/utils.service';
@@ -14,30 +14,24 @@ import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  templateUrl: './home.component.html'
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
 
   private counterHook: Unsubscribe;
+  readonly quickJoin: string = `${window.location.origin}/start`;
   counter: number = 0;
   userRoomId: string = '';
   isValidUserRoomId: boolean = false;
-  copyLink: string = GenericConst.CopyLink;
-  copyID: string = GenericConst.CopyID;
   isLoading: boolean = false;
   isChecking: boolean = false;
   isProdMode: boolean = true;
-  quickJoin: string = '';
   createRoom: boolean = true;
-  timeOutLink: any;
-  timeOutId: any;
   faUser: IconDefinition = faUser;
   faPeopleRoof: IconDefinition = faPeopleRoof;
-  faArrowRightToBracket: IconDefinition = faArrowRightToBracket;
-  faCopy: IconDefinition = faCopy;
   faRotateRight: IconDefinition = faRotateRight;
+  faPaste: IconDefinition = faPaste;
   userDetails: ILocalUser = {
     id: '',
     name: '',
@@ -57,6 +51,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private readonly _router: Router,
     private readonly _cryptoService: CryptoService
   ) {
+    this.userDetails.associatedRoomId = this._uuidService.generateUuid();
+    this.userDetails.quickJoinId = this._uuidService.generateUuid();
     const dbRef: DatabaseReference = this._dbService.getDbRef();
     const counterParams: string = `${environment.dbKey}/totalMsgs`;
     this.counterHook = onValue(child(dbRef, counterParams), (snapshot) => {
@@ -69,33 +65,26 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userDetails.id = this._uuidService.generateUuid();
-    this.refreshId();
   }
 
-  onCopyLink(): void {
-    navigator.clipboard.writeText(this.quickJoin);
-    this.copyLink = GenericConst.Copied;
-    clearTimeout(this.timeOutLink);
-    this.timeOutLink = setTimeout(() => {
-      this.copyLink = GenericConst.CopyLink;
-    }, GenericConst.delay);
+  toogleCreateRoom(value: boolean): void {
+    this.createRoom = value;
   }
 
-  onCopyID(): void {
-    navigator.clipboard.writeText(this.userDetails.associatedRoomId);
-    this.copyID = GenericConst.Copied;
-    clearTimeout(this.timeOutId);
-    this.timeOutId = setTimeout(() => {
-      this.copyID = GenericConst.CopyID;
-    }, GenericConst.delay);
-  }
-
-  refreshId(): void {
-    this.userDetails.associatedRoomId = this._uuidService.generateUuid();
-    this._utilsService.devConsoleLog('Generated Room ID:', this.userDetails.associatedRoomId);
-    this.userDetails.quickJoinId = this._uuidService.generateUuid();
-    this._utilsService.devConsoleLog('Generated Quick Join ID:', this.userDetails.quickJoinId);
-    this.quickJoin = `${window.location.origin}/join/${this.userDetails.quickJoinId}`;
+  pasteRoomId(): void {
+    this._utilsService.pasteFromClipboard()
+      .then((data: string) => {
+        this.userRoomId = data.slice(0, 36);
+        this.checkRoomId();
+      })
+      .catch((err: Error) => {
+        console.error(err);
+        this.modalDetails = {
+          title: ErrorPaste.Title,
+          message: ErrorPaste.Message,
+          show: true
+        };
+      });
   }
 
   checkRoomId(): void {
@@ -108,6 +97,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   jumpToRoom(): void {
     this.isLoading = true;
+    this._utilsService.devConsoleLog('Generated Room ID:', this.userDetails.associatedRoomId);
     this._utilsService.updateAlias(this.userDetails);
     const user: IUser = {
       id: this.userDetails.id,
@@ -139,6 +129,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   jumpToRoomId(): void {
     this.isChecking = true;
+    this._utilsService.devConsoleLog('Generated Room ID:', this.userDetails.associatedRoomId);
     this._dbService.validateRoomId(this.userRoomId)
       .then((snapshot: DataSnapshot) => {
         if (snapshot.exists()) {
