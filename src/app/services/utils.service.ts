@@ -10,6 +10,7 @@ import { ILocalUser } from 'src/app/types/types';
 
 export class UtilsService {
 
+  private readonly _window: Window = window;
   private readonly _navigator: Navigator = navigator;
   private readonly initialAlias: ILocalUser = { id: '', name: '', associatedRoomId: '', quickJoinId: '' };
   private readonly alias$: BehaviorSubject<ILocalUser> = new BehaviorSubject(this.initialAlias);
@@ -107,5 +108,12 @@ export class UtilsService {
     return this._navigator.clipboard.readText();
   }
 
+  /**
+   * A function that moves the scroll to the top of the page
+   * @returns {void}
+   */
+  scrollToTop(): void {
+    this._window.scrollTo(0, 0);
+  }
 
 }

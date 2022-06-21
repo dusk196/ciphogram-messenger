@@ -7,10 +7,6 @@
 
 🤐 The 2nd rule of CRYPTOGRAM is you DO NOT talk about CRYPTOGRAM!
 
-## The  safe & secure, 100% anonymous, untrackable yet quite fast messenger made for privacy enthusiasts ❤️
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.2
-
 [**DEMO**: https://sauf-messenger.web.app/](https://sauf-messenger.web.app/)
 
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)](http://perso.crans.org/besson/LICENSE.html)
@@ -24,17 +20,17 @@ Have you ever felt not safe using big corporates messaging platform? Have you ev
 
 ## How is it different
 
-* No session, no cookie, no tracking! 100% anonymous.
+🔥 No session, no cookie, no tracking! 100% anonymous.
 
-* As obvious, no data stealing in the name of running advertisement (like other big corporations).
+💥 As obvious, no data stealing in the name of running advertisement (like other big corporations).
 
-* No accounts required. Only real-time usage!
+👤 No accounts required. Only real-time usage!
 
-* Uses true end-to-end (E2EE) encryption for both 1 to 1 and group chats without taking any toll on performance… How? By the power of both symmetrical (AES CBC) & asymmetrical encryption (RSA)!
+🔐 Uses true end-to-end (E2EE) encryption for both 1 to 1 and group chats without taking any toll on performance… How? By the power of both symmetrical (AES CBC) & asymmetrical encryption (RSA)!
 
-* No backend… Well, sort of! Thanks to Firebase’s real time database. How else it’d be this fast?
+💾 Thanks to Firebase’s real time database, it’s quite fast and everything is almost real-time even for the slowest connections.
 
-* Your messages are self-destructive as soon as you leave the system. C'mon, afterall it's the free tier of Firebase! :P
+💣 Your messages are self-destructible and are destroyed as soon as you either leave the system or lost the connection for a certain period of time.
 
 ## So, how the encryption works here in details (combination of symmetrical AES-CBC & asymmetrical RSA)
 

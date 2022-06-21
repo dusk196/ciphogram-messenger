@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { child, DatabaseReference, DataSnapshot, onValue, Unsubscribe } from '@angular/fire/database';
 import { faUser, faPeopleRoof, faRotateRight, faPaste, IconDefinition } from '@fortawesome/free-solid-svg-icons';
@@ -18,7 +18,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./home.component.scss']
 })
 
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private counterHook: Unsubscribe;
   readonly quickJoin: string = `${window.location.origin}/${RoutePaths.Start}`;
@@ -66,6 +66,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userDetails.id = this._uuidService.generateUuid();
+  }
+
+  ngAfterViewInit(): void {
+    this._utilsService.scrollToTop();
   }
 
   toogleCreateRoom(value: boolean): void {
