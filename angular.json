@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "maze-messenger": {
+    "cryptogram-messenger": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/maze-messenger",
+            "outputPath": "dist/cryptogram-messenger",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -77,10 +77,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "maze-messenger:build:production"
+              "browserTarget": "cryptogram-messenger:build:production"
             },
             "development": {
-              "browserTarget": "maze-messenger:build:development"
+              "browserTarget": "cryptogram-messenger:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -88,7 +88,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "maze-messenger:build"
+            "browserTarget": "cryptogram-messenger:build"
           }
         },
         "test": {
@@ -114,9 +114,9 @@
           "options": {
             "prerender": false,
             "ssr": false,
-            "browserTarget": "maze-messenger:build:production",
-            "firebaseProject": "maze-messenger",
-            "firebaseHostingSite": "maze-messenger"
+            "browserTarget": "cryptogram-messenger:build:production",
+            "firebaseProject": "cryptogram-messenger",
+            "firebaseHostingSite": "cryptogram-messenger"
           }
         },
         "lint": {

@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'maze-messenger'`, () => {
+  it(`should have as title 'cryptogram-messenger'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    // expect(app.title).toEqual('maze-messenger');
+    // expect(app.title).toEqual('cryptogram-messenger');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('maze-messenger app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('cryptogram-messenger app is running!');
   });
 });

@@ -1,13 +1,13 @@
 {
-  "name": "maze-messenger",
+  "name": "cryptogram-messenger",
   "version": "1.0.0",
-  "description": "A highly Safe & Secure, Anonymous, Untrackable and Fast (MAZE) Messenger!",
+  "description": "An anonymous, untrackable, private, highly safe & secure yet a blazing fast messenger!",
   "contributors": [
     "Sayantan Roy <sayantan.roy@gmail.com>"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/dusk196/maze-messenger"
+    "url": "https://github.com/dusk196/cryptogram-messenger"
   },
   "license": "GPL-3.0-only",
   "scripts": {
@@ -17,7 +17,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "start-pwa": "ng build && http-server -p 8080 -c-1 dist/maze-messenger"
+    "start-pwa": "ng build && http-server -p 8080 -c-1 dist/cryptogram-messenger"
   },
   "dependencies": {
     "@angular/animations": "^14.0.2",
