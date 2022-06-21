@@ -14,7 +14,8 @@ import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
@@ -28,7 +29,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   isChecking: boolean = false;
   isProdMode: boolean = true;
   createRoom: boolean = true;
-  intro: Array<string> = ['100% Anonymous', 'Untrackable', 'Safe & Secure', 'Fast'];
   faUser: IconDefinition = faUser;
   faPeopleRoof: IconDefinition = faPeopleRoof;
   faRotateRight: IconDefinition = faRotateRight;

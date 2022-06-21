@@ -28,9 +28,7 @@ export enum NoUserModal {
 
 export enum HowModal {
   Title = 'Wondering how? 😜',
-  Message = `
-
-  🔥 No session, no cookie, no tracking!
+  Message = `🔥 No session, no cookie, no tracking!
   100% anonymous.
 
   ❤️‍🔥 No accounts required. Only real-time usage!
