@@ -1,16 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { child, DatabaseReference, DataSnapshot, onValue, Unsubscribe } from '@angular/fire/database';
-import { faUser, faPeopleRoof, faRotateRight, faPaste, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/types';
-import { RoutePaths, ErrorModal, ErrorPaste, NoRoomModal, HowModal } from 'src/app/types/enums';
+import { RoutePaths, ErrorModal } from 'src/app/types/enums';
 
 import { UuidService } from 'src/app/services/uuid.service';
 import { UtilsService } from 'src/app//services/utils.service';
 import { DbService } from 'src/app/services/db.service';
 import { CryptoService } from 'src/app/services/crypto.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-start',

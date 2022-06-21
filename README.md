@@ -1,4 +1,4 @@
-# MAZE - be amazed! 😎
+# Cryptogram - get secured! 😎
 
 [![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.io/)
 [![Bulma](https://img.shields.io/badge/Bulma-00D1B2?style=for-the-badge&logo=bulma&logoColor=white)](https://bulma.io/)
@@ -9,7 +9,7 @@
 
 ## The  safe & secure, 100% anonymous, untrackable yet quite fast messenger made for privacy enthusiasts ❤️
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.4.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.2
 
 [**DEMO**: https://sauf-messenger.web.app/](https://sauf-messenger.web.app/)
 

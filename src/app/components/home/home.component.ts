@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   isChecking: boolean = false;
   isProdMode: boolean = true;
   createRoom: boolean = true;
+  intro: Array<string> = ['100% Anonymous', 'Untrackable', 'Safe & Secure', 'Fast'];
   faUser: IconDefinition = faUser;
   faPeopleRoof: IconDefinition = faPeopleRoof;
   faRotateRight: IconDefinition = faRotateRight;

@@ -276,3 +276,22 @@ body {
 .d-none {
   display: none;
 }
+
+#headerText::before {
+  content  : "100% Anonymous";
+  animation: animate infinite 3s;
+}
+
+@keyframes animate {
+  0% {
+    content: "Untrackable";
+  }
+
+  50% {
+    content: "Safe & Secure";
+  }
+
+  75% {
+    content: "Fast";
+  }
+}
