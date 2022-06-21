@@ -11,7 +11,7 @@
               <span> The untrackable messenger! </span>
               <span> The E2E encrypted messenger! </span>
               <span> The self-destructible messenger! </span>
-              <span> The fast messenger! </span>
+              <span> The blazing fast messenger! </span>
             </span>
           </span>
         </h1>
@@ -28,10 +28,10 @@
         <div class="container">
           <ul>
             <li [ngClass]="{'is-active': createRoom}" (click)="toogleCreateRoom(true)">
-              <a>Create room</a>
+              <a> Create room </a>
             </li>
             <li [ngClass]="{'is-active': !createRoom}" (click)="toogleCreateRoom(false)">
-              <a>Join Room</a>
+              <a> Join Room </a>
             </li>
           </ul>
         </div>
@@ -43,7 +43,7 @@
   <section class="section">
     <p *ngIf="createRoom" class="block">
       Since this messenger is completely anonymous, there is no account associated with it. Just create a private room
-      where you can share either the secret <strong> Room ID </strong> or the <strong> Quick Join Link </strong>
+      and then you can share either the secret <strong> Room ID </strong> or the <strong> Quick Join Link </strong>
       (easiest way) with the other participants.
     </p>
     <p *ngIf="!createRoom" class="block">
@@ -111,7 +111,7 @@
                 <label class="checkbox" for="Demo" (click)="onModeChange()">
                   <input (change)="onModeChange()" [checked]="isProdMode" type="checkbox" name="is Production Mode"
                     title="is Production Mode" />
-                  Production mode (recommended)
+                  Production mode (<a class="is-underlined" (click)="whatsProdMode()">what's this?</a>)
                 </label>
               </div>
             </div>

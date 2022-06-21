@@ -4,7 +4,7 @@ import { child, DatabaseReference, DataSnapshot, onValue, Unsubscribe } from '@a
 import { faUser, faPeopleRoof, faRotateRight, faPaste, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/types';
-import { RoutePaths, ErrorModal, ErrorPaste, NoRoomModal, HowModal } from 'src/app/types/enums';
+import { RoutePaths, ErrorModal, ErrorPaste, NoRoomModal, HowModal, WhatsProdMode } from 'src/app/types/enums';
 
 import { UuidService } from 'src/app/services/uuid.service';
 import { UtilsService } from 'src/app//services/utils.service';
@@ -74,6 +74,14 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   toogleCreateRoom(value: boolean): void {
     this.createRoom = value;
+  }
+
+  whatsProdMode(): void {
+    this.modalDetails = {
+      title: WhatsProdMode.Title,
+      message: WhatsProdMode.Message,
+      show: true
+    };
   }
 
   pasteRoomId(): void {
