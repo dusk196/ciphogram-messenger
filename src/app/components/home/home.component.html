@@ -80,24 +80,38 @@
         </div>
         <div *ngIf="!createRoom" class="field is-horizontal">
           <div class="field-label is-normal">
-            <label class="label"> Valid Room ID: </label>
+            <label class="label"> Room ID: </label>
           </div>
           <div class="field-body">
             <div class="field has-addons">
               <div class="control has-icons-left is-expanded">
                 <input class="field input is-primary" type="text" maxlength=36 placeholder="Room ID (required)"
-                  [(ngModel)]="userRoomId" (ngModelChange)="checkRoomId()" [disabled]="(isLoading || isChecking)" />
+                  [(ngModel)]="userRoomId" (ngModelChange)="checkRoomId()" [disabled]="(isLoading || isChecking)"
+                  #roomId="ngModel" />
+                <p *ngIf="(isPasted || roomId.touched) && !isValidUserRoomId" class="help is-danger">
+                  This Room ID is invalid
+                </p>
+                <p *ngIf="isValidUserRoomId" class="help is-success">
+                  This Room ID is valid
+                </p>
                 <span class="icon is-small is-left">
                   <fa-icon [icon]="faPeopleRoof"> </fa-icon>
                 </span>
               </div>
               <div class="control">
-                <button type="button" class="button is-primary" (click)="pasteRoomId()"
-                  [disabled]="(isLoading || isChecking)">
+                <button *ngIf="!isPasted && userRoomId.length===0" type="button" class="button is-primary"
+                  (click)="pasteRoomId()" [disabled]="(isLoading || isChecking)">
                   <span class="icon is-small">
                     <fa-icon [icon]="faPaste"> </fa-icon>
                   </span>
                   <span> Paste </span>
+                </button>
+                <button *ngIf="userRoomId.length > 0" type="button" class="button is-primary" (click)="clearRoomId()"
+                  [disabled]="(isLoading || isChecking)">
+                  <span class="icon is-small">
+                    <fa-icon [icon]="faCircleXmark"> </fa-icon>
+                  </span>
+                  <span> Clear </span>
                 </button>
               </div>
             </div>
@@ -169,10 +183,9 @@
     <div class="hero-body">
       <h3 class="subtitle is-size-5 is-size-6-mobile">
         An anonymous, untrackable, private, highly safe & secure yet a blazing fast messenger made for privacy
-        enthusiasts. Have you ever felt not safe using big corporates messaging platform? Have you ever felt the need of
-        safe & secure, 100% anonymous, untrackable & yet fast messenger with is truly end-to-end encrypted? I sure did!
-        Personally, I take privacy very seriously. I don't even support using WhatsApp or even Google services; only
-        because of my privacy concerns. Hence, the CRYPTOGRAM Messenger!
+        enthusiasts. Have you ever felt not safe using big corporates messaging platforms for their huge trackings &
+        data collections? I sure did! Personally, I take privacy very seriously. I don't even support using WhatsApp or
+        even Google services; only because of my privacy concerns. Hence, the CRYPTOGRAM Messenger!
       </h3>
       <button type="button" class="button is-info is-light" (click)="showHow()"> So, how is this any different?
       </button>

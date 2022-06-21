@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { child, DatabaseReference, DataSnapshot, onValue, Unsubscribe } from '@angular/fire/database';
-import { faUser, faPeopleRoof, faRotateRight, faPaste, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faPeopleRoof, faRotateRight, faPaste, faCircleXmark, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/types';
 import { RoutePaths, ErrorModal, ErrorPaste, NoRoomModal, HowModal, WhatsProdMode } from 'src/app/types/enums';
@@ -29,10 +29,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   isChecking: boolean = false;
   isProdMode: boolean = true;
   createRoom: boolean = true;
+  isPasted: boolean = false;
   faUser: IconDefinition = faUser;
   faPeopleRoof: IconDefinition = faPeopleRoof;
   faRotateRight: IconDefinition = faRotateRight;
   faPaste: IconDefinition = faPaste;
+  faCircleXmark: IconDefinition = faCircleXmark;
   userDetails: ILocalUser = {
     id: '',
     name: '',
@@ -76,6 +78,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.createRoom = value;
   }
 
+  clearRoomId(): void {
+    this.userRoomId = '';
+    this.isPasted = false;
+    this.isValidUserRoomId = false;
+  }
+
   whatsProdMode(): void {
     this.modalDetails = {
       title: WhatsProdMode.Title,
@@ -87,6 +95,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   pasteRoomId(): void {
     this._utilsService.pasteFromClipboard()
       .then((data: string) => {
+        this.isPasted = true;
         this.userRoomId = data.slice(0, 36);
         this.checkRoomId();
       })
@@ -103,6 +112,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   checkRoomId(): void {
     if (this.userRoomId.length === 36) {
       this.isValidUserRoomId = this._uuidService.validateUuid(this.userRoomId);
+    } else if (this.userRoomId.length === 0) {
+      this.isPasted = false;
+      this.isValidUserRoomId = false;
     } else {
       this.isValidUserRoomId = false;
     }
