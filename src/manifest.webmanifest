@@ -1,8 +1,8 @@
 {
-  "name": "CRYPTOGRAM",
-  "short_name": "cryptogram",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "CIPHOO - the messenger ❤️",
+  "short_name": "ciphoo",
+  "theme_color": "#048A81",
+  "background_color": "#404E7C",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

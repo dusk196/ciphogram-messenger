@@ -1,14 +1,14 @@
 {
   "targets": {
-    "sauf-messenger": {
+    "ciphoo": {
       "hosting": {
-        "sauf-messenger": [
-          "sauf-messenger"
+        "ciphoo-messenger": [
+          "ciphoo"
         ]
       }
     }
   },
   "projects": {
-    "default": "sauf-messenger"
+    "default": "ciphoo"
   }
 }

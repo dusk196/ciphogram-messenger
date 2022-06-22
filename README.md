@@ -1,22 +1,22 @@
-# CRYPTOGRAM - An anonymous, untrackable, private, highly safe & secure yet a blazing fast messenger 😎
+# CIPHOO - An anonymous, untrackable, private, highly safe & secure yet a blazing fast messenger 😎
 
 [![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.io/)
 [![Bulma](https://img.shields.io/badge/Bulma-00D1B2?style=for-the-badge&logo=bulma&logoColor=white)](https://bulma.io/)
 
-🤐 The 1st rule of CRYPTOGRAM is you don't talk about CRYPTOGRAM!
+🤐 The 1st rule of CIPHOO is you don't talk about CIPHOO!
 
-🤐 The 2nd rule of CRYPTOGRAM is you DO NOT talk about CRYPTOGRAM!
+🤐 The 2nd rule of CIPHOO is you DO NOT talk about CIPHOO!
 
-[**DEMO**: https://sauf-messenger.web.app/](https://sauf-messenger.web.app/)
+[**DEMO**: https://ciphoo.web.app/](https://ciphoo.web.app/)
 
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)](http://perso.crans.org/besson/LICENSE.html)
 [![Open Source? Yes!](https://img.shields.io/badge/Open_Source%3F-Yes!-blue?style=for-the-badge&logo=gitHub&logoColor=white)](https://opensource.com/resources/what-open-source/)
-![Language](https://img.shields.io/github/languages/top/dusk196/cryptogram-messenger?style=for-the-badge)
-![Size](https://img.shields.io/github/languages/code-size/dusk196/cryptogram-messenger?style=for-the-badge)
+![Language](https://img.shields.io/github/languages/top/dusk196/ciphoo-messenger?style=for-the-badge)
+![Size](https://img.shields.io/github/languages/code-size/dusk196/ciphoo-messenger?style=for-the-badge)
 
 ## Introduction
 
-Have you ever felt not safe using big corporates messaging platform? Have you ever felt the need of safe & secure, 100% anonymous, untrackable & yet fast messenger with is truly end-to-end encrypted? I sure did! Personally, I take privacy very seriously. I don't even support using WhatsApp or even Google services; only because of my privacy concerns. Hence, the **CRYPTOGRAM Messenger**!
+Have you ever felt not safe using big corporates messaging platform? Have you ever felt the need of safe & secure, 100% anonymous, untrackable & yet fast messenger with is truly end-to-end encrypted? I sure did! Personally, I take privacy very seriously. I don't even support using WhatsApp or even Google services; only because of my privacy concerns. Hence, the **CIPHOO Messenger**!
 
 ## How is it different
 

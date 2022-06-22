@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "cryptogram-messenger": {
+    "ciphoo-messenger": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/cryptogram-messenger",
+            "outputPath": "dist/ciphoo-messenger",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -77,10 +77,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "cryptogram-messenger:build:production"
+              "browserTarget": "ciphoo-messenger:build:production"
             },
             "development": {
-              "browserTarget": "cryptogram-messenger:build:development"
+              "browserTarget": "ciphoo-messenger:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -88,7 +88,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cryptogram-messenger:build"
+            "browserTarget": "ciphoo-messenger:build"
           }
         },
         "test": {
@@ -114,9 +114,9 @@
           "options": {
             "prerender": false,
             "ssr": false,
-            "browserTarget": "cryptogram-messenger:build:production",
-            "firebaseProject": "cryptogram-messenger",
-            "firebaseHostingSite": "cryptogram-messenger"
+            "browserTarget": "ciphoo-messenger:build:production",
+            "firebaseProject": "ciphoo",
+            "firebaseHostingSite": "ciphoo"
           }
         },
         "lint": {

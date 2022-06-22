@@ -21,10 +21,12 @@ $brown              : #757763;
 // sans-serif;
 // $grey-dark         : $brown;
 // $grey-light        : $beige-light;
-$primary              : $purple;
-// $info              : $brown;
-$widescreen-enabled   : true;
-$fullhd-enabled       : true;
+$primary            : #048A81;
+$info               : #404E7C;
+$success            : #86CB92;
+$danger             : #B6244F;
+$widescreen-enabled : true;
+$fullhd-enabled     : true;
 
 // Update some of Bulma's component variables
 // $body-background-color: $beige-lighter;
@@ -58,7 +60,7 @@ body {
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: $success;
+    background-color: $info;
     border-radius   : 20px;
   }
 }
