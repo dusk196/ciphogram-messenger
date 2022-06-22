@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { initializeAppCheck, provideAppCheck, ReCaptchaV3Provider } from '@angular/fire/app-check';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
@@ -39,6 +40,7 @@ import { DecryptMsgsPipe } from './pipes/decrypt-msgs.pipe';
     AppRoutingModule,
     FormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAppCheck(() => initializeAppCheck(getApp(), { provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey), isTokenAutoRefreshEnabled: true })),
     provideDatabase(() => getDatabase()),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
