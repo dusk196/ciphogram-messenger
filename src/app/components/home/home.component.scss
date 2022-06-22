@@ -1,9 +1,22 @@
-#mobileHeaderText::before {
-  content  : "The private messenger!";
-  animation: animate infinite 12s;
+header {
+  .subtitle {
+    min-height: 50px;
+  }
+
+  .hero {
+    background           : rgba(0, 0, 0, .35) url('/assets/cover.jpg') no-repeat center center fixed;
+    background-blend-mode: darken;
+    background-attachment: initial;
+    background-size      : cover;
+  }
 }
 
-@keyframes animate {
+#mobileHeaderText::before {
+  content  : "The private messenger!";
+  animation: mobilerotatetext infinite 12s;
+}
+
+@keyframes mobilerotatetext {
 
   16% {
     content: "The 100% anonymous messenger!";
@@ -34,7 +47,7 @@
     overflow    : hidden;
     padding-left: 10px;
     padding-top : 13px;
-    animation   : rotateWord 18s linear infinite 0s;
+    animation   : rotatetext 18s linear infinite 0s;
 
     &:nth-child(2) {
       animation-delay: 3s;
@@ -58,7 +71,7 @@
   }
 }
 
-@keyframes rotateWord {
+@keyframes rotatetext {
   0% {
     opacity: 0;
   }

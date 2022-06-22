@@ -19,9 +19,10 @@
           <strong id="mobileHeaderText"> </strong>
         </h2>
         <h2 class="subtitle is-size-4 is-size-5-mobile">
-          Over <strong> {{counter}}+ </strong> secure messages are exchanged & still counting... ❤️
+          Over <strong> {{counter}}+ </strong> secure messages are exchanged & still counting
+          <fa-icon [icon]="faHeart"> </fa-icon>
         </h2>
-        <button type="button" class="button is-primary is-hovered is-size-5 is-size-6-mobile" [routerLink]="['/start']">
+        <button type="button" class="button is-primary is-light is-size-5 is-size-6-mobile" [routerLink]="['/start']">
           Quick Start 🚀
         </button>
       </div>
@@ -163,7 +164,7 @@
         </div>
       </div>
     </div>
-    <article class="message is-info">
+    <article class="message is-primary">
       <div class="message-body">
         <strong class="is-underlined">Pro Tips:</strong>
         <p *ngIf="createRoom">
@@ -200,7 +201,7 @@
   <p class="has-text-centered">
     Made with ❤️ by <strong>Sayantan Roy</strong>.
   </p>
-  <p class="has-text-centered">
+  <p class="has-text-centered is-size-6-mobile">
     Source code:
     <a class="is-underlined" rel="noopener" href="https://github.com/dusk196/ciphoo-messenger" target="_blank">
       GitHub

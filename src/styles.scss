@@ -21,9 +21,9 @@ $brown              : #757763;
 // sans-serif;
 // $grey-dark         : $brown;
 // $grey-light        : $beige-light;
-$primary            : #048A81;
+$primary            : #8A4D76;
 $info               : #404E7C;
-$success            : #86CB92;
+$success            : #3C896D;
 $danger             : #B6244F;
 $widescreen-enabled : true;
 $fullhd-enabled     : true;
@@ -55,12 +55,10 @@ body {
   }
 
   &::-webkit-scrollbar-track {
-    background: transparent;
-    margin    : 10px;
+    background: #FEFEFE;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: $info;
-    border-radius   : 20px;
+    background-color: #444444;
   }
 }

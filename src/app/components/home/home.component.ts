@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { child, DatabaseReference, DataSnapshot, onValue, Unsubscribe } from '@angular/fire/database';
-import { faUser, faPeopleRoof, faRotateRight, faPaste, faCircleXmark, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faPeopleRoof, faRotateRight, faPaste, faCircleXmark, faHeart, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/types';
 import { RoutePaths, ErrorModal, ErrorPaste, NoRoomModal, HowModal, WhatsProdMode } from 'src/app/types/enums';
@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   faRotateRight: IconDefinition = faRotateRight;
   faPaste: IconDefinition = faPaste;
   faCircleXmark: IconDefinition = faCircleXmark;
+  faHeart: IconDefinition = faHeart;
   userDetails: ILocalUser = {
     id: '',
     name: '',
@@ -62,6 +63,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       const data = snapshot.val();
       this.counter = data ? data : 0;
     }, (err: Error) => {
+      console.log('CIPHOO ERROR!')
       console.error(err);
     });
   }
