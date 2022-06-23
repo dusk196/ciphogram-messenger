@@ -1,6 +1,7 @@
 header {
+
   .subtitle {
-    min-height: 50px;
+    min-height: 55px;
   }
 
   .hero {
@@ -9,6 +10,7 @@ header {
     background-attachment: initial;
     background-size      : cover;
   }
+
 }
 
 #mobileHeaderText::before {
@@ -37,6 +39,7 @@ header {
   83% {
     content: "The blazing fast messenger!";
   }
+
 }
 
 #headerText {
@@ -46,7 +49,7 @@ header {
     opacity     : 0;
     overflow    : hidden;
     padding-left: 10px;
-    padding-top : 13px;
+    padding-top : 12px;
     animation   : rotatetext 18s linear infinite 0s;
 
     &:nth-child(2) {
@@ -69,9 +72,11 @@ header {
       animation-delay: 15s;
     }
   }
+
 }
 
 @keyframes rotatetext {
+
   0% {
     opacity: 0;
   }
@@ -103,4 +108,5 @@ header {
   100% {
     opacity: 0;
   }
+
 }

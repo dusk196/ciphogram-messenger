@@ -1,14 +1,14 @@
 {
   "targets": {
-    "ciphoo": {
+    "ciphogram": {
       "hosting": {
-        "ciphoo-messenger": [
-          "ciphoo"
+        "ciphogram-messenger": [
+          "ciphogram"
         ]
       }
     }
   },
   "projects": {
-    "default": "ciphoo"
+    "default": "ciphogram"
   }
 }

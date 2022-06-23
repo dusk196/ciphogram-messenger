@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ciphoo-messenger'`, () => {
+  it(`should have as title 'ciphogram-messenger'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    // expect(app.title).toEqual('ciphoo-messenger');
+    // expect(app.title).toEqual('ciphogram-messenger');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('ciphoo-messenger app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('ciphogram-messenger app is running!');
   });
 });

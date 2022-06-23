@@ -1,8 +1,8 @@
 {
   "hosting": [
     {
-      "target": "ciphoo-messenger",
-      "public": "dist/ciphoo-messenger",
+      "target": "ciphogram-messenger",
+      "public": "dist/ciphogram-messenger",
       "ignore": [
         "**/.*"
       ],

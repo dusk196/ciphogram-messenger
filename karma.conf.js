@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/ciphoo-messenger'),
+      dir: require('path').join(__dirname, './coverage/ciphogram-messenger'),
       subdir: '.',
       reporters: [
         { type: 'html' },

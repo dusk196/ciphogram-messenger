@@ -63,7 +63,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       const data = snapshot.val();
       this.counter = data ? data : 0;
     }, (err: Error) => {
-      console.log('CIPHOO ERROR!')
       console.error(err);
     });
   }
