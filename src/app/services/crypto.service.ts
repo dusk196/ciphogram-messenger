@@ -23,10 +23,6 @@ export class CryptoService {
     this.generateRsaKeyPair();
   }
 
-  /**
-   * Generate RSA key pair
-   * @returns {IRsaKeyPair}
-   */
   private generateRsaKeyPair(): void {
     pki.rsa.generateKeyPair(environment.rsa, (err, keypair) => {
       if (err) {
@@ -39,22 +35,12 @@ export class CryptoService {
     });
   }
 
-  /**
-   * Returns RSA public key
-   * @returns {string}
-   */
   getRsaPublicKey(): string {
     this._utilsService.devConsoleLog('Your RSA Public key:', this.rsaKeyPair.publicKey);
     this._utilsService.devConsoleLog('Your super super super secret RSA Private key:', this.rsaKeyPair.privateKey);
     return this.rsaKeyPair.publicKey;
   }
 
-  /**
-   * Encrypts data by RSA
-   * @param data
-   * @param publicKey
-   * @returns {string}
-   */
   encryptDataByRsa(data: string, publicKey: string): string {
     const pub = pki.publicKeyFromPem(publicKey);
     const encrypted = util.encode64(pub.encrypt(data));
@@ -62,11 +48,6 @@ export class CryptoService {
     return encrypted;
   }
 
-  /**
-   * Decrypts data by RSA
-   * @param data
-   * @returns  {string}
-   */
   decryptDataByRsa(data: string): string {
     const priv = pki.privateKeyFromPem(this.rsaKeyPair.privateKey);
     const decrypted = priv.decrypt(util.decode64(data));
@@ -74,10 +55,6 @@ export class CryptoService {
     return decrypted;
   }
 
-  /**
-   * Fetches a random AES secret
-   * @returns {iv, key}
-   */
   private getAesSecret(): { iv: string, key: string } {
     const salt = random.getBytesSync(16);
     const iv = random.getBytesSync(16);
@@ -90,12 +67,6 @@ export class CryptoService {
     return { iv, key };
   }
 
-  /**
-   * Encrypts data by AES
-   * @param text
-   * @param rsaPublicKey
-   * @returns {string}
-   */
   encryptDataByAes(text: string, rsaPublicKey: string): string {
     const { iv, key } = this.getAesSecret();
     const aesCipher = cipher.createCipher('AES-CBC', key);
@@ -109,11 +80,6 @@ export class CryptoService {
     return final;
   }
 
-  /**
-   * Decrypts data by AES
-   * @param text
-   * @returns {string}
-   */
   decryptDataByAes(text: string): string {
     const superSecret = this.decryptDataByRsa(text.slice(0, 88));
     const encrypted = util.decode64(text.slice(88));

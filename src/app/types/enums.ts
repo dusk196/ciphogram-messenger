@@ -41,6 +41,19 @@ export enum MessageConst {
   ProdPlaceholder = '\n\nALERT! Don\'t use Non-Prod mode to send sensitive messages! 😒 It\'s for testing purpose only. However, don\'t forget to check the console! 😎',
 }
 
+export enum Titles {
+  Error = '404! Page not found! 😒',
+  Home = 'CIPHOGRAM - when a Cipher meets an Anagram 🤪',
+  Room = 'CIPHOGRAM - Online 1',
+  Join = 'Connecting, please wait...'
+}
+
+export enum ThemeColors {
+  Primary = '#8A4D76',
+  Light = '#FFFFFF',
+  Dark = '#000000'
+}
+
 export enum GenericConst {
   CopyLink = 'Copy Link',
   CopyID = 'Copy ID',

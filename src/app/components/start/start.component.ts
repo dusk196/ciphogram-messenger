@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/types';
-import { RoutePaths, ErrorModal } from 'src/app/types/enums';
+import { RoutePaths, ErrorModal, Titles, ThemeColors } from 'src/app/types/enums';
 
 import { UuidService } from 'src/app/services/uuid.service';
 import { UtilsService } from 'src/app//services/utils.service';
@@ -39,6 +39,8 @@ export class StartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._utilsService.setTitle(Titles.Join);
+    this._utilsService.updateMeta(ThemeColors.Primary);
     this._utilsService.removeStickyNav();
     this.userDetails.id = this._uuidService.generateUuid();
     this.userDetails.name = this._utilsService.generateRandomAlias();

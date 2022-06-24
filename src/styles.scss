@@ -23,6 +23,7 @@ $brown              : #757763;
 // $grey-light        : $beige-light;
 $primary            : #8A4D76;
 $info               : #404E7C;
+$link               : #2F52E0;
 $success            : #3C896D;
 $danger             : #B6244F;
 $widescreen-enabled : true;
@@ -55,8 +56,23 @@ body {
 }
 
 * {
+
+  &:not(input) {
+    -webkit-user-select: none;
+    user-select        : none;
+
+    &:not(input)::selection {
+      background: none;
+    }
+
+    &:not(input)::-moz-selection {
+      background: none;
+    }
+  }
+
   &::-webkit-scrollbar {
-    width: 10px;
+    width        : 10px;
+    border-radius: 50%;
   }
 
   &::-webkit-scrollbar-track {
@@ -64,6 +80,6 @@ body {
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #444444;
+    background-color: #8F8F8F;
   }
 }

@@ -5,7 +5,7 @@ import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/da
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { cloneDeep } from 'lodash';
 
-import { RoutePaths, ErrorModal, GenericConst, MessageConst, NoUserModal } from 'src/app/types/enums';
+import { RoutePaths, ErrorModal, GenericConst, MessageConst, NoUserModal, Titles, ThemeColors } from 'src/app/types/enums';
 import { ILocalUser, IMessage, IModal, IUser } from 'src/app/types/types';
 import { UtilsService } from 'src/app/services/utils.service';
 import { DbService } from 'src/app/services/db.service';
@@ -119,6 +119,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this._utilsService.setTitle(Titles.Room);
+    this._utilsService.updateMeta(ThemeColors.Dark);
     this._utilsService.setStickyNav();
   }
 
