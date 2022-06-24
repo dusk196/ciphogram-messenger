@@ -40,7 +40,12 @@ $fullhd-enabled     : true;
 // $yellow: #FAEBD7;
 $font : 'Rubik';
 
+// .hero.is-fullheight.has-fixed-navbar {
+//   min-height: calc(100vh - #{$navbar-height});
+// }
+
 @import 'bulma/bulma.sass';
+// @import url('https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css');
 
 body {
   font-family            : $font, serif, 'Roboto', sans-serif;

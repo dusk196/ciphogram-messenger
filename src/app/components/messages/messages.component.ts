@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Inject, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
 
@@ -19,7 +19,7 @@ import { CryptoService } from 'src/app/services/crypto.service';
   styleUrls: ['./messages.component.scss']
 })
 
-export class MessagesComponent implements OnDestroy {
+export class MessagesComponent implements OnInit, OnDestroy {
 
   @ViewChild('chatContainer') chatContainer: ElementRef | undefined;
 
@@ -116,6 +116,10 @@ export class MessagesComponent implements OnDestroy {
       };
       console.error(err);
     });
+  }
+
+  ngOnInit(): void {
+    this._utilsService.setStickyNav();
   }
 
   onCopy(): void {

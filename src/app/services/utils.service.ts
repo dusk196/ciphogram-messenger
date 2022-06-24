@@ -10,6 +10,7 @@ import { ILocalUser } from 'src/app/types/types';
 
 export class UtilsService {
 
+  private readonly _document: Document = document;
   private readonly _window: Window = window;
   private readonly _navigator: Navigator = navigator;
   private readonly initialAlias: ILocalUser = { id: '', name: '', associatedRoomId: '', quickJoinId: '' };
@@ -106,6 +107,22 @@ export class UtilsService {
    */
   pasteFromClipboard(): Promise<string> {
     return this._navigator.clipboard.readText();
+  }
+
+  /**
+   * Set Sticky Nav class
+   *  @returns {void}
+   */
+  setStickyNav(): void {
+    this._document.getElementsByTagName('html')[0].className = 'has-navbar-fixed-top';
+  }
+
+  /**
+   * Unset Sticky Nav class
+   *  @returns {void}
+   */
+  removeStickyNav(): void {
+    this._document.getElementsByTagName('html')[0].className = '';
   }
 
   /**

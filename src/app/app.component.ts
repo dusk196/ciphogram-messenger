@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
     console.log('%c  Checking under the hoods, eh?!! 😏😏  ', intro);
     console.group('%c  Surprise!! Surprise!! 😎  ', intro);
     console.log('%c  Awww! I got this covered! 🤭 See? Nothing fancy here unless you\'ve turned off the Prod mode! 😛  ', body);
-    console.log('%c  See you then... 😅  ', body);
+    console.log('%c  Take care now. Bye bye then. 😁  ', body);
     console.groupEnd();
   }
 

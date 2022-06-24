@@ -39,6 +39,7 @@ export class StartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._utilsService.removeStickyNav();
     this.userDetails.id = this._uuidService.generateUuid();
     this.userDetails.name = this._utilsService.generateRandomAlias();
     this._utilsService.updateAlias(this.userDetails);

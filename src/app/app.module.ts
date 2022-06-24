@@ -23,6 +23,7 @@ import { ModalComponent } from './components/shared/modal/modal.component';
 
 import { UserByIdPipe } from './pipes/user-by-id.pipe';
 import { DecryptMsgsPipe } from './pipes/decrypt-msgs.pipe';
+import { InfoModalComponent } from './components/shared/info-modal/info-modal.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { DecryptMsgsPipe } from './pipes/decrypt-msgs.pipe';
     ErrorComponent,
     ModalComponent,
     UserByIdPipe,
-    DecryptMsgsPipe
+    DecryptMsgsPipe,
+    InfoModalComponent
   ],
   imports: [
     BrowserModule,
