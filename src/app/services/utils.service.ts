@@ -14,6 +14,7 @@ export class UtilsService {
   private readonly _document: Document = document;
   private readonly _window: Window = window;
   private readonly _navigator: Navigator = navigator;
+  private readonly _localStorage: Storage = localStorage;
   private readonly initialAlias: ILocalUser = { id: '', name: '', associatedRoomId: '', quickJoinId: '' };
   private readonly alias$: BehaviorSubject<ILocalUser> = new BehaviorSubject(this.initialAlias);
   private readonly initialMode: boolean = true;
@@ -79,6 +80,14 @@ export class UtilsService {
 
   scrollToTop(): void {
     this._window.scrollTo(0, 0);
+  }
+
+  setLocalStorageTheme(theme: string): void {
+    this._localStorage.setItem('theme', theme);
+  }
+
+  getLocalStorageTheme(): boolean {
+    return this._localStorage.getItem('theme') === 'dark';
   }
 
   setTitle(newTitle: string): void {

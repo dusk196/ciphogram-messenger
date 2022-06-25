@@ -1,0 +1,100 @@
+<div class="modal" [ngClass]="{'is-active': modalDetails.show}">
+  <div class="modal-background"> </div>
+  <div class="modal-content">
+    <section class="section">
+      <div class="box">
+        <h1 class="subtitle"> Wanna update your alias? </h1>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label"> Alias: </label>
+          </div>
+          <div class="field-body">
+            <div class="field has-addons">
+              <div class="control has-icons-left is-expanded">
+                <input class="field input is-primary" type="text" placeholder="Your Alias (required)"
+                  [(ngModel)]="aliasName" maxlength=30 />
+                <span class="icon is-small is-left">
+                  <fa-icon [icon]="faUser"> </fa-icon>
+                </span>
+              </div>
+              <div class="control">
+                <button type="button" class="button is-primary" (click)="generateAlias()">
+                  <span class="icon is-small">
+                    <fa-icon [icon]="faRotateRight"> </fa-icon>
+                  </span>
+                  <span> Random </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal"> </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <div class="buttons">
+                  <button type="button" class="button is-primary">
+                    Update
+                  </button>
+                  <button type="button" class="button" (click)="closeModal()">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <h1 class="subtitle"> Wanna update your alias? </h1>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label"> Alias: </label>
+          </div>
+          <div class="field-body">
+            <div class="field has-addons">
+              <div class="control has-icons-left is-expanded">
+                <input class="field input is-primary" type="text" placeholder="Your Alias (required)"
+                  [(ngModel)]="aliasName" maxlength=30 />
+                <span class="icon is-small is-left">
+                  <fa-icon [icon]="faUser"> </fa-icon>
+                </span>
+              </div>
+              <div class="control">
+                <button type="button" class="button is-primary" (click)="generateAlias()">
+                  <span class="icon is-small">
+                    <fa-icon [icon]="faRotateRight"> </fa-icon>
+                  </span>
+                  <span> Random </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal"> </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <div class="buttons">
+                  <button type="button" class="button is-primary">
+                    Update
+                  </button>
+                  <button type="button" class="button" (click)="closeModal()">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <button type="button" class="modal-close is-large" (click)="closeModal()" aria-label="close"> </button>
+</div>
+
+<!--
+warning! leaving the room will automatically destroy all of your chats
+dont show me again -->

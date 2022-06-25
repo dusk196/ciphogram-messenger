@@ -17,13 +17,13 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { StartComponent } from './components/start/start.component';
 import { MessagesComponent } from './components/messages/messages.component';
+import { InfoModalComponent } from './components/messages/info-modal/info-modal.component';
 import { ErrorComponent } from './components/error/error.component';
 
 import { ModalComponent } from './components/shared/modal/modal.component';
 
 import { UserByIdPipe } from './pipes/user-by-id.pipe';
 import { DecryptMsgsPipe } from './pipes/decrypt-msgs.pipe';
-import { InfoModalComponent } from './components/shared/info-modal/info-modal.component';
 
 @NgModule({
   declarations: [
@@ -31,11 +31,11 @@ import { InfoModalComponent } from './components/shared/info-modal/info-modal.co
     HomeComponent,
     StartComponent,
     MessagesComponent,
+    InfoModalComponent,
     ErrorComponent,
     ModalComponent,
     UserByIdPipe,
-    DecryptMsgsPipe,
-    InfoModalComponent
+    DecryptMsgsPipe
   ],
   imports: [
     BrowserModule,
@@ -46,8 +46,6 @@ import { InfoModalComponent } from './components/shared/info-modal/info-modal.co
     provideDatabase(() => getDatabase()),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
     FontAwesomeModule

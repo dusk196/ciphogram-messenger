@@ -1,4 +1,42 @@
-<nav class="navbar is-fixed-top">
+<nav class="navbar is-fixed-top" [ngClass]="isDarkMode ? 'is-dark' : 'is-light'">
+  <div class="container">
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" [routerLink]="'/home'" target="_blank">
+          <span class="icon-text">
+            <span class="icon">
+              <img src="assets/favicon.svg" alt="logo" />
+            </span>
+            <span class="has-text-weight-bold"> CIPHOGRAM </span>
+          </span>
+        </a>
+        <a class="navbar-item"> Room details </a>
+        <a class="navbar-item"> Alias </a>
+        <a class="navbar-item"> Online (2) </a>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-rounded" [ngClass]="isDarkMode ? 'is-dark' : 'is-light'" (click)="changeTheme()">
+              <span class="icon">
+                <fa-icon [icon]="isDarkMode ? faSun : faMoon"> </fa-icon>
+              </span>
+              <span [innerText]="isDarkMode ? 'Light' : 'Dark'"> </span>
+            </a>
+            <a class="button is-rounded" [ngClass]="isDarkMode ? 'is-dark' : 'is-light'">
+              <span class="icon">
+                <fa-icon [icon]="faCloudArrowDown"> </fa-icon>
+              </span>
+              <span> Download </span>
+            </a>
+            <a class="button is-rounded is-danger" [routerLink]="'/home'"> Exit </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<nav class="navbar is-light is-fixed-bottom">
   <div class="container">
     <div id="navMenu" class="navbar-menu">
       <div class="navbar-start">
@@ -20,29 +58,7 @@
     </div>
   </div>
 </nav>
-<nav class="navbar is-fixed-bottom">
-  <div class="container">
-    <div id="navMenu" class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item">
-          Home
-        </a>
-        <a class="navbar-item">
-          Documentation
-        </a>
-      </div>
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
-            <a class="button is-dark">Github</a>
-            <a class="button is-link">Download</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
-<section class="hero is-link is-fullheight-with-navbar">
+<section class="hero is-fullheight-with-navbar">
   Fullheight hero with navbar
 </section>
 <section class="is-hidden is-hidden-touch">
@@ -64,10 +80,10 @@
       </div>
     </div>
     <div class="right">
-      <button *ngIf="!isProdMode" type="button" class="switch tooltip" [ngClass]="isEncrypted ? 'on':'off'"
+      <button *ngIf="!isProdMode" type="button" class="switch tooltip" [ngClass]="isEncrypted ? 'on' : 'off'"
         (click)="isEncrypted = !isEncrypted">
         <span class="d-none">toggle encryption</span>
-        <span class="tooltip-text tooltip-msg" [innerText]="isEncrypted?'Show decrypted!':'Show encrypted!'"></span>
+        <span class="tooltip-text tooltip-msg" [innerText]="isEncrypted?'Show decrypted!' : 'Show encrypted!'"></span>
       </button>
       <button type="button" [routerLink]="'/home'">Exit</button>
     </div>
@@ -128,4 +144,5 @@
     </footer>
   </footer>
 </div>
-<app-modal [modalDetails]="modalDetails" (closeModalEvent)="closeModal()"></app-modal>
+<app-modal [modalDetails]="modalDetails" (closeModalEvent)="closeModal()"> </app-modal>
+<app-info-modal [modalDetails]="infoModalDetails" (closeModalEvent)="closeInfoModal()"> </app-info-modal>

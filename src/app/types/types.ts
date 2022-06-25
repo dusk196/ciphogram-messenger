@@ -4,6 +4,12 @@ export interface IModal {
   show: boolean;
 }
 
+export interface IInfoModal {
+  type: string;
+  isDarkMode: boolean;
+  show: boolean;
+}
+
 export interface ILocalUser {
   id: string;
   name: string;

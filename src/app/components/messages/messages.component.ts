@@ -2,11 +2,12 @@ import { Component, ElementRef, HostListener, Inject, OnInit, OnDestroy, ViewChi
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
 
+import { faSun, faMoon, faCloudArrowDown, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { cloneDeep } from 'lodash';
 
 import { RoutePaths, ErrorModal, GenericConst, MessageConst, NoUserModal, Titles, ThemeColors } from 'src/app/types/enums';
-import { ILocalUser, IMessage, IModal, IUser } from 'src/app/types/types';
+import { IInfoModal, ILocalUser, IMessage, IModal, IUser } from 'src/app/types/types';
 import { UtilsService } from 'src/app/services/utils.service';
 import { DbService } from 'src/app/services/db.service';
 import { environment } from 'src/environments/environment';
@@ -33,17 +34,26 @@ export class MessagesComponent implements OnInit, OnDestroy {
   aliasFormData: string = '';
   localUserSubs: Subscription;
   message: string = '';
+  faSun: IconDefinition = faSun;
+  faMoon: IconDefinition = faMoon;
+  faCloudArrowDown: IconDefinition = faCloudArrowDown;
   copyText: string = GenericConst.Copied;
   placeholderText: string = '';
   modalDismiss: boolean = false;
   isEncrypted: boolean = false;
   isProdMode: boolean = true;
+  isDarkMode: boolean = true;
   counter: number = 0;
   unsubscibe$: any = new Subject();
   modalDetails: IModal = {
     title: '',
     message: '',
     show: false
+  };
+  infoModalDetails: IInfoModal = {
+    type: '',
+    isDarkMode: this.isDarkMode,
+    show: true
   };
 
   constructor(
@@ -122,6 +132,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this._utilsService.setTitle(Titles.Room);
     this._utilsService.updateMeta(ThemeColors.Dark);
     this._utilsService.setStickyNav();
+    this.isDarkMode = this._utilsService.getLocalStorageTheme();
   }
 
   onCopy(): void {
@@ -190,8 +201,17 @@ export class MessagesComponent implements OnInit, OnDestroy {
     }
   }
 
+  changeTheme(): void {
+    this.isDarkMode = !this.isDarkMode;
+    this._utilsService.setLocalStorageTheme(this.isDarkMode ? 'dark' : 'light');
+  }
+
   onMouseEnter(): void {
     this.copyText = GenericConst.Copied;
+  }
+
+  closeInfoModal(): void {
+    this.infoModalDetails.show = false;
   }
 
   closeModal(): void {
