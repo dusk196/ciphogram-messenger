@@ -70,7 +70,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this._utilsService.setTitle(Titles.Home);
     this._utilsService.updateMeta(ThemeColors.Primary);
-    this._utilsService.removeStickyNav();
     this.userDetails.id = this._uuidService.generateUuid();
   }
 

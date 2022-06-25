@@ -70,14 +70,6 @@ export class UtilsService {
     return this._navigator.clipboard.readText();
   }
 
-  setStickyNav(): void {
-    this._document.getElementsByTagName('html')[0].className = 'has-navbar-fixed-top';
-  }
-
-  removeStickyNav(): void {
-    this._document.getElementsByTagName('html')[0].className = '';
-  }
-
   scrollToTop(): void {
     this._window.scrollTo(0, 0);
   }

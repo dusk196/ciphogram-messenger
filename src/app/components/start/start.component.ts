@@ -41,7 +41,6 @@ export class StartComponent implements OnInit {
   ngOnInit(): void {
     this._utilsService.setTitle(Titles.Join);
     this._utilsService.updateMeta(ThemeColors.Primary);
-    this._utilsService.removeStickyNav();
     this.userDetails.id = this._uuidService.generateUuid();
     this.userDetails.name = this._utilsService.generateRandomAlias();
     this._utilsService.updateAlias(this.userDetails);

@@ -14,7 +14,6 @@ export class ErrorComponent implements OnInit {
   ngOnInit(): void {
     this._utilsService.setTitle(Titles.Error);
     this._utilsService.updateMeta(ThemeColors.Primary);
-    this._utilsService.removeStickyNav();
   }
 
 }

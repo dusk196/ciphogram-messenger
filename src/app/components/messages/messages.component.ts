@@ -131,7 +131,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._utilsService.setTitle(Titles.Room);
     this._utilsService.updateMeta(ThemeColors.Dark);
-    this._utilsService.setStickyNav();
     this.isDarkMode = this._utilsService.getLocalStorageTheme();
   }
 
