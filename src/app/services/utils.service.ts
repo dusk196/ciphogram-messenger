@@ -11,7 +11,6 @@ import { ILocalUser } from 'src/app/types/types';
 
 export class UtilsService {
 
-  private readonly _document: Document = document;
   private readonly _window: Window = window;
   private readonly _navigator: Navigator = navigator;
   private readonly _localStorage: Storage = localStorage;

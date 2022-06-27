@@ -39,25 +39,51 @@
   </nav>
 </header>
 <main>
-  <section class="section">
-    Fullheight hero with navbar
+  <section class="section" [ngClass]="isDarkMode ? 'is-dark has-background-dark' : 'is-light'">
+    <div class="container">
+      <div class="block is-clearfix">
+        <div class="notification is-pulled-left"
+          [ngClass]="isDarkMode ? 'is-primary' : 'is-primary has-background-primary-dark has-text-white'">
+          This container is <strong> centered </strong> on desktop and larger viewports.
+        </div>
+      </div>
+      <div class="block is-clearfix">
+        <div class="notification is-pulled-right has-text-right"
+          [ngClass]="isDarkMode ? 'is-info' : 'is-info has-background-info-dark has-text-white'">
+          This container is <strong> centered </strong> on desktop and larger viewports.
+        </div>
+      </div>
+      <div class="block is-clearfix">
+        <div class="notification is-pulled-left"
+          [ngClass]="isDarkMode ? 'is-primary' : 'is-primary has-background-primary-dark has-text-white'">
+          This container is <strong> centered </strong> on desktop and larger viewports.
+        </div>
+      </div>
+      <div class="block is-clearfix">
+        <div class="notification is-pulled-right has-text-right"
+          [ngClass]="isDarkMode ? 'is-info' : 'is-info has-background-info-dark has-text-white'">
+          This container is <strong> centered </strong> on desktop and larger viewports.
+        </div>
+      </div>
+    </div>
   </section>
 </main>
 <footer>
-  <div class="navbar section is-fixed-bottom" [ngClass]="isDarkMode ? 'is-dark' : 'is-light'">
+  <div class="navbar section is-fixed-bottom" [ngClass]="isDarkMode ? 'is-dark has-background-dark' : 'is-light'">
     <div class="container">
       <div class="navbar-menu">
         <div class="field-body">
           <div class="field">
             <div class="control is-expanded">
-              <textarea class="field textarea is-primary" placeholder="Normal textarea"></textarea>
+              <textarea class="field textarea is-info" title="message" [placeholder]="placeholderText"
+                [(ngModel)]="message" (keyup.enter)="sendMessage()" maxlength="2000" autofocus></textarea>
             </div>
           </div>
         </div>
         <div class="navbar-end">
           <div class="navbar-item">
-            <a class="button is-rounded is-medium" [ngClass]="isDarkMode ? 'is-link' : 'is-info'"
-              (click)="changeTheme()">
+            <a class="button is-rounded is-medium" (click)="changeTheme()"
+              [ngClass]="isDarkMode ? 'is-info is-light' : 'has-background-info-dark has-text-white'">
               Send
             </a>
           </div>
@@ -66,7 +92,7 @@
     </div>
   </div>
 </footer>
-<section class="is-hidden is-hidden-touch">
+<!-- <section class="is-hidden is-hidden-touch">
   DESKTOP
 </section>
 <section class="is-hidden is-hidden-desktop">
@@ -148,6 +174,6 @@
       </p>
     </footer>
   </footer>
-</div>
+</div> -->
 <app-modal [modalDetails]="modalDetails" (closeModalEvent)="closeModal()"> </app-modal>
 <app-info-modal [modalDetails]="infoModalDetails" (closeModalEvent)="closeInfoModal()"> </app-info-modal>

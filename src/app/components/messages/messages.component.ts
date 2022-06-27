@@ -42,7 +42,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   modalDismiss: boolean = false;
   isEncrypted: boolean = false;
   isProdMode: boolean = true;
-  isDarkMode: boolean = true;
+  isDarkMode: boolean = false;
   counter: number = 0;
   unsubscibe$: any = new Subject();
   modalDetails: IModal = {
@@ -130,8 +130,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._utilsService.setTitle(Titles.Room);
-    this._utilsService.updateMeta(ThemeColors.Dark);
     this.isDarkMode = this._utilsService.getLocalStorageTheme();
+    this._utilsService.updateMeta(this.isDarkMode ? ThemeColors.Dark : ThemeColors.Light);
   }
 
   onCopy(): void {

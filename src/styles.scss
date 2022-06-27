@@ -57,15 +57,15 @@ body {
 
 * {
 
-  &:not(input) {
+  &:not(input, textarea) {
     -webkit-user-select: none;
     user-select        : none;
 
-    &:not(input)::selection {
+    &:not(input, textarea)::selection {
       background: none;
     }
 
-    &:not(input)::-moz-selection {
+    &:not(input, textarea)::-moz-selection {
       background: none;
     }
   }
