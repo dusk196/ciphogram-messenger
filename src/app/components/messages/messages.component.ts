@@ -39,10 +39,12 @@ export class MessagesComponent implements OnInit, OnDestroy {
   faCloudArrowDown: IconDefinition = faCloudArrowDown;
   copyText: string = GenericConst.Copied;
   placeholderText: string = '';
+  mobilePlaceholderText: string = '';
   modalDismiss: boolean = false;
   isEncrypted: boolean = false;
   isProdMode: boolean = true;
   isDarkMode: boolean = false;
+  isNavActive: boolean = false;
   counter: number = 0;
   unsubscibe$: any = new Subject();
   modalDetails: IModal = {
@@ -70,6 +72,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
       .subscribe((mode: boolean) => {
         this.isProdMode = mode;
         this.placeholderText = this.isProdMode ? MessageConst.Placeholder : MessageConst.Placeholder + MessageConst.ProdPlaceholder;
+        this.mobilePlaceholderText = this.isProdMode ? MessageConst.MobilePlaceholder : MessageConst.MobilePlaceholder + MessageConst.ProdPlaceholder;
       });
     this.localUserSubs = this._utilsService.getAlias()
       .subscribe((alias: ILocalUser) => {
@@ -220,6 +223,10 @@ export class MessagesComponent implements OnInit, OnDestroy {
     } else {
       this._router.navigate([`/${RoutePaths.Home}`]);
     }
+  }
+
+  toggleNavMenu() {
+    this.isNavActive = !this.isNavActive;
   }
 
   ngOnDestroy(): void {

@@ -9,17 +9,31 @@ main {
     max-width: 75%;
 
     &.is-primary {
-      border-radius: 0px 15px 15px 15px;
+      border-radius: 0px 50px 50px 50px;
     }
 
     &.is-info {
-      border-radius: 15px 0px 15px 15px;
+      border-radius: 50px 0px 50px 50px;
     }
   }
 }
 
 footer {
-  textarea {
-    resize: none;
+  textarea::placeholder {
+    color: hsl(0, 0%, 71%);
+  }
+
+  .block {
+    width  : 100%;
+    display: inherit;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    .section {
+      margin-top: calc(3.25rem);
+      min-height: calc(100vh - 3.25rem - (3rem * 2) - 8em);
+    }
   }
 }

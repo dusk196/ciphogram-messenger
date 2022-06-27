@@ -1,16 +1,23 @@
 <header>
   <nav class="navbar is-fixed-top" [ngClass]="isDarkMode ? 'is-dark' : 'is-light'">
     <div class="container">
-      <div class="navbar-menu">
-        <div class="navbar-start">
-          <a class="navbar-item" [routerLink]="'/home'" target="_blank">
-            <span class="icon-text">
-              <span class="icon">
-                <img src="assets/favicon.svg" alt="logo" />
-              </span>
-              <span class="has-text-weight-bold"> CIPHOGRAM </span>
+      <div class="navbar-brand">
+        <a class="navbar-item" [routerLink]="'/home'" target="_blank">
+          <span class="icon-text">
+            <span class="icon">
+              <img src="assets/favicon.svg" alt="logo" />
             </span>
-          </a>
+            <span class="has-text-weight-bold"> CIPHOGRAM </span>
+          </span>
+        </a>
+        <div class="navbar-burger burger" [ngClass]="{'is-active':isNavActive}" (click)="toggleNavMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="navbar-menu" [ngClass]="{'is-active':isNavActive}">
+        <div class="navbar-start">
           <a class="navbar-item"> Room details </a>
           <a class="navbar-item"> Alias </a>
           <a class="navbar-item"> Online (2) </a>
@@ -40,7 +47,7 @@
 </header>
 <main>
   <section class="section" [ngClass]="isDarkMode ? 'is-dark has-background-dark' : 'is-light has-background-light'">
-    <div class="container">
+    <div class="container is-size-7-mobile">
       <div class="block is-clearfix">
         <div class="notification is-pulled-left"
           [ngClass]="isDarkMode ? 'is-primary' : 'is-primary has-background-primary-dark has-text-white'">
@@ -48,7 +55,7 @@
         </div>
       </div>
       <div class="block is-clearfix">
-        <div class="notification is-pulled-right has-text-right"
+        <div class="notification is-pulled-right"
           [ngClass]="isDarkMode ? 'is-info' : 'is-info has-background-info-dark has-text-white'">
           This container is <strong> centered </strong> on desktop and larger viewports.
         </div>
@@ -60,7 +67,7 @@
         </div>
       </div>
       <div class="block is-clearfix">
-        <div class="notification is-pulled-right has-text-right"
+        <div class="notification is-pulled-right"
           [ngClass]="isDarkMode ? 'is-info' : 'is-info has-background-info-dark has-text-white'">
           This container is <strong> centered </strong> on desktop and larger viewports.
         </div>
@@ -71,21 +78,31 @@
 <footer>
   <div class="navbar section is-fixed-bottom" [ngClass]="isDarkMode ? 'is-dark has-background-dark' : 'is-light'">
     <div class="container">
-      <div class="navbar-menu">
+      <div class="block" [ngClass]="isDarkMode ? 'is-dark has-background-dark' : 'is-light'">
         <div class="field-body">
           <div class="field">
             <div class="control is-expanded">
-              <textarea class="field textarea is-info" title="message" [placeholder]="placeholderText"
-                [(ngModel)]="message" (keyup.enter)="sendMessage()" maxlength="2000" autofocus></textarea>
+              <textarea class="field textarea has-fixed-size is-info is-hidden-touch"
+                [ngClass]="{'has-background-grey-dark has-text-white': isDarkMode}" title="message"
+                [placeholder]="placeholderText" [(ngModel)]="message" (keyup.enter)="sendMessage()" maxlength="2000"
+                autofocus> </textarea>
+              <textarea class="field textarea has-fixed-size is-info is-small is-hidden-desktop"
+                [ngClass]="{'has-background-grey-dark has-text-white': isDarkMode}" title="message"
+                [placeholder]="mobilePlaceholderText" [(ngModel)]="message" (keyup.enter)="sendMessage()"
+                maxlength="2000" autofocus> </textarea>
+              <button type="button" class="button is-small is-hidden-desktop" (click)="changeTheme()"
+                [ngClass]="isDarkMode ? 'is-info is-light' : 'has-background-info-dark has-text-white'">
+                Send
+              </button>
             </div>
           </div>
         </div>
         <div class="navbar-end">
           <div class="navbar-item">
-            <a class="button is-rounded is-medium" (click)="changeTheme()"
+            <button type="button" class="button is-rounded is-medium is-hidden-touch" (click)="changeTheme()"
               [ngClass]="isDarkMode ? 'is-info is-light' : 'has-background-info-dark has-text-white'">
               Send
-            </a>
+            </button>
           </div>
         </div>
       </div>
