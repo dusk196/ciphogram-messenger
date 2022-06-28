@@ -37,6 +37,7 @@ export enum HowModal {
 }
 
 export enum MessageConst {
+  Size = 2000,
   MobilePlaceholder = 'Enter your messege...',
   Placeholder = 'Enter your messege... \nPress Enter to send, Ctrl + Enter OR Shift + Enter to add new line. ',
   ProdPlaceholder = '\n\nALERT! Don\'t use Non-Prod mode to send sensitive messages. It\'s for testing purpose only. However, don\'t forget to check the console for informative logs.',

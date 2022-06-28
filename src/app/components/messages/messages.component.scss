@@ -1,4 +1,5 @@
 main {
+
   .section {
     margin-top   : calc(3.5rem);
     margin-bottom: calc(8em + (3rem * 2));
@@ -6,6 +7,7 @@ main {
   }
 
   .notification {
+
     max-width: 75%;
 
     &.is-primary {
@@ -15,25 +17,68 @@ main {
     &.is-info {
       border-radius: 50px 0px 50px 50px;
     }
+
   }
+
 }
 
 footer {
-  textarea::placeholder {
-    color: hsl(0, 0%, 71%);
+
+  textarea {
+
+    border-radius: 20px;
+
+    &::placeholder {
+      color: hsl(0, 0%, 71%);
+    }
+
+    &::-webkit-scrollbar-track {
+      margin: 20px;
+    }
+
+  }
+
+  #mobileSend {
+    width     : 100%;
+    margin-top: 5px;
   }
 
   .block {
     width  : 100%;
     display: inherit;
   }
+
+  .help {
+    margin-right: 20px;
+  }
+
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1023px) {
+
   main {
     .section {
       margin-top: calc(3.25rem);
       min-height: calc(100vh - 3.25rem - (3rem * 2) - 8em);
     }
   }
+
+  footer {
+
+    textarea {
+
+      border-radius: 12px;
+
+      &::-webkit-scrollbar-track {
+        margin: 12px;
+      }
+
+    }
+
+    .help {
+      margin-right: 12px;
+    }
+
+  }
+
 }

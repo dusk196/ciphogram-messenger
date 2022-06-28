@@ -1,5 +1,5 @@
-import { Component, ElementRef, HostListener, Inject, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, ElementRef, HostListener, Inject, OnInit, OnDestroy, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, Event, Router } from '@angular/router';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
 
 import { faSun, faMoon, faCloudArrowDown, IconDefinition } from '@fortawesome/free-solid-svg-icons';
@@ -17,12 +17,13 @@ import { CryptoService } from 'src/app/services/crypto.service';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.scss']
+  styleUrls: ['./messages.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class MessagesComponent implements OnInit, OnDestroy {
 
-  @ViewChild('chatContainer') chatContainer: ElementRef | undefined;
+  // @ViewChild('chatContainer') chatContainer: ElementRef | undefined;
 
   readonly roomId: string = this._activatedroute.snapshot.params['roomId'];
   private allUsersHook: Unsubscribe;
@@ -34,6 +35,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
   aliasFormData: string = '';
   localUserSubs: Subscription;
   message: string = '';
+  messageSize: number = MessageConst.Size;
+  messageLength: number = 0
   faSun: IconDefinition = faSun;
   faMoon: IconDefinition = faMoon;
   faCloudArrowDown: IconDefinition = faCloudArrowDown;
@@ -65,7 +68,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
     private readonly _utilsService: UtilsService,
     private readonly _uuidService: UuidService,
     private readonly _dbService: DbService,
-    private readonly _cryptoService: CryptoService
+    private readonly _cryptoService: CryptoService,
+    private readonly _cdr: ChangeDetectorRef
   ) {
     this._utilsService.getMode()
       .pipe(takeUntil(this.unsubscibe$))
@@ -116,10 +120,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
       const data = snapshot.val();
       if (!this._utilsService.isNullOrEmpty(data)) {
         this.allMessages = cloneDeep(data);
-        setTimeout(() => {
-          const elemRef: Element = this.chatContainer?.nativeElement;
-          elemRef.getElementsByClassName('top')[0].scrollTo(0, elemRef.getElementsByClassName('top')[0].scrollHeight);
-        });
       }
     }, (err: Error) => {
       this.modalDetails = {
@@ -135,6 +135,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this._utilsService.setTitle(Titles.Room);
     this.isDarkMode = this._utilsService.getLocalStorageTheme();
     this._utilsService.updateMeta(this.isDarkMode ? ThemeColors.Dark : ThemeColors.Light);
+    this.messageLength = this.messageSize - this.message.length;
   }
 
   onCopy(): void {
@@ -167,10 +168,14 @@ export class MessagesComponent implements OnInit, OnDestroy {
       });
   }
 
+  checkMessage(): void {
+    this.messageLength = this.messageSize - this.message.length;
+  }
+
   sendMessage(): void {
     const localMsg = cloneDeep(this.message);
-    this.message = '';
-    if (localMsg.replace(/\n/g, '').length > 0 && localMsg.length <= 2000) {
+    this.checkMessage();
+    if (localMsg.replace(/\n/g, '').length > 0 && localMsg.length <= this.messageSize) {
       this.allConnectedUsers.forEach((user: IUser) => {
         const msg: IMessage = {
           id: this._uuidService.generateUuid(),
@@ -182,13 +187,16 @@ export class MessagesComponent implements OnInit, OnDestroy {
         this.allMessages.push(msg);
       });
       this._dbService.updateCounter(this.counter + 1);
+      console.log('begin');
       this._dbService.updateMessages(this.roomId, this.allMessages)
         .then(() => {
-          const elemRef: Element = this.chatContainer?.nativeElement;
-          elemRef.getElementsByClassName('top')[0].scrollTo(0, elemRef.getElementsByClassName('top')[0].scrollHeight);
-          setTimeout(() => {
-            elemRef.getElementsByTagName('textarea')[0].focus();
-          });
+          this.message = '';
+          console.log('middle');
+          // const elemRef: Element = this.chatContainer?.nativeElement;
+          // elemRef.getElementsByClassName('top')[0].scrollTo(0, elemRef.getElementsByClassName('top')[0].scrollHeight);
+          // setTimeout(() => {
+          //   elemRef.getElementsByTagName('textarea')[0].focus();
+          // });
         })
         .catch((err: Error) => {
           this.modalDetails = {
@@ -201,6 +209,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
           console.error(err);
         });
     }
+    console.log('end');
   }
 
   changeTheme(): void {
