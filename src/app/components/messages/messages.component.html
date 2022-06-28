@@ -18,9 +18,9 @@
       </div>
       <div class="navbar-menu" [ngClass]="{'is-active':isNavActive}">
         <div class="navbar-start">
-          <a class="navbar-item"> Room details </a>
-          <a class="navbar-item"> Alias </a>
-          <a class="navbar-item"> Online (2) </a>
+          <a class="navbar-item" (click)="updateInfoModal('room')"> Room details </a>
+          <a class="navbar-item" (click)="updateInfoModal('alias')"> Alias ({{localUser.name}}) </a>
+          <a class="navbar-item" (click)="updateInfoModal('people')"> Online ({{allConnectedUsers.length}}) </a>
         </div>
         <div class="navbar-end">
           <div class="navbar-item">
@@ -37,7 +37,7 @@
                 </span>
                 <span> Download </span>
               </a>
-              <a class="button is-rounded is-danger" [routerLink]="'/home'"> Exit </a>
+              <a class="button is-rounded is-danger" (click)="onExit()"> Exit </a>
             </div>
           </div>
         </div>
@@ -48,30 +48,23 @@
 <main>
   <section class="section" [ngClass]="isDarkMode ? 'is-dark has-background-dark' : 'is-light has-background-light'">
     <div class="container is-size-7-touch">
-      <div class="block is-clearfix">
-        <div class="notification is-pulled-left"
-          [ngClass]="isDarkMode ? 'is-primary' : 'is-primary has-background-primary-dark has-text-white'">
-          This container is <strong> centered </strong> on desktop and larger viewports.
-        </div>
-      </div>
-      <div class="block is-clearfix">
-        <div class="notification is-pulled-right"
-          [ngClass]="isDarkMode ? 'is-info' : 'is-info has-background-info-dark has-text-white'">
-          This container is <strong> centered </strong> on desktop and larger viewports.
-        </div>
-      </div>
-      <div class="block is-clearfix">
-        <div class="notification is-pulled-left"
-          [ngClass]="isDarkMode ? 'is-primary' : 'is-primary has-background-primary-dark has-text-white'">
-          This container is <strong> centered </strong> on desktop and larger viewports.
-        </div>
-      </div>
-      <div class="block is-clearfix">
-        <div class="notification is-pulled-right"
-          [ngClass]="isDarkMode ? 'is-info' : 'is-info has-background-info-dark has-text-white'">
-          This container is <strong> centered </strong> on desktop and larger viewports.
-        </div>
-      </div>
+      <ng-container *ngFor="let msg of allMessages; index as i;">
+        <ng-container *ngIf="msg.intendedRecipientId === localUser.id">
+          <p class="is-italic has-text-weight-light is-size-7"
+            [ngClass]="{'has-text-right': msg.createdBy === localUser.id, 'has-text-left': msg.createdBy !== localUser.id, ' has-text-grey-lighter': isDarkMode}"
+            [innerText]="msg.createdAt | date:'h:mm a, dd MMM yyyy'">
+          </p>
+          <div class="block is-clearfix">
+            <div class="notification"
+              [ngClass]="msg.createdBy === localUser.id ? 'is-pulled-right is-info has-background-info-dark has-text-white' : 'is-pulled-left is-primary has-background-primary-dark has-text-white'">
+              <p class="has-text-weight-semibold" [innerText]="msg.createdBy | userById: allConnectedUsers"> </p>
+              <p class="has-text-grey-lighter"
+                [innerText]="(msg.secretMessage | decryptMsgs) || 'ALERT: Unable to decrypt!'">
+              </p>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
     </div>
   </section>
 </main>
@@ -94,7 +87,8 @@
                 placeholder="{{mobilePlaceholderText}}" [(ngModel)]="message" (keyup)="checkMessage()"
                 (keyup.enter)="sendMessage()" [maxlength]="messageSize" autofocus> </textarea>
               <button type="button" id="mobileSend" class="button is-small is-rounded is-hidden-desktop"
-                (click)="sendMessage()" [ngClass]="isDarkMode ? 'is-info' : 'has-background-info-dark has-text-white'">
+                (click)="sendMessage()"
+                [ngClass]="isDarkMode ? 'has-background-info-dark has-text-white' : 'has-background-info-dark has-text-white'">
                 Send
               </button>
             </div>
@@ -103,7 +97,7 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <button type="button" class="button is-rounded is-medium is-hidden-touch" (click)="sendMessage()"
-              [ngClass]="isDarkMode ? 'is-info' : 'has-background-info-dark has-text-white'">
+              [ngClass]="isDarkMode ? 'has-background-info-dark has-text-white' : 'has-background-info-dark has-text-white'">
               Send
             </button>
           </div>
@@ -196,4 +190,169 @@
   </footer>
 </div> -->
 <app-modal [modalDetails]="modalDetails" (closeModalEvent)="closeModal()"> </app-modal>
-<app-info-modal [modalDetails]="infoModalDetails" (closeModalEvent)="closeInfoModal()"> </app-info-modal>
+<div class="modal" [ngClass]="{'is-active': showInfoModal}">
+  <div class="modal-background"> </div>
+  <div class="modal-content">
+    <section class="section">
+      <div *ngIf="infoModalType === 'room'" class="box" [ngClass]="{'has-background-dark has-text-white': isDarkMode}">
+        <h1 class="title" [ngClass]="{'has-text-white': isDarkMode}"> Room details </h1>
+        <div class="content">
+          <p>
+            Share either the secret <strong [ngClass]="{'has-background-dark has-text-white': isDarkMode}"> Room ID
+            </strong> or the <strong [ngClass]="{'has-background-dark has-text-white': isDarkMode}"> Quick Join Link
+            </strong> (easiest way) with the other participants.
+          </p>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label"> Room ID: </label>
+          </div>
+          <div class="field-body">
+            <div class="field has-addons">
+              <div class="control has-icons-left is-expanded">
+                <input class="field input is-primary" type="text" placeholder="Room ID" [value]="roomId" readonly />
+                <span class="icon is-small is-left">
+                  <fa-icon [icon]="faPeopleRoof"> </fa-icon>
+                </span>
+              </div>
+              <div class="control">
+                <button type="button" class="button is-primary" (click)="onCopyId()">
+                  <span class="icon is-small">
+                    <fa-icon [icon]="faCopy"> </fa-icon>
+                  </span>
+                  <span> Copy </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label"> Quick Join Link: </label>
+          </div>
+          <div class="field-body">
+            <div class="field has-addons">
+              <div class="control has-icons-left is-expanded">
+                <input class="field input is-primary" type="text" placeholder="Quick Join Link" [value]="quickJoin"
+                  readonly />
+                <span class="icon is-small is-left">
+                  <fa-icon [icon]="faLink"> </fa-icon>
+                </span>
+              </div>
+              <div class="control">
+                <button type="button" class="button is-primary" (click)="onCopyLink()">
+                  <span class="icon is-small">
+                    <fa-icon [icon]="faCopy"> </fa-icon>
+                  </span>
+                  <span> Copy </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal"> </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <div class="buttons">
+                  <button type="button" class="button is-primary">
+                    Share the link
+                  </button>
+                  <button type="button" class="button" (click)="closeInfoModal()">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="infoModalType === 'alias'" class="box" [ngClass]="{'has-background-dark has-text-white': isDarkMode}">
+        <h1 class="title" [ngClass]="{'has-text-white': isDarkMode}"> Wanna update your alias? </h1>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label" [ngClass]="{'has-text-white': isDarkMode}"> Alias: </label>
+          </div>
+          <div class="field-body">
+            <div class="field has-addons">
+              <div class="control has-icons-left is-expanded">
+                <input class="field input is-primary" type="text" placeholder="Your Alias (required)"
+                  [(ngModel)]="aliasFormData" maxlength=30 />
+                <span class="icon is-small is-left">
+                  <fa-icon [icon]="faUser"> </fa-icon>
+                </span>
+              </div>
+              <div class="control">
+                <button type="button" class="button is-primary" (click)="generateAlias()">
+                  <span class="icon is-small">
+                    <fa-icon [icon]="faRotateRight"> </fa-icon>
+                  </span>
+                  <span> Random </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal"> </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <div class="buttons">
+                  <button type="button" class="button is-primary" (click)="updateAlias()"
+                    [disabled]="aliasFormData.length === 0">
+                    Update
+                  </button>
+                  <button type="button" class="button" (click)="closeInfoModal()">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="infoModalType === 'people'" class="box"
+        [ngClass]="{'has-background-dark has-text-white': isDarkMode}">
+        <h1 class="title" [ngClass]="{'has-text-white': isDarkMode}"> Online ({{allConnectedUsers.length}}) </h1>
+        <div class="content">
+          <ul>
+            <li *ngFor="let user of allConnectedUsers">
+              <span [ngClass]="{'has-text-weight-semibold': user.id === localUser.id}"> {{user.name}} </span>
+            </li>
+          </ul>
+        </div>
+        <button type="button" class="button is-primary" (click)="closeInfoModal()">
+          Got it
+        </button>
+      </div>
+      <div *ngIf="infoModalType === 'leave'" class="box" [ngClass]="{'has-background-dark has-text-white': isDarkMode}">
+        <h1 class="title" [ngClass]="{'has-text-white': isDarkMode}"> Warning! </h1>
+        <div class="content">
+          <p>
+            Leaving the room will automatically destroy all of your chats. You still can reconnect, however; you will
+            not be able to see the previous chats.
+          </p>
+        </div>
+        <div class="field">
+          <div class="control">
+            <label class="checkbox" for="isCheck" [ngClass]="{'has-text-white': isDarkMode}">
+              <input id="isCheck" type="checkbox" name="dont show me again" />
+              Don't show me again
+            </label>
+          </div>
+        </div>
+        <div class="buttons">
+          <button type="button" class="button is-primary" [routerLink]="'/home'">
+            Leave
+          </button>
+          <button type="button" class="button" (click)="closeInfoModal()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+  <button type="button" class="modal-close is-large" (click)="closeInfoModal()" aria-label="close"> </button>
+</div>

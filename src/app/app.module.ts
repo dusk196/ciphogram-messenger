@@ -17,7 +17,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { StartComponent } from './components/start/start.component';
 import { MessagesComponent } from './components/messages/messages.component';
-import { InfoModalComponent } from './components/messages/info-modal/info-modal.component';
 import { ErrorComponent } from './components/error/error.component';
 
 import { ModalComponent } from './components/shared/modal/modal.component';
@@ -31,7 +30,6 @@ import { DecryptMsgsPipe } from './pipes/decrypt-msgs.pipe';
     HomeComponent,
     StartComponent,
     MessagesComponent,
-    InfoModalComponent,
     ErrorComponent,
     ModalComponent,
     UserByIdPipe,

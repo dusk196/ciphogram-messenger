@@ -8,6 +8,8 @@ main {
 
   .notification {
 
+    width    : -moz-fit-content;
+    width    : fit-content;
     max-width: 75%;
 
     &.is-primary {
@@ -36,6 +38,10 @@ footer {
       margin: 20px;
     }
 
+  }
+
+  button {
+    border: none;
   }
 
   #mobileSend {
@@ -79,6 +85,15 @@ footer {
       margin-right: 12px;
     }
 
+  }
+
+}
+
+@media screen and (min-width: 1366px) {
+
+  .modal-content,
+  .modal-card {
+    width: 960px;
   }
 
 }

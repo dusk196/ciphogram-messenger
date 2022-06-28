@@ -1,13 +1,13 @@
-import { Component, ElementRef, HostListener, Inject, OnInit, OnDestroy, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute, Event, Router } from '@angular/router';
+import { Component, HostListener, Inject, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
 
-import { faSun, faMoon, faCloudArrowDown, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon, faCloudArrowDown, faUser, faCopy, faRotateRight, faPeopleRoof, faLink, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { cloneDeep } from 'lodash';
 
-import { RoutePaths, ErrorModal, GenericConst, MessageConst, NoUserModal, Titles, ThemeColors } from 'src/app/types/enums';
-import { IInfoModal, ILocalUser, IMessage, IModal, IUser } from 'src/app/types/types';
+import { RoutePaths, ErrorModal, MessageConst, NoUserModal, Titles, ThemeColors } from 'src/app/types/enums';
+import { ILocalUser, IMessage, IModal, IUser } from 'src/app/types/types';
 import { UtilsService } from 'src/app/services/utils.service';
 import { DbService } from 'src/app/services/db.service';
 import { environment } from 'src/environments/environment';
@@ -17,8 +17,7 @@ import { CryptoService } from 'src/app/services/crypto.service';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./messages.component.scss']
 })
 
 export class MessagesComponent implements OnInit, OnDestroy {
@@ -34,31 +33,33 @@ export class MessagesComponent implements OnInit, OnDestroy {
   allMessages: IMessage[] = [];
   aliasFormData: string = '';
   localUserSubs: Subscription;
+  quickJoin: string = '';
   message: string = '';
   messageSize: number = MessageConst.Size;
   messageLength: number = 0
   faSun: IconDefinition = faSun;
   faMoon: IconDefinition = faMoon;
   faCloudArrowDown: IconDefinition = faCloudArrowDown;
-  copyText: string = GenericConst.Copied;
+  faUser: IconDefinition = faUser;
+  faCopy: IconDefinition = faCopy;
+  faPeopleRoof: IconDefinition = faPeopleRoof;
+  faRotateRight: IconDefinition = faRotateRight;
+  faLink: IconDefinition = faLink;
   placeholderText: string = '';
   mobilePlaceholderText: string = '';
   modalDismiss: boolean = false;
-  isEncrypted: boolean = false;
+  // isEncrypted: boolean = false;
   isProdMode: boolean = true;
   isDarkMode: boolean = false;
   isNavActive: boolean = false;
+  showInfoModal: boolean = true;
+  infoModalType: string = 'room';
   counter: number = 0;
   unsubscibe$: any = new Subject();
   modalDetails: IModal = {
     title: '',
     message: '',
     show: false
-  };
-  infoModalDetails: IInfoModal = {
-    type: '',
-    isDarkMode: this.isDarkMode,
-    show: true
   };
 
   constructor(
@@ -83,6 +84,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         if (this._utilsService.isNullOrEmpty(alias.associatedRoomId)) {
           this._router.navigate([`/${RoutePaths.Home}`]);
         } else {
+          this.quickJoin = `${window.location.origin}/join/${alias.quickJoinId}`;
           this.localUser = { ...alias };
           this.aliasFormData = cloneDeep(alias.name);
         }
@@ -138,9 +140,22 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.messageLength = this.messageSize - this.message.length;
   }
 
-  onCopy(): void {
+  onCopyId(): void {
     navigator.clipboard.writeText(this.roomId);
-    this.copyText = GenericConst.Copied;
+  }
+
+  onCopyLink(): void {
+    navigator.clipboard.writeText(this.quickJoin);
+  }
+
+  updateInfoModal(type: string): void {
+    this.infoModalType = type;
+    this.showInfoModal = true;
+  }
+
+  onExit(): void {
+    this.infoModalType = 'leave'
+    this.showInfoModal = true;
   }
 
   generateAlias(): void {
@@ -174,7 +189,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   sendMessage(): void {
     const localMsg = cloneDeep(this.message);
-    this.checkMessage();
     if (localMsg.replace(/\n/g, '').length > 0 && localMsg.length <= this.messageSize) {
       this.allConnectedUsers.forEach((user: IUser) => {
         const msg: IMessage = {
@@ -187,11 +201,10 @@ export class MessagesComponent implements OnInit, OnDestroy {
         this.allMessages.push(msg);
       });
       this._dbService.updateCounter(this.counter + 1);
-      console.log('begin');
       this._dbService.updateMessages(this.roomId, this.allMessages)
         .then(() => {
           this.message = '';
-          console.log('middle');
+          this.checkMessage();
           // const elemRef: Element = this.chatContainer?.nativeElement;
           // elemRef.getElementsByClassName('top')[0].scrollTo(0, elemRef.getElementsByClassName('top')[0].scrollHeight);
           // setTimeout(() => {
@@ -209,7 +222,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
           console.error(err);
         });
     }
-    console.log('end');
   }
 
   changeTheme(): void {
@@ -217,12 +229,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this._utilsService.setLocalStorageTheme(this.isDarkMode ? 'dark' : 'light');
   }
 
-  onMouseEnter(): void {
-    this.copyText = GenericConst.Copied;
-  }
-
   closeInfoModal(): void {
-    this.infoModalDetails.show = false;
+    this.showInfoModal = false;
   }
 
   closeModal(): void {

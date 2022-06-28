@@ -39,7 +39,7 @@ export enum HowModal {
 export enum MessageConst {
   Size = 2000,
   MobilePlaceholder = 'Enter your messege...',
-  Placeholder = 'Enter your messege... \nPress Enter to send, Ctrl + Enter OR Shift + Enter to add new line. ',
+  Placeholder = 'Enter your messege... \nPress Enter to send, <Ctrl + Enter> OR <Shift + Enter> to add new line. ',
   ProdPlaceholder = '\n\nALERT! Don\'t use Non-Prod mode to send sensitive messages. It\'s for testing purpose only. However, don\'t forget to check the console for informative logs.',
 }
 
@@ -54,11 +54,4 @@ export enum ThemeColors {
   Primary = '#8A4D76',
   Light = '#FFFFFF',
   Dark = '#000000'
-}
-
-export enum GenericConst {
-  CopyLink = 'Copy Link',
-  CopyID = 'Copy ID',
-  Copied = 'Copied!',
-  delay = 3000
 }
