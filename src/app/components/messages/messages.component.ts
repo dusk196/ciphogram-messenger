@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
 
@@ -48,11 +48,11 @@ export class MessagesComponent implements OnInit, OnDestroy {
   placeholderText: string = '';
   mobilePlaceholderText: string = '';
   modalDismiss: boolean = false;
-  // isEncrypted: boolean = false;
   isProdMode: boolean = true;
   isDarkMode: boolean = false;
   isNavActive: boolean = false;
   showInfoModal: boolean = true;
+  isPending: boolean = false;
   infoModalType: string = 'room';
   counter: number = 0;
   unsubscibe$: any = new Subject();
@@ -69,8 +69,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     private readonly _utilsService: UtilsService,
     private readonly _uuidService: UuidService,
     private readonly _dbService: DbService,
-    private readonly _cryptoService: CryptoService,
-    private readonly _cdr: ChangeDetectorRef
+    private readonly _cryptoService: CryptoService
   ) {
     this._utilsService.getMode()
       .pipe(takeUntil(this.unsubscibe$))
@@ -151,6 +150,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   updateInfoModal(type: string): void {
     this.infoModalType = type;
     this.showInfoModal = true;
+    this.isNavActive = false;
   }
 
   onExit(): void {
@@ -189,7 +189,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   sendMessage(): void {
     const localMsg = cloneDeep(this.message);
-    if (localMsg.replace(/\n/g, '').length > 0 && localMsg.length <= this.messageSize) {
+    if (localMsg.replace(/\n/g, '').length > 0 && localMsg.length <= this.messageSize && !this.isPending) {
+      this.isPending = true;
       this.allConnectedUsers.forEach((user: IUser) => {
         const msg: IMessage = {
           id: this._uuidService.generateUuid(),
@@ -205,11 +206,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         .then(() => {
           this.message = '';
           this.checkMessage();
-          // const elemRef: Element = this.chatContainer?.nativeElement;
-          // elemRef.getElementsByClassName('top')[0].scrollTo(0, elemRef.getElementsByClassName('top')[0].scrollHeight);
-          // setTimeout(() => {
-          //   elemRef.getElementsByTagName('textarea')[0].focus();
-          // });
+          this._utilsService.scrollToBottom();
         })
         .catch((err: Error) => {
           this.modalDetails = {
@@ -220,8 +217,20 @@ export class MessagesComponent implements OnInit, OnDestroy {
           this.modalDismiss = true;
           this.allMessages.pop();
           console.error(err);
+        })
+        .finally(() => {
+          this.isPending = false;
         });
     }
+  }
+
+  share(): void {
+    const shareData = {
+      title: 'CIPHOGRAM - join the room!',
+      text: 'when a Cipher meets an Anagram 🤪',
+      url: this.quickJoin
+    };
+    this._utilsService.share(shareData);
   }
 
   changeTheme(): void {

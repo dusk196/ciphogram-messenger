@@ -205,7 +205,7 @@
         </div>
         <div class="field is-horizontal">
           <div class="field-label is-normal">
-            <label class="label"> Room ID: </label>
+            <label class="label" [ngClass]="{'has-text-white': isDarkMode}"> Room ID: </label>
           </div>
           <div class="field-body">
             <div class="field has-addons">
@@ -228,7 +228,7 @@
         </div>
         <div class="field is-horizontal">
           <div class="field-label is-normal">
-            <label class="label"> Quick Join Link: </label>
+            <label class="label" [ngClass]="{'has-text-white': isDarkMode}"> Quick Join Link: </label>
           </div>
           <div class="field-body">
             <div class="field has-addons">
@@ -256,7 +256,7 @@
             <div class="field">
               <div class="control">
                 <div class="buttons">
-                  <button type="button" class="button is-primary">
+                  <button type="button" class="button is-primary" (click)="share()">
                     Share the link
                   </button>
                   <button type="button" class="button" (click)="closeInfoModal()">

@@ -52,6 +52,6 @@ export enum Titles {
 
 export enum ThemeColors {
   Primary = '#8A4D76',
-  Light = '#FFFFFF',
-  Dark = '#000000'
+  Light = '#F5F5F5',
+  Dark = '#363636'
 }

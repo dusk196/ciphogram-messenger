@@ -11,6 +11,7 @@ import { ILocalUser } from 'src/app/types/types';
 
 export class UtilsService {
 
+  private readonly _document: Document = document;
   private readonly _window: Window = window;
   private readonly _navigator: Navigator = navigator;
   private readonly _localStorage: Storage = localStorage;
@@ -69,8 +70,16 @@ export class UtilsService {
     return this._navigator.clipboard.readText();
   }
 
+  share(data: object): void {
+    this._navigator.share(data);
+  }
+
   scrollToTop(): void {
     this._window.scrollTo(0, 0);
+  }
+
+  scrollToBottom(): void {
+    this._window.scrollTo(0, this._document.body.scrollHeight);
   }
 
   setLocalStorageTheme(theme: string): void {
