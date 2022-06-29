@@ -1,5 +1,6 @@
 import { Component, HostListener, Inject, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { formatDate } from '@angular/common';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
 
 import { faSun, faMoon, faCloudArrowDown, faUser, faCopy, faRotateRight, faPeopleRoof, faLink, IconDefinition } from '@fortawesome/free-solid-svg-icons';
@@ -13,17 +14,22 @@ import { DbService } from 'src/app/services/db.service';
 import { environment } from 'src/environments/environment';
 import { UuidService } from 'src/app/services/uuid.service';
 import { CryptoService } from 'src/app/services/crypto.service';
+import { UserByIdPipe } from 'src/app/pipes/user-by-id.pipe';
+import { DecryptMsgsPipe } from 'src/app/pipes/decrypt-msgs.pipe';
 
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.scss']
+  styleUrls: ['./messages.component.scss'],
+  providers: [UserByIdPipe, DecryptMsgsPipe]
 })
 
 export class MessagesComponent implements OnInit, OnDestroy {
 
   // @ViewChild('chatContainer') chatContainer: ElementRef | undefined;
 
+  private readonly _document: Document = document;
+  private readonly _window: Window = window;
   readonly roomId: string = this._activatedroute.snapshot.params['roomId'];
   private allUsersHook: Unsubscribe;
   private allMsgsHook: Unsubscribe;
@@ -69,7 +75,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
     private readonly _utilsService: UtilsService,
     private readonly _uuidService: UuidService,
     private readonly _dbService: DbService,
-    private readonly _cryptoService: CryptoService
+    private readonly _cryptoService: CryptoService,
+    private readonly _userByIdPipe: UserByIdPipe,
+    private readonly _decryptMsgsPipe: DecryptMsgsPipe
   ) {
     this._utilsService.getMode()
       .pipe(takeUntil(this.unsubscibe$))
@@ -148,6 +156,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   updateInfoModal(type: string): void {
+    this.aliasFormData = this.localUser.name;
     this.infoModalType = type;
     this.showInfoModal = true;
     this.isNavActive = false;
@@ -158,9 +167,40 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.showInfoModal = true;
   }
 
+  print(): void {
+    const element = this._document.createElement('h1');
+    element.textContent = `Report generated on ${formatDate(new Date(), 'dd-MM-yyyy, h:mm a', 'en-IN')} by ${this.localUser.name}`;
+    const a = this._window.open();
+    a?.document.body.setAttribute('style', 'font-family: monospace;');
+    a?.document.body.appendChild(element);
+    const chats: HTMLDivElement = this.getAllMessages();
+    a?.document.body.appendChild(chats);
+    a?.document.close();
+    a?.print();
+  }
+
+  getAllMessages(): HTMLDivElement {
+    const allMsgElement = this._document.createElement('div');
+    this.allMessages.forEach((msg: IMessage) => {
+      if (msg.intendedRecipientId === this.localUser.id) {
+        const msgElement = this._document.createElement('p');
+        const timeElement = this._document.createElement('span');
+        timeElement.textContent = `[${formatDate(msg.createdAt, 'dd-MM-yyyy, h:mm a', 'en-IN')}] `;
+        const nameElement = this._document.createElement('strong');
+        nameElement.textContent = this._userByIdPipe.transform(msg.createdBy, this.allConnectedUsers);
+        const chatElement = this._document.createElement('span');
+        chatElement.textContent = `: ${this._decryptMsgsPipe.transform(msg.secretMessage)}`;
+        msgElement.appendChild(timeElement);
+        msgElement.appendChild(nameElement);
+        msgElement.appendChild(chatElement);
+        allMsgElement.appendChild(msgElement);
+      }
+    });
+    return allMsgElement;
+  }
+
   generateAlias(): void {
-    this.localUser.name = this._utilsService.generateRandomAlias();
-    this._utilsService.updateAlias(this.localUser);
+    this.aliasFormData = this._utilsService.generateRandomAlias();
   }
 
   updateAlias(): void {
@@ -180,6 +220,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
         this.aliasFormData = prevName;
         this._utilsService.updateAlias(this.localUser);
         console.error(err);
+      })
+      .finally(() => {
+        this.showInfoModal = false;
       });
   }
 

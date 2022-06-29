@@ -31,7 +31,7 @@
                 </span>
                 <span [innerText]="isDarkMode ? 'Light' : 'Dark'"> </span>
               </a>
-              <a class="button is-rounded" [ngClass]="isDarkMode ? 'is-dark' : 'is-light'">
+              <a class="button is-rounded" [ngClass]="isDarkMode ? 'is-dark' : 'is-light'" (click)="print()">
                 <span class="icon">
                   <fa-icon [icon]="faCloudArrowDown"> </fa-icon>
                 </span>
