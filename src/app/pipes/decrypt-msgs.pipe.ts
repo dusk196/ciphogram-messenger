@@ -10,7 +10,7 @@ export class DecryptMsgsPipe implements PipeTransform {
   constructor(private readonly _cryptoService: CryptoService) { }
 
   transform(value: string): string {
-    return this._cryptoService.decryptDataByAes(value);
+    return decodeURIComponent(this._cryptoService.decryptDataByAes(value));
   }
 
 }

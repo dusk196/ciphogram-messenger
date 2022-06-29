@@ -263,7 +263,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
       this.allConnectedUsers.forEach((user: IUser) => {
         const msg: IMessage = {
           id: this._uuidService.generateUuid(),
-          secretMessage: this._cryptoService.encryptDataByAes(localMsg, user.publicKey),
+          secretMessage: this._cryptoService.encryptDataByAes(encodeURIComponent(localMsg), user.publicKey),
           createdAt: new Date(),
           createdBy: this.localUser.id,
           intendedRecipientId: user.id
