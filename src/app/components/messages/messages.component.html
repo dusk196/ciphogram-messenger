@@ -31,11 +31,11 @@
                 </span>
                 <span [innerText]="isDarkMode ? 'Light' : 'Dark'"> </span>
               </a>
-              <a class="button is-rounded" [ngClass]="isDarkMode ? 'is-dark' : 'is-light'" (click)="print()">
+              <a class="button is-rounded" [ngClass]="isDarkMode ? 'is-dark' : 'is-light'" (click)="onPrint()">
                 <span class="icon">
-                  <fa-icon [icon]="faCloudArrowDown"> </fa-icon>
+                  <fa-icon [icon]="faPrint"> </fa-icon>
                 </span>
-                <span> Download </span>
+                <span> Print </span>
               </a>
               <a class="button is-rounded is-danger" (click)="onExit()"> Exit </a>
             </div>

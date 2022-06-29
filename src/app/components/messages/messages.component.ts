@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
 
-import { faSun, faMoon, faCloudArrowDown, faUser, faCopy, faRotateRight, faPeopleRoof, faLink, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon, faPrint, faUser, faCopy, faRotateRight, faPeopleRoof, faLink, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { cloneDeep } from 'lodash';
 
@@ -45,7 +45,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   messageLength: number = 0
   faSun: IconDefinition = faSun;
   faMoon: IconDefinition = faMoon;
-  faCloudArrowDown: IconDefinition = faCloudArrowDown;
+  faPrint: IconDefinition = faPrint;
   faUser: IconDefinition = faUser;
   faCopy: IconDefinition = faCopy;
   faPeopleRoof: IconDefinition = faPeopleRoof;
@@ -167,28 +167,50 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.showInfoModal = true;
   }
 
-  print(): void {
-    const element = this._document.createElement('h1');
+  onPrint(): void {
+    const printWindow: Window | null = this._window.open();
+    printWindow?.document.body.setAttribute('style', 'font-family: monospace;');
+    const element: HTMLElement = this._document.createElement('h2');
     element.textContent = `Report generated on ${formatDate(new Date(), 'dd-MM-yyyy, h:mm a', 'en-IN')} by ${this.localUser.name}`;
-    const a = this._window.open();
-    a?.document.body.setAttribute('style', 'font-family: monospace;');
-    a?.document.body.appendChild(element);
-    const chats: HTMLDivElement = this.getAllMessages();
-    a?.document.body.appendChild(chats);
-    a?.document.close();
-    a?.print();
+    element.setAttribute('style', 'margin-bottom: 30px;');
+    printWindow?.document.body.appendChild(element);
+    const participants: HTMLElement = this._document.createElement('h3');
+    participants.textContent = `Participants:`;
+    printWindow?.document.body.appendChild(participants);
+    const allUsers: HTMLElement = this.getAllParticipants();
+    allUsers.setAttribute('style', 'margin-bottom: 30px;');
+    printWindow?.document.body.appendChild(allUsers);
+    const chatHeader: HTMLElement = this._document.createElement('h3');
+    chatHeader.textContent = `Discussions:`;
+    printWindow?.document.body.appendChild(chatHeader);
+    const chats: HTMLElement = this.getAllMessages();
+    chats.setAttribute('style', 'margin-bottom: 50px;');
+    printWindow?.document.body.appendChild(chats);
+    const footer: HTMLElement = this._document.createElement('div');
+    footer.innerHTML = '<hr /><p>Generated using <a rel = "noopener" href="https://ciphogram.web.app/" target = "_blank"><strong>CIPHOGRAM</strong></a> - the privacy messenger!</p><p>Made with ❤️ by <strong>Sayantan Roy</strong>. Source code: <a rel = "noopener" href="https://github.com/dusk196/ciphogram-messenger" target = "_blank">GitHub</a></p>';
+    printWindow?.document.body.appendChild(footer);
+    printWindow?.document.close();
+    printWindow?.print();
+    printWindow?.close();
   }
 
-  getAllMessages(): HTMLDivElement {
-    const allMsgElement = this._document.createElement('div');
+  getAllParticipants(): HTMLElement {
+    const allUserElement: HTMLElement = this._document.createElement('p');
+    const allUser: string[] = this.allConnectedUsers.map((user: IUser) => user.name);
+    allUserElement.textContent = allUser.join(', ');
+    return allUserElement;
+  }
+
+  getAllMessages(): HTMLElement {
+    const allMsgElement: HTMLElement = this._document.createElement('div');
     this.allMessages.forEach((msg: IMessage) => {
       if (msg.intendedRecipientId === this.localUser.id) {
-        const msgElement = this._document.createElement('p');
-        const timeElement = this._document.createElement('span');
+        const msgElement: HTMLElement = this._document.createElement('p');
+        const timeElement: HTMLElement = this._document.createElement('span');
         timeElement.textContent = `[${formatDate(msg.createdAt, 'dd-MM-yyyy, h:mm a', 'en-IN')}] `;
-        const nameElement = this._document.createElement('strong');
+        const nameElement: HTMLElement = this._document.createElement('strong');
         nameElement.textContent = this._userByIdPipe.transform(msg.createdBy, this.allConnectedUsers);
-        const chatElement = this._document.createElement('span');
+        const chatElement: HTMLElement = this._document.createElement('span');
         chatElement.textContent = `: ${this._decryptMsgsPipe.transform(msg.secretMessage)}`;
         msgElement.appendChild(timeElement);
         msgElement.appendChild(nameElement);
