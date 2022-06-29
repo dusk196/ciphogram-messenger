@@ -171,23 +171,27 @@ export class MessagesComponent implements OnInit, OnDestroy {
     const printWindow: Window | null = this._window.open();
     printWindow?.document.body.setAttribute('style', 'font-family: monospace;');
     const element: HTMLElement = this._document.createElement('h2');
-    element.textContent = `Report generated on ${formatDate(new Date(), 'dd-MM-yyyy, h:mm a', 'en-IN')} by ${this.localUser.name}`;
+    element.textContent = `Report generated on ${formatDate(new Date(), 'h:mm a, dd/MM/yyyy', 'en-IN')} (IST) by ${this.localUser.name}`;
     element.setAttribute('style', 'margin-bottom: 30px;');
     printWindow?.document.body.appendChild(element);
     const participants: HTMLElement = this._document.createElement('h3');
-    participants.textContent = `Participants:`;
-    printWindow?.document.body.appendChild(participants);
+    participants.textContent = `Participants (as per alias):`;
     const allUsers: HTMLElement = this.getAllParticipants();
-    allUsers.setAttribute('style', 'margin-bottom: 30px;');
-    printWindow?.document.body.appendChild(allUsers);
     const chatHeader: HTMLElement = this._document.createElement('h3');
-    chatHeader.textContent = `Discussions:`;
-    printWindow?.document.body.appendChild(chatHeader);
     const chats: HTMLElement = this.getAllMessages();
-    chats.setAttribute('style', 'margin-bottom: 50px;');
-    printWindow?.document.body.appendChild(chats);
+    if (this.allMessages.length > 0) {
+      chatHeader.textContent = `Discussions:`;
+      allUsers.setAttribute('style', 'margin-bottom: 30px;');
+      chats.setAttribute('style', 'margin-bottom: 50px;');
+    } else {
+      allUsers.setAttribute('style', 'margin-bottom: 50px;');
+    }
     const footer: HTMLElement = this._document.createElement('div');
     footer.innerHTML = '<hr /><p>Generated using <a rel = "noopener" href="https://ciphogram.web.app/" target = "_blank"><strong>CIPHOGRAM</strong></a> - the privacy messenger!</p><p>Made with ❤️ by <strong>Sayantan Roy</strong>. Source code: <a rel = "noopener" href="https://github.com/dusk196/ciphogram-messenger" target = "_blank">GitHub</a></p>';
+    printWindow?.document.body.appendChild(participants);
+    printWindow?.document.body.appendChild(allUsers);
+    printWindow?.document.body.appendChild(chatHeader);
+    printWindow?.document.body.appendChild(chats);
     printWindow?.document.body.appendChild(footer);
     printWindow?.document.close();
     printWindow?.print();
