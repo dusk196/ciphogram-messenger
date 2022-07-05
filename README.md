@@ -9,12 +9,14 @@
 
 ## An anonymous, untrackable, private, highly safe & secure yet a blazing fast messenger 😎
 
-[**DEMO**: https://ciphogram.web.app/](https://ciphogram.web.app/)
+## [**DEMO**: https://ciphogram.web.app/](https://ciphogram.web.app/)
 
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)](http://perso.crans.org/besson/LICENSE.html)
 [![Open Source? Yes!](https://img.shields.io/badge/Open_Source%3F-Yes!-blue?style=for-the-badge&logo=gitHub&logoColor=white)](https://opensource.com/resources/what-open-source/)
 ![Language](https://img.shields.io/github/languages/top/dusk196/ciphogram-messenger?style=for-the-badge)
 ![Size](https://img.shields.io/github/languages/code-size/dusk196/ciphogram-messenger?style=for-the-badge)
+
+**_Note:_** _You need to configure the application with a new Firebase project. You can create a new Firebase Project in the Firebase Console (with hosting & Realtime Database) and use the official Firebase CLI tool to configure the application. Just run `npm i -g @angular/fire` (or NPX) and once it's done, run `ng add @angular/fire` and follow the steps in the terminal._
 
 ## Introduction
 
