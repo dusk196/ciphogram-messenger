@@ -16,7 +16,7 @@
 ![Language](https://img.shields.io/github/languages/top/dusk196/ciphogram-messenger?style=for-the-badge)
 ![Size](https://img.shields.io/github/languages/code-size/dusk196/ciphogram-messenger?style=for-the-badge)
 
-**_Note:_** _You need to configure the application with a new Firebase project. You can create a new Firebase Project in the Firebase Console (with hosting & Realtime Database) and use the official Firebase CLI tool to configure the application. Just run `npm i -g @angular/fire` (or NPX) and once it's done, run `ng add @angular/fire` and follow the steps in the terminal._
+**_Note:_** _To run the application in local, you need to configure the application with a new Firebase project. You can create a new Firebase Project in the Firebase Console (with hosting & Realtime Database) and use the official Firebase CLI tool to configure the application. Just run `npm i -g @angular/fire` (or NPX) and once it's done, run `ng add @angular/fire` and follow the steps in the terminal._
 
 ## Introduction
 
