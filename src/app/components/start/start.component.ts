@@ -13,6 +13,7 @@ import { CryptoService } from 'src/app/services/crypto.service';
   selector: 'app-start',
   templateUrl: './start.component.html'
 })
+
 export class StartComponent implements OnInit {
 
   userDetails: ILocalUser = {
@@ -55,8 +56,6 @@ export class StartComponent implements OnInit {
       currentUsers: [user],
       messages: []
     };
-    details.associatedRoomId = this.userDetails.associatedRoomId;
-    details.currentUsers = [user];
     this._dbService.createRoom(details)
       .then(() => {
         this._router.navigate([`/${RoutePaths.Messages}`, this.userDetails.associatedRoomId]);
@@ -69,6 +68,11 @@ export class StartComponent implements OnInit {
         };
         console.error(err);
       });
+  }
+
+  closeModal(): void {
+    this.modalDetails.show = false;
+    this._router.navigate([`/home`]);
   }
 
 }

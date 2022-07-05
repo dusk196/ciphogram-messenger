@@ -21,7 +21,7 @@ import { environment } from 'src/environments/environment';
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private counterHook: Unsubscribe;
-  readonly quickJoin: string = `${window.location.origin}/${RoutePaths.Start}`;
+  readonly quickStart: string = `${window.location.origin}/${RoutePaths.Start}`;
   counter: number = 0;
   userRoomId: string = '';
   isValidUserRoomId: boolean = false;

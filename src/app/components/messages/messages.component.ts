@@ -26,8 +26,6 @@ import { DecryptMsgsPipe } from 'src/app/pipes/decrypt-msgs.pipe';
 
 export class MessagesComponent implements OnInit, OnDestroy {
 
-  // @ViewChild('chatContainer') chatContainer: ElementRef | undefined;
-
   private readonly _document: Document = document;
   private readonly _window: Window = window;
   readonly roomId: string = this._activatedroute.snapshot.params['roomId'];
@@ -91,7 +89,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         if (this._utilsService.isNullOrEmpty(alias.associatedRoomId)) {
           this._router.navigate([`/${RoutePaths.Home}`]);
         } else {
-          this.quickJoin = `${window.location.origin}/join/${alias.quickJoinId}`;
+          this.quickJoin = `${window.location.origin}/${RoutePaths.Join}/${alias.quickJoinId}`;
           this.localUser = { ...alias };
           this.aliasFormData = cloneDeep(alias.name);
         }

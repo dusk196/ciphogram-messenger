@@ -257,7 +257,7 @@
               <div class="control">
                 <div class="buttons">
                   <button type="button" class="button is-primary" (click)="share()">
-                    Share the link
+                    Share QuickJoin Link
                   </button>
                   <button type="button" class="button" (click)="closeInfoModal()">
                     Cancel
@@ -334,14 +334,6 @@
             Leaving the room will automatically destroy all of your chats. You still can reconnect, however; you will
             not be able to see the previous chats.
           </p>
-        </div>
-        <div class="field">
-          <div class="control">
-            <label class="checkbox" for="isCheck" [ngClass]="{'has-text-white': isDarkMode}">
-              <input id="isCheck" type="checkbox" name="dont show me again" />
-              Don't show me again
-            </label>
-          </div>
         </div>
         <div class="buttons">
           <button type="button" class="button is-primary" [routerLink]="'/home'">

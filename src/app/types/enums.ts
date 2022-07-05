@@ -2,6 +2,8 @@ export enum RoutePaths {
   Home = 'home',
   Messages = 'room',
   Start = 'start',
+  Join = 'connect',
+  JoinId = 'joinId',
   RoomId = 'roomId',
   Error = 'error'
 }
@@ -19,6 +21,11 @@ export enum ErrorPaste {
 export enum NoRoomModal {
   Title = 'Oops! 😒',
   Message = 'We are unable to find that room. You sure you entered correct ID? 🙄 Please try again.'
+}
+
+export enum QuickJoinFailedModal {
+  Title = 'Oops! 😒',
+  Message = 'We are unable to find that room. You sure you have the correct & unexpired link? 🙄\n\nPlease try again either with the Room ID or with the correct link. Also, you can ask the sender to send it again.'
 }
 
 export enum NoUserModal {

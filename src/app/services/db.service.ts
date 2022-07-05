@@ -27,6 +27,11 @@ export class DbService {
     return get(child(dbRef, `${environment.dbKey}/${roomId}`));
   }
 
+  getAllRooms(): Promise<DataSnapshot> {
+    const dbRef: DatabaseReference = this.getDbRef();
+    return get(child(dbRef, `${environment.dbKey}`));
+  }
+
   updateCounter(counter: number): Promise<void> {
     const dbRef: DatabaseReference = this.getDbRef(`${environment.dbKey}`);
     return update(dbRef, { totalMsgs: counter });
