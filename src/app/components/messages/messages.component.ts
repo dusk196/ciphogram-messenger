@@ -185,7 +185,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
       allUsers.setAttribute('style', 'margin-bottom: 50px;');
     }
     const footer: HTMLElement = this._document.createElement('div');
-    footer.innerHTML = '<hr /><p>Generated using <a rel = "noopener" href="https://ciphogram.web.app/" target = "_blank"><strong>CIPHOGRAM</strong></a> - the privacy messenger!</p><p>Made with ❤️ by <strong>Sayantan Roy</strong>. Source code: <a rel = "noopener" href="https://github.com/dusk196/ciphogram-messenger" target = "_blank">GitHub</a></p>';
+    footer.innerHTML = `<hr /><p>Generated using <a rel = "noopener" href="${this._document.location.origin}" target = "_blank"><strong>CIPHOGRAM</strong></a> - the privacy messenger!</p><p>Made with ❤️ by <strong>Sayantan Roy</strong>. Source code: <a rel = "noopener" href="https://github.com/dusk196/ciphogram-messenger" target = "_blank">GitHub</a></p>`;
     printWindow?.document.body.appendChild(participants);
     printWindow?.document.body.appendChild(allUsers);
     printWindow?.document.body.appendChild(chatHeader);
@@ -293,8 +293,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   share(): void {
     const shareData = {
-      title: 'CIPHOGRAM - join the room!',
-      text: 'when a Cipher meets an Anagram 🤪',
+      title: 'CIPHOGRAM - the private messenger!',
+      text: `${this.localUser.name} invited you to join a 100% E2E encrypted conversation. Join now!`,
       url: this.quickJoin
     };
     this._utilsService.share(shareData);
