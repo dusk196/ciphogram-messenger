@@ -26,6 +26,7 @@ import { DecryptMsgsPipe } from 'src/app/pipes/decrypt-msgs.pipe';
 
 export class MessagesComponent implements OnInit, OnDestroy {
 
+  private readonly sounds = { chat: new Audio('assets/chat.mp3') };
   private readonly _document: Document = document;
   private readonly _window: Window = window;
   readonly roomId: string = this._activatedroute.snapshot.params['roomId'];
@@ -127,6 +128,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
       const data = snapshot.val();
       if (!this._utilsService.isNullOrEmpty(data)) {
         this.allMessages = cloneDeep(data);
+        this.sounds.chat.play();
       }
     }, (err: Error) => {
       this.modalDetails = {
