@@ -112,7 +112,7 @@
   <div class="modal-content">
     <section class="section">
       <div *ngIf="infoModalType === 'room'" class="box" [ngClass]="{'has-background-dark has-text-white': isDarkMode}">
-        <h1 class="title" [ngClass]="{'has-text-white': isDarkMode}"> Room details </h1>
+        <h1 class="subtitle is-size-4" [ngClass]="{'has-text-white': isDarkMode}"> Room details </h1>
         <div class="content">
           <p>
             Share either the secret <strong [ngClass]="{'has-background-dark has-text-white': isDarkMode}"> Room ID
@@ -186,7 +186,8 @@
         </div>
       </div>
       <div *ngIf="infoModalType === 'alias'" class="box" [ngClass]="{'has-background-dark has-text-white': isDarkMode}">
-        <h1 class="title" [ngClass]="{'has-text-white': isDarkMode}"> Wanna update your alias? </h1>
+        <h1 class="subtitle is-size-4" [ngClass]="{'has-text-white': isDarkMode}"> Wanna update your
+          alias? </h1>
         <div class="field is-horizontal">
           <div class="field-label is-normal">
             <label class="label" [ngClass]="{'has-text-white': isDarkMode}"> Alias: </label>
@@ -232,7 +233,8 @@
       </div>
       <div *ngIf="infoModalType === 'people'" class="box"
         [ngClass]="{'has-background-dark has-text-white': isDarkMode}">
-        <h1 class="title" [ngClass]="{'has-text-white': isDarkMode}"> Online ({{allConnectedUsers.length}}) </h1>
+        <h1 class="subtitle is-size-4" [ngClass]="{'has-text-white': isDarkMode}"> Online
+          ({{allConnectedUsers.length}}) </h1>
         <div class="content">
           <ul>
             <li *ngFor="let user of allConnectedUsers">
@@ -245,7 +247,7 @@
         </button>
       </div>
       <div *ngIf="infoModalType === 'leave'" class="box" [ngClass]="{'has-background-dark has-text-white': isDarkMode}">
-        <h1 class="title" [ngClass]="{'has-text-white': isDarkMode}"> Warning! </h1>
+        <h1 class="subtitle is-size-4" [ngClass]="{'has-text-white': isDarkMode}"> Warning! </h1>
         <div class="content">
           <p>
             Leaving the room will automatically destroy all of your chats. You still can reconnect, however; you will
