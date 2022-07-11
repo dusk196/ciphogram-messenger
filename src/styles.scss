@@ -1,26 +1,6 @@
 @charset 'utf-8';
-
-
-// @import url('https://jenil.github.io/bulmaswatch/darkly/bulmaswatch.min.css');
-
-// Import a Google Font
-// @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-// Set your brand colors
-$purple             : #8A4D76;
-// $pink            : #FA7C91;
-$brown              : #757763;
-// $beige-light  : #D0D1CD;
-// $beige-lighter: #EFF0EB;
-
-// Update Bulma's global variables
-// $family-sans-serif: 'Rubik',
-// serif,
-// 'Roboto',
-// sans-serif;
-// $grey-dark         : $brown;
-// $grey-light        : $beige-light;
 $primary            : #8A4D76;
 $info               : #404E7C;
 $link               : #2F52E0;
@@ -28,25 +8,9 @@ $success            : #3C896D;
 $danger             : #B6244F;
 $widescreen-enabled : true;
 $fullhd-enabled     : true;
-
-// Update some of Bulma's component variables
-// $body-background-color: $beige-lighter;
-// $control-border-width : 2px;
-// $input-border-color   : transparent;
-// $input-shadow         : none;
-
-// $white : #FFFFFF;
-// $black : #273036;
-// $red   : #9E2A2B;
-// $yellow: #FAEBD7;
-$font : 'Rubik';
-
-// .hero.is-fullheight.has-fixed-navbar {
-//   min-height: calc(100vh - #{$navbar-height});
-// }
+$font               : 'Rubik';
 
 @import 'bulma/bulma.sass';
-// @import url('https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css');
 
 body {
   font-family            : $font, serif, 'Roboto', sans-serif;

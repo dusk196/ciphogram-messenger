@@ -173,7 +173,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
     const element: HTMLElement = this._document.createElement('h2');
     element.textContent = `Report generated on ${formatDate(new Date(), 'h:mm a, dd/MM/yyyy', 'en-IN')} (IST) by ${this.localUser.name}`;
     element.setAttribute('style', 'margin-bottom: 30px;');
-    printWindow?.document.body.appendChild(element);
     const participants: HTMLElement = this._document.createElement('h3');
     participants.textContent = `Participants (as per alias):`;
     const allUsers: HTMLElement = this.getAllParticipants();
@@ -188,6 +187,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     }
     const footer: HTMLElement = this._document.createElement('div');
     footer.innerHTML = `<hr /><p>Generated using <a rel = "noopener" href="${this._document.location.origin}" target = "_blank"><strong>CIPHOGRAM</strong></a> - the privacy messenger!</p><p>Made with ❤️ by <strong>Sayantan Roy</strong>. Source code: <a rel = "noopener" href="https://github.com/dusk196/ciphogram-messenger" target = "_blank">GitHub</a></p>`;
+    printWindow?.document.body.appendChild(element);
     printWindow?.document.body.appendChild(participants);
     printWindow?.document.body.appendChild(allUsers);
     printWindow?.document.body.appendChild(chatHeader);
