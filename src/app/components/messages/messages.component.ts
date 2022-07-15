@@ -33,6 +33,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   private allUsersHook: Unsubscribe;
   private allMsgsHook: Unsubscribe;
   private counterHook: Unsubscribe;
+  private queue: Subject<string> = new Subject();
   localUser: ILocalUser = { id: '', name: '', associatedRoomId: '', quickJoinId: '' };
   allConnectedUsers: IUser[] = [];
   allMessages: IMessage[] = [];
@@ -57,7 +58,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
   isDarkMode: boolean = false;
   isNavActive: boolean = false;
   showInfoModal: boolean = true;
-  isPending: boolean = false;
   infoModalType: string = 'room';
   counter: number = 0;
   unsubscibe$: any = new Subject();
@@ -137,6 +137,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
         show: true
       };
       console.error(err);
+    });
+    this.queue.pipe(takeUntil(this.unsubscibe$)).subscribe((msg: string) => {
+      this.sendMessage(msg);
     });
   }
 
@@ -256,41 +259,44 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.messageLength = this.messageSize - this.message.length;
   }
 
-  sendMessage(): void {
+  queueMessage(): void {
     const localMsg = cloneDeep(this.message);
-    if (localMsg.replace(/\n/g, '').length > 0 && localMsg.length <= this.messageSize && !this.isPending) {
-      this.isPending = true;
-      this.allConnectedUsers.forEach((user: IUser) => {
-        const msg: IMessage = {
-          id: this._uuidService.generateUuid(),
-          secretMessage: this._cryptoService.encryptDataByAes(encodeURIComponent(localMsg), user.publicKey),
-          createdAt: new Date(),
-          createdBy: this.localUser.id,
-          intendedRecipientId: user.id
-        };
-        this.allMessages.push(msg);
+    this.message = '';
+    this.checkMessage();
+    if (localMsg.replace(/\n/g, '').length > 0 && localMsg.length <= this.messageSize) {
+      setTimeout(() => {
+        this.queue.next(localMsg);
       });
-      this._dbService.updateCounter(this.counter + 1);
-      this._dbService.updateMessages(this.roomId, this.allMessages)
-        .then(() => {
-          this.message = '';
-          this.checkMessage();
-          this._utilsService.scrollToBottom();
-        })
-        .catch((err: Error) => {
-          this.modalDetails = {
-            title: ErrorModal.Title,
-            message: ErrorModal.Message,
-            show: true
-          };
-          this.modalDismiss = true;
-          this.allMessages.pop();
-          console.error(err);
-        })
-        .finally(() => {
-          this.isPending = false;
-        });
     }
+  }
+
+  sendMessage(message: string): void {
+    this.allConnectedUsers.forEach((user: IUser) => {
+      const msg: IMessage = {
+        id: this._uuidService.generateUuid(),
+        secretMessage: this._cryptoService.encryptDataByAes(encodeURIComponent(message), user.publicKey),
+        createdAt: new Date(),
+        createdBy: this.localUser.id,
+        intendedRecipientId: user.id
+      };
+      this.allMessages.push(msg);
+    });
+    this._dbService.updateCounter(this.counter + 1);
+    this._dbService.updateMessages(this.roomId, this.allMessages)
+      .then(() => {
+        this._utilsService.scrollToBottom();
+      })
+      .catch((err: Error) => {
+        this.message += message;
+        this.modalDetails = {
+          title: ErrorModal.Title,
+          message: ErrorModal.Message,
+          show: true
+        };
+        this.modalDismiss = true;
+        this.allMessages.pop();
+        console.error(err);
+      })
   }
 
   share(): void {

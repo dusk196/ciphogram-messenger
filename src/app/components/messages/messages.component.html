@@ -80,14 +80,14 @@
               </p>
               <textarea class="field textarea has-fixed-size is-info is-hidden-touch"
                 [ngClass]="{'has-background-grey-dark has-text-white': isDarkMode}" placeholder="{{placeholderText}}"
-                [(ngModel)]="message" (keyup)="checkMessage()" (keyup.enter)="sendMessage()" [maxlength]="messageSize"
+                [(ngModel)]="message" (keyup)="checkMessage()" (keyup.enter)="queueMessage()" [maxlength]="messageSize"
                 autofocus> </textarea>
               <textarea class="field textarea has-fixed-size is-info is-small is-hidden-desktop"
                 [ngClass]="{'has-background-grey-dark has-text-white': isDarkMode}"
                 placeholder="{{mobilePlaceholderText}}" [(ngModel)]="message" (keyup)="checkMessage()"
-                (keyup.enter)="sendMessage()" [maxlength]="messageSize" autofocus> </textarea>
+                (keyup.enter)="queueMessage()" [maxlength]="messageSize" autofocus> </textarea>
               <button type="button" id="mobileSend" class="button is-small is-rounded is-hidden-desktop"
-                (click)="sendMessage()"
+                (click)="queueMessage()"
                 [ngClass]="isDarkMode ? 'has-background-info-dark has-text-white' : 'has-background-info-dark has-text-white'">
                 Send
               </button>
@@ -96,7 +96,7 @@
         </div>
         <div class="navbar-end">
           <div class="navbar-item">
-            <button type="button" class="button is-rounded is-medium is-hidden-touch" (click)="sendMessage()"
+            <button type="button" class="button is-rounded is-medium is-hidden-touch" (click)="queueMessage()"
               [ngClass]="isDarkMode ? 'has-background-info-dark has-text-white' : 'has-background-info-dark has-text-white'">
               Send
             </button>
