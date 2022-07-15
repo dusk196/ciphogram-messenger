@@ -22,6 +22,14 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private counterHook: Unsubscribe;
   readonly quickStart: string = `${window.location.origin}/${RoutePaths.Start}`;
+  readonly headers: string[] = [
+    'The private messenger!',
+    'The 100% anonymous messenger!',
+    'The untrackable messenger!',
+    'The E2E encrypted messenger!',
+    'The self-destructible messenger!',
+    'The blazing fast messenger!'
+  ];
   counter: number = 0;
   userRoomId: string = '';
   isValidUserRoomId: boolean = false;

@@ -4,19 +4,12 @@
       <div>
         <h1 class="title is-size-2 is-size-3-mobile">
           CIPHOGRAM
-          <span class="subtitle is-size-4 is-hidden-mobile">
-            <span id="headerText">
-              <span> The private messenger! </span>
-              <span> The 100% anonymous messenger! </span>
-              <span> The untrackable messenger! </span>
-              <span> The E2E encrypted messenger! </span>
-              <span> The self-destructible messenger! </span>
-              <span> The blazing fast messenger! </span>
-            </span>
-          </span>
+          <h2 id="headerText" class="subtitle is-size-4 is-hidden-mobile">
+            <span *ngFor="let header of headers"> {{header}} </span>
+          </h2>
         </h1>
-        <h2 class="subtitle is-size-5-mobile is-hidden-tablet">
-          <strong id="mobileHeaderText"> </strong>
+        <h2 id="mobileHeaderText" class="subtitle is-size-5-mobile is-hidden-tablet">
+          <span *ngFor="let header of headers"> {{header}} </span>
         </h2>
         <h2 class="subtitle is-size-4 is-size-5-mobile">
           Over <strong> {{counter}}+ </strong> secure messages are exchanged & still counting

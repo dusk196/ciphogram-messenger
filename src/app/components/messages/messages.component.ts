@@ -168,8 +168,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   onPrint(): void {
-    const printWindow: Window | null = this._window.open();
-    printWindow?.document.body.setAttribute('style', 'font-family: monospace;');
     const element: HTMLElement = this._document.createElement('h2');
     element.textContent = `Report generated on ${formatDate(new Date(), 'h:mm a, dd/MM/yyyy', 'en-IN')} (IST) by ${this.localUser.name}`;
     element.setAttribute('style', 'margin-bottom: 30px;');
@@ -187,6 +185,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
     }
     const footer: HTMLElement = this._document.createElement('div');
     footer.innerHTML = `<hr /><p>Generated using <a rel = "noopener" href="${this._document.location.origin}" target = "_blank"><strong>CIPHOGRAM</strong></a> - the privacy messenger!</p><p>Made with ❤️ by <strong>Sayantan Roy</strong>. Source code: <a rel = "noopener" href="https://github.com/dusk196/ciphogram-messenger" target = "_blank">GitHub</a></p>`;
+    const printWindow: Window | null = this._window.open();
+    printWindow?.document.body.setAttribute('style', 'font-family: monospace;');
     printWindow?.document.body.appendChild(element);
     printWindow?.document.body.appendChild(participants);
     printWindow?.document.body.appendChild(allUsers);
