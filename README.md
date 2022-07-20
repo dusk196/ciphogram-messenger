@@ -3,7 +3,7 @@
 [![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.io/)
 [![Bulma](https://img.shields.io/badge/Bulma-00D1B2?style=for-the-badge&logo=bulma&logoColor=white)](https://bulma.io/)
 
-🤐 The 1st rule of CIPHOGRAM is you don't talk about CIPHOGRAM!
+🤐 The 1st rule of CIPHOGRAM is you do not talk about CIPHOGRAM!
 
 🤐 The 2nd rule of CIPHOGRAM is you DO NOT talk about CIPHOGRAM!
 
