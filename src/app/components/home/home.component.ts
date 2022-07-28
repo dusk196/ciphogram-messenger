@@ -233,7 +233,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onModeChange(): void {
-    this.isProdMode = !this.isProdMode;
     this._utilsService.updateMode(this.isProdMode);
   }
 

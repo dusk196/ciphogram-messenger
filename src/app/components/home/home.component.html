@@ -120,8 +120,8 @@
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <label class="checkbox" for="isProd" (click)="onModeChange()">
-                  <input id="isProd" (change)="onModeChange()" [checked]="isProdMode" type="checkbox"
+                <label class="checkbox" for="isProd">
+                  <input id="isProd" (change)="onModeChange()" [(ngModel)]="isProdMode" type="checkbox"
                     name="is Production Mode" />
                   Production mode (<a class="is-underlined" (click)="whatsProdMode()">what's this?</a>)
                 </label>
