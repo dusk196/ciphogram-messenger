@@ -2,11 +2,9 @@ import { Component, HostListener, Inject, OnInit, OnDestroy } from '@angular/cor
 import { ActivatedRoute, Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
-
 import { faSun, faMoon, faPrint, faUser, faCopy, faRotateRight, faPeopleRoof, faLink, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { cloneDeep } from 'lodash';
-
 import { RoutePaths, ErrorModal, MessageConst, NoUserModal, Titles, ThemeColors } from 'src/app/types/enums';
 import { ILocalUser, IMessage, IModal, IUser } from 'src/app/types/types';
 import { UtilsService } from 'src/app/services/utils.service';

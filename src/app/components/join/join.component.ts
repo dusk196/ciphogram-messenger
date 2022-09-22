@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { DataSnapshot } from '@angular/fire/database';
 import { ILocalUser, IModal, IUser } from 'src/app/types/types';
 import { RoutePaths, ErrorModal, Titles, ThemeColors, QuickJoinFailedModal } from 'src/app/types/enums';
-
 import { UuidService } from 'src/app/services/uuid.service';
 import { UtilsService } from 'src/app//services/utils.service';
 import { DbService } from 'src/app/services/db.service';
 import { CryptoService } from 'src/app/services/crypto.service';
-import { DataSnapshot } from '@angular/fire/database';
 
 @Component({
   selector: 'app-join',

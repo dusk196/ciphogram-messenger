@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/types';
 import { RoutePaths, ErrorModal, Titles, ThemeColors } from 'src/app/types/enums';
-
 import { UuidService } from 'src/app/services/uuid.service';
-import { UtilsService } from 'src/app//services/utils.service';
+import { UtilsService } from 'src/app/services/utils.service';
 import { DbService } from 'src/app/services/db.service';
 import { CryptoService } from 'src/app/services/crypto.service';
 
