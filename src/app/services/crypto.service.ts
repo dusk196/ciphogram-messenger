@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { pki, util, cipher, random, pkcs5 } from 'node-forge';
 import { environment } from 'src/environments/environment';
 import { UuidService } from 'src/app/services/uuid.service';

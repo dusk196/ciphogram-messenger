@@ -4,7 +4,7 @@ import { formatDate } from '@angular/common';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
 import { faSun, faMoon, faPrint, faUser, faCopy, faRotateRight, faPeopleRoof, faLink, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subject, Subscription, takeUntil } from 'rxjs';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { RoutePaths, ErrorModal, MessageConst, NoUserModal, Titles, ThemeColors } from 'src/app/types/enums';
 import { ILocalUser, IMessage, IModal, IUser } from 'src/app/types/types';
 import { UtilsService } from 'src/app/services/utils.service';

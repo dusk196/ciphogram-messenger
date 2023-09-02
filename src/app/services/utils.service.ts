@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { isNull, isEmpty, isUndefined } from 'lodash';
+import { isNull, isEmpty, isUndefined } from 'lodash-es';
 import { FirstNames, LastNames } from 'src/app/utils/names';
 import { ILocalUser } from 'src/app/types/types';
 
