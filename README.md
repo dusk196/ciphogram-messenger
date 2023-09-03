@@ -40,7 +40,7 @@ Have you ever felt not safe using big corporates messaging platform? Have you ev
 
 2. A random room is created/joined.
 
-3. User (let's say A) shares his `Public Key` with other members (let's say B & C) of the room.
+3. User (let's say A) shares his/her `Public Key` with other members (let's say B & C) of the room.
 
 4. Now, if B needs to send any message to A, he will generate a random super secret `AES Key` and encrypt the plaintext message (let's call that `Cipher Text`).
 
