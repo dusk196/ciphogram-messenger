@@ -17,7 +17,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "start-pwa": "ng build && http-server -p 8080 -c-1 dist/ciphogram-messenger"
+    "deploy": "node getBuildTimeStamp.js && ng build && ng deploy",
+    "start-pwa": "ng build && npx http-server -p 8080 -c-1 dist/ciphogram-messenger"
   },
   "dependencies": {
     "@angular/animations": "^16.2.3",
@@ -66,6 +67,8 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "moment-timezone": "^0.5.43",
+    "replace-in-file": "^7.0.1",
     "typescript": "~5.1.3"
   }
 }

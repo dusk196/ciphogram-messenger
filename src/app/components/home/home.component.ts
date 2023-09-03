@@ -9,6 +9,7 @@ import { UtilsService } from 'src/app//services/utils.service';
 import { DbService } from 'src/app/services/db.service';
 import { CryptoService } from 'src/app/services/crypto.service';
 import { environment } from 'src/environments/environment';
+import packageJson from 'package.json';
 
 @Component({
   selector: 'app-home',
@@ -53,6 +54,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     message: '',
     show: false
   };
+  buildTime: string = environment.buildTimeStamp;
+  version: string = packageJson['version'];
+  angularVersion: string = packageJson['dependencies']['@angular/core'];
 
   constructor(
     private readonly _utilsService: UtilsService,

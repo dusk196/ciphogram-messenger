@@ -20,6 +20,8 @@ Have you ever felt not safe using big corporates messaging platform? Have you ev
 
 ## How is it different
 
+🤏🏼 Small! Only 250+ KB (gZipped, without background image).
+
 🔥 No session, no cookie, no tracking! 100% anonymous.
 
 💥 As obvious, no data stealing in the name of running advertisement (like other big corporations).
@@ -102,3 +104,7 @@ Don't forget to add `git update-index --assume-unchanged <file>` for `environmen
 * [Understand Firebase Realtime Database Security Rules](https://firebase.google.com/docs/database/security)
 * [reCAPTCHA v3](https://developers.google.com/recaptcha/docs/v3)
 * [Use App Check with the debug provider in web apps](https://firebase.google.com/docs/app-check/web/debug-provider)
+
+## Happy chatting with your loved one worry-free! :wink: :wink:
+
+Bugs, informations and suggestions are highly welcome at: [Sayantan Roy](mailto:sayantan.roy94@gmail.com)
