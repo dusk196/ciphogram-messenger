@@ -52,7 +52,7 @@ Have you ever felt not safe using big corporates messaging platform? Have you ev
 
 ## And finally, how to run it in local?
 
-Well, it's an Angular application. Just `npm i` and you're done like any other Angular application. To run in local use `ng serve -o` OR to deploy just use `ng deploy`! Cool? Ohh... You also need to setup Google Firebase first before you can actually play with it.
+Well, it's an Angular application. Just `npm i` and you're done like any other Angular application. To run in local use `ng serve -o` OR to deploy just use `npm run deploy` (works only when Angular Firebase is properly configured)! Cool? Ohh... You also need to setup Google Firebase first before you can actually play with it.
 
 **_Note:_** _To run the application in local, you also need to configure the application with a new Firebase project. You can create a new Firebase Project (put any name; say **XYZGram**) at the [Firebase Console](https://console.firebase.google.com/) with hosting & Realtime Database. Hosting with Firebase is completely optional (in case, you know what you're really doing and how to setup with everything) but **Firebase's real time database is mandatory**. Also try to create a domain and an app for this. Now, use the official Firebase CLI tool to configure the application as follows:_
 
@@ -63,7 +63,7 @@ Well, it's an Angular application. Just `npm i` and you're done like any other A
 * Then select your Firebase Project **XYZGram** or whichever you created.
 * Select a hosting site (please create new, if already not created earlier).
 * Select an app (please create new, if already not created earlier).
-* Now just wait & watch the magic of the CLI tool while it create and configure the application for you.
+* Now just wait & watch the magic of the CLI tool while it create and configure the application for you. You might need to discard some changes as well. Search a bit in case of any confusion.
 * You also need to add a random UUID. Well, I really prefer any properly generated random UUIDs or GUIDs (Why? Read Pro tip below) but you can put a STRING or even literally ANYTHING. So get anything of your choice and put it at the `dbKey` field in the `environment.ts` & `environment.prod.ts` file. So, your realtime database will have two different entries like `ciphogram-dev-{uuid}` or `ciphogram-prod-{uuid}`. Looks neat, right?
 * **Pro tip (with example below):** You can have custom permission set up just for `ciphogram-dev-{uuid}` and `ciphogram-prod-{uuid}` entries at the Realtime Database rules page so that any sniffer with your database URL can not misuse your DB. Remember to keep the global read/write as `false` and allow only for the designated URL using proper `uuid`. After all, it's just some free quota that most of us will ever use at the end of the day.
 
