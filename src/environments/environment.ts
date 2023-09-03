@@ -16,5 +16,6 @@ export const environment = {
     bits: 512,
     workers: 2,
   },
+  buildTimeStamp: '',
   production: false
 };
