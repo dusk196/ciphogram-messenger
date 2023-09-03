@@ -95,6 +95,8 @@ Still, it'd not work in `localhost:4200` as the reCaptcha you have just set is f
 
 **IMPORTANT: It goes without saying but please don't commit all this secret info inside the `environment.ts` and `environment.prod.ts` to any public repository!**
 
+Don't forget to add `git update-index --assume-unchanged <file>` for `environment.ts` & `environment.prod.ts` to prevent any accidental commit.
+
 ## Documentations
 
 * [Understand Firebase Realtime Database Security Rules](https://firebase.google.com/docs/database/security)
