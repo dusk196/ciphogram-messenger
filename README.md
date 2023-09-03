@@ -7,16 +7,39 @@
 
 🤐 The 2nd rule of CIPHOGRAM is you DO NOT talk about CIPHOGRAM!
 
-## An anonymous, untrackable, private, highly safe & secure yet a blazing fast messenger 😎
-
-## [**DEMO**: https://ciphogram.web.app/](https://ciphogram.web.app/)
+## [**Available LIVE at**: https://ciphogram.web.app/](https://ciphogram.web.app/)
 
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)](http://perso.crans.org/besson/LICENSE.html)
 [![Open Source? Yes!](https://img.shields.io/badge/Open_Source%3F-Yes!-blue?style=for-the-badge&logo=gitHub&logoColor=white)](https://opensource.com/resources/what-open-source/)
 ![Language](https://img.shields.io/github/languages/top/dusk196/ciphogram-messenger?style=for-the-badge)
 ![Size](https://img.shields.io/github/languages/code-size/dusk196/ciphogram-messenger?style=for-the-badge)
 
-**_Note:_** _To run the application in local, you need to configure the application with a new Firebase project. You can create a new Firebase Project in the Firebase Console (with hosting & Realtime Database) and use the official Firebase CLI tool to configure the application. Just run `npm i -g @angular/fire` (or NPX) and once it's done, run `ng add @angular/fire` and follow the steps in the terminal._
+## An anonymous, untrackable, private, highly safe & secure yet a blazing fast messenger 😎
+
+**Q.** So, how to run it in local?
+
+**A.** Well, it's an Angular application bruv. Just `npm i` and you're done like any other Angular application. To run in local use `ng serve -o` OR to deploy just use `ng deploy`! Cool? Ohh... You also need to setup Google Firebase first before you can actually play with it.
+
+**_Note:_** _To run the application in local, you also need to configure the application with a new Firebase project. You can create a new Firebase Project (put any name; say **XYZGram**) at the [Firebase Console](https://console.firebase.google.com/) with hosting & Realtime Database. Also try to create a hosting and an app for this. It's optional NOW but saaves time later. Now, use the official Firebase CLI tool to configure the application as follows:_
+
+* Run `npm i -g @angular/fire` (or `NPX`; whichever you prefer)
+* Once done, login to your Firebase Account by `firebase login` in the terminal
+* Done? Great! Now run `ng add @angular/fire` and follow the steps in the terminal.
+* Once prompted, please select `ng deploy -- hosting` & `Realtime Database` from the options
+* Then select your Firebase Project **XYZGram** or whichever you created
+* Select a hosting site (please create, if already not created earlier)
+* Select an app (please create, if already not created earlier)
+* Now just wait & watch the magic of the CLI tool while it create and configure the application for you
+* You also need to add a random UUID (well, I prefer UUIDs or GUIDs but you can put a STRING or even literally ANYTHING) at the `dbKey` field in the `environment.ts` & `environment.prod.ts` file. So, your realtime database name will be: `ciphogram-dev-{uuid}` or `ciphogram-prod-{uuid}`
+* **Pro tip:** You can have custom permission set up just for `ciphogram-dev-{uuid}` or `ciphogram-prod-{uuid}` at the Realtime Database rules page so that any sniffer with your database URL can not misuse your DB. Keep the global read/write `false` and allow only for the designated connection using proper `uuid`. After all, it's just free quota most of us will use at the end of the day.
+
+Still not done:
+
+Now, hold your horses down. You're NOT done just yet! To prevent any kind of malicious uses, I have also enabled reCaptcha in this application. You can either disable the reCaptcha
+`https://www.google.com/recaptcha/admin/`
+
+
+**IMPORTANT:** It goes without saying but please don't commit all this secret info (`environment.ts` and `environment.prod.ts`) to any public repository!
 
 ## Introduction
 
