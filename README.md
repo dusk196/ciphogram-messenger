@@ -105,6 +105,6 @@ Don't forget to add `git update-index --assume-unchanged <file>` for `environmen
 * [reCAPTCHA v3](https://developers.google.com/recaptcha/docs/v3)
 * [Use App Check with the debug provider in web apps](https://firebase.google.com/docs/app-check/web/debug-provider)
 
-## Happy chatting with your loved one worry-free! :wink: :wink:
+## Happy chatting with your loved ones worry-free! :wink: :wink:
 
-Bugs, informations and suggestions are highly welcome at: [Sayantan Roy](mailto:sayantan.roy94@gmail.com)
+Bugs, informations and suggestions are highly welcome. Thank you for reading.
