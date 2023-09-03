@@ -46,3 +46,7 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+# to prevent accidental commits of the secrets
+src/environments/environment.ts
+src/environments/environment.prod.ts

@@ -2,6 +2,8 @@
   "hosting": [
     {
       "target": "ciphogram-messenger",
+      "source": ".",
+      "frameworksBackend": {},
       "public": "dist/ciphogram-messenger",
       "ignore": [
         "**/.*"

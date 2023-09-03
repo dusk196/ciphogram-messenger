@@ -112,6 +112,7 @@
         "deploy": {
           "builder": "@angular/fire:deploy",
           "options": {
+            "version": 2,
             "prerender": false,
             "ssr": false,
             "browserTarget": "ciphogram-messenger:build:production",
