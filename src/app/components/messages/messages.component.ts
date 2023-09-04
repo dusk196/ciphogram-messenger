@@ -25,23 +25,23 @@ import { DecryptMsgsPipe } from 'src/app/pipes/decrypt-msgs.pipe';
 
 export class MessagesComponent implements OnInit, OnDestroy {
 
-  private readonly sounds = { chat: new Audio('assets/chat.mp3') };
+  readonly roomId: string = this._activatedRoute.snapshot.params['roomId'];
+  private readonly sounds = { chat1: new Audio('assets/chat1.mp3'), chat2: new Audio('assets/chat2.mp3') };
   private readonly _document: Document = document;
   private readonly _window: Window = window;
-  readonly roomId: string = this._activatedroute.snapshot.params['roomId'];
-  private allUsersHook: Unsubscribe;
-  private allMsgsHook: Unsubscribe;
-  private counterHook: Unsubscribe;
+  private allUsersHook!: Unsubscribe;
+  private allMsgsHook!: Unsubscribe;
+  private counterHook!: Unsubscribe;
   private queue: Subject<string> = new Subject();
   localUser: ILocalUser = { id: '', name: '', associatedRoomId: '', quickJoinId: '' };
   allConnectedUsers: IUser[] = [];
   allMessages: IMessage[] = [];
   aliasFormData: string = '';
-  localUserSubs: Subscription;
+  localUserSubs!: Subscription;
   quickJoin: string = '';
   message: string = '';
   messageSize: number = MessageConst.Size;
-  messageLength: number = 0
+  messageLength: number = 0;
   faSun: IconDefinition = faSun;
   faMoon: IconDefinition = faMoon;
   faPrint: IconDefinition = faPrint;
@@ -68,7 +68,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(ActivatedRoute)
-    private readonly _activatedroute: ActivatedRoute,
+    private readonly _activatedRoute: ActivatedRoute,
     private readonly _router: Router,
     // private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _utilsService: UtilsService,
@@ -77,7 +77,18 @@ export class MessagesComponent implements OnInit, OnDestroy {
     private readonly _cryptoService: CryptoService,
     private readonly _userByIdPipe: UserByIdPipe,
     private readonly _decryptMsgsPipe: DecryptMsgsPipe
-  ) {
+  ) { }
+
+  ngOnInit(): void {
+    this._utilsService.setTitle(Titles.Room);
+    this.isDarkMode = this._utilsService.getLocalStorageTheme();
+    this._utilsService.updateMeta(this.isDarkMode ? ThemeColors.Dark : ThemeColors.Light);
+    this.messageLength = this.messageSize - this.message.length;
+    this.initializeUserData();
+    this.initializeFirebase();
+  }
+
+  initializeUserData(): void {
     this._utilsService.getMode()
       .pipe(takeUntil(this.unsubscibe$))
       .subscribe((mode: boolean) => {
@@ -95,6 +106,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
           this.aliasFormData = cloneDeep(alias.name);
         }
       });
+  }
+
+  initializeFirebase(): void {
     const dbRef: DatabaseReference = this._dbService.getDbRef();
     const counterParams: string = `${environment.dbKey}/totalMsgs`;
     this.counterHook = onValue(child(dbRef, counterParams), (snapshot) => {
@@ -128,7 +142,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
       const data = snapshot.val();
       if (!this._utilsService.isNullOrEmpty(data)) {
         this.allMessages = cloneDeep(data);
-        this.sounds.chat.play();
+        this.sounds.chat2.play();
       }
     }, (err: Error) => {
       this.modalDetails = {
@@ -141,13 +155,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.queue.pipe(takeUntil(this.unsubscibe$)).subscribe((msg: string) => {
       this.sendMessage(msg);
     });
-  }
-
-  ngOnInit(): void {
-    this._utilsService.setTitle(Titles.Room);
-    this.isDarkMode = this._utilsService.getLocalStorageTheme();
-    this._utilsService.updateMeta(this.isDarkMode ? ThemeColors.Dark : ThemeColors.Light);
-    this.messageLength = this.messageSize - this.message.length;
   }
 
   onCopyId(): void {
