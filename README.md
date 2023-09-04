@@ -2,6 +2,8 @@
 
 [![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.io/)
 [![Bulma](https://img.shields.io/badge/Bulma-00D1B2?style=for-the-badge&logo=bulma&logoColor=white)](https://bulma.io/)
+[![Firebase](https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
+[![Node Forge](https://img.shields.io/badge/node_forge-CB3837?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/node-forge)
 
 🤐 The 1st rule of CIPHOGRAM is you do not talk about CIPHOGRAM!
 
