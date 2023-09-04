@@ -16,11 +16,17 @@
           <span></span>
         </div>
       </div>
-      <div class="navbar-menu" [ngClass]="{'is-active':isNavActive}">
+      <div class="navbar-menu" [ngClass]="{'is-active':isNavActive, 'has-background-dark':isDarkMode}">
         <div class="navbar-start">
-          <a class="navbar-item" (click)="updateInfoModal('room')"> Room details </a>
-          <a class="navbar-item" (click)="updateInfoModal('alias')"> Alias ({{localUser.name}}) </a>
-          <a class="navbar-item" (click)="updateInfoModal('people')"> Online ({{allConnectedUsers.length}}) </a>
+          <a class="navbar-item" [ngClass]="{'has-text-light':isDarkMode}" (click)="updateInfoModal('room')">
+            Room details
+          </a>
+          <a class="navbar-item" [ngClass]="{'has-text-light':isDarkMode}" (click)="updateInfoModal('alias')">
+            Alias ({{localUser.name}})
+          </a>
+          <a class="navbar-item" [ngClass]="{'has-text-light':isDarkMode}" (click)="updateInfoModal('people')">
+            Online ({{allConnectedUsers.length}})
+          </a>
         </div>
         <div class="navbar-end">
           <div class="navbar-item">
