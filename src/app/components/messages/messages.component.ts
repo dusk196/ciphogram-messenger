@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectorRef, ChangeDetectionStrategy, HostListener, Inject, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
@@ -19,7 +19,8 @@ import { DecryptMsgsPipe } from 'src/app/pipes/decrypt-msgs.pipe';
   selector: 'app-messages',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.scss'],
-  providers: [UserByIdPipe, DecryptMsgsPipe]
+  providers: [UserByIdPipe, DecryptMsgsPipe],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class MessagesComponent implements OnInit, OnDestroy {
@@ -69,6 +70,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     @Inject(ActivatedRoute)
     private readonly _activatedroute: ActivatedRoute,
     private readonly _router: Router,
+    // private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _utilsService: UtilsService,
     private readonly _uuidService: UuidService,
     private readonly _dbService: DbService,
@@ -263,7 +265,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.checkMessage();
     if (localMsg.replace(/\n/g, '').length > 0 && localMsg.length <= this.messageSize) {
       setTimeout(() => {
-        this.queue.next(localMsg);
+      this.queue.next(localMsg);
       });
     }
   }
