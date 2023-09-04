@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { child, DatabaseReference, DataSnapshot, onValue, Unsubscribe } from '@angular/fire/database';
-import { faUser, faPeopleRoof, faRotateRight, faPaste, faCircleXmark, faHeart, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faPeopleRoof, faRotateRight, faPaste, faCircleXmark, faHeart, faCopy, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/types';
 import { RoutePaths, ErrorModal, ErrorPaste, NoRoomModal, HowModal, WhatsProdMode, Titles, ThemeColors } from 'src/app/types/enums';
 import { UuidService } from 'src/app/services/uuid.service';
@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   faPaste: IconDefinition = faPaste;
   faCircleXmark: IconDefinition = faCircleXmark;
   faHeart: IconDefinition = faHeart;
+  faCopy: IconDefinition = faCopy;
   userDetails: ILocalUser = {
     id: '',
     name: '',
@@ -214,6 +215,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         console.error(err);
       });
 
+  }
+
+  copyQuickStartLink(): void {
+    navigator.clipboard.writeText(this.quickStart);
   }
 
   generateAlias(): void {

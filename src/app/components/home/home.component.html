@@ -164,7 +164,10 @@
         <p *ngIf="createRoom">
           🔥 You can also use the <strong> Quick Start </strong> link:
           <strong>
-            <a [href]="quickStart" target="_self"> {{quickStart}} </a>
+            <a [href]="quickStart" target="_self">{{quickStart}}</a>
+            <span class="icon is-small pl-1 is-clickable" (click)="copyQuickStartLink()">
+              <fa-icon [icon]="faCopy"> </fa-icon>
+            </span>
           </strong>
           to create a random room with a random alias and start chatting in no time!
         </p>
