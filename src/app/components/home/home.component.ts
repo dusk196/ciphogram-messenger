@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { formatDate } from '@angular/common';
 import { child, DatabaseReference, DataSnapshot, onValue, Unsubscribe } from '@angular/fire/database';
 import { faUser, faPeopleRoof, faRotateRight, faPaste, faCircleXmark, faHeart, faCopy, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/types';
-import { RoutePaths, ErrorModal, ErrorPaste, NoRoomModal, HowModal, DeploymentStatsModal, WhatsProdMode, Titles, ThemeColors } from 'src/app/types/enums';
+import { RoutePaths, ErrorModal, ErrorPaste, NoRoomModal, HowModal, DeploymentStatsModal, WhatsProdMode, Titles, ThemeColors, DateTimeFormat } from 'src/app/types/enums';
 import { UuidService } from 'src/app/services/uuid.service';
 import { UtilsService } from 'src/app//services/utils.service';
 import { DbService } from 'src/app/services/db.service';
@@ -246,8 +247,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   showDeploymentStats(): void {
     this.modalDetails = {
       title: DeploymentStatsModal.Title,
-      message: `<strong>Deployed on:</strong> ${this.buildTime} <br /><br />
-                <strong>Ciphogram:</strong> ${this.version} (rolling release)<br />
+      message: `<strong>Deployed on:</strong> ${formatDate(this.buildTime, DateTimeFormat.DateTime, DateTimeFormat.TimeZone)} (IST) <br /><br />
+                <strong>Ciphogram:</strong> ${this.version} (rolling release) <br />
                 <strong>Angular</strong>: ${this.angularVersion} <br />
                 <strong>Bulma</strong>: ${this.bulmaVersion} <br />
                 <strong>Firebase</strong>: ${this.firebaseVersion} <br />

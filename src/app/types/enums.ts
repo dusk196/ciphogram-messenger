@@ -66,3 +66,8 @@ export enum ThemeColors {
   Light = '#F5F5F5',
   Dark = '#363636'
 }
+
+export enum DateTimeFormat {
+  DateTime = 'dd/MMM/yyyy, h:mm a',
+  TimeZone = 'en-IN'
+}

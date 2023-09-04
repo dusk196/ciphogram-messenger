@@ -5,7 +5,7 @@ import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/da
 import { faSun, faMoon, faPrint, faUser, faCopy, faRotateRight, faPeopleRoof, faLink, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { cloneDeep } from 'lodash-es';
-import { RoutePaths, ErrorModal, MessageConst, NoUserModal, Titles, ThemeColors } from 'src/app/types/enums';
+import { RoutePaths, ErrorModal, MessageConst, NoUserModal, Titles, ThemeColors, DateTimeFormat } from 'src/app/types/enums';
 import { ILocalUser, IMessage, IModal, IUser } from 'src/app/types/types';
 import { UtilsService } from 'src/app/services/utils.service';
 import { DbService } from 'src/app/services/db.service';
@@ -172,7 +172,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   onPrint(): void {
     const element: HTMLElement = this._document.createElement('h2');
-    element.textContent = `Report generated on ${formatDate(new Date(), 'h:mm a, dd/MM/yyyy', 'en-IN')} (IST) by ${this.localUser.name}`;
+    element.textContent = `Report generated on ${formatDate(new Date(), DateTimeFormat.DateTime, DateTimeFormat.TimeZone)} (IST) by ${this.localUser.name}`;
     element.setAttribute('style', 'margin-bottom: 30px;');
     const participants: HTMLElement = this._document.createElement('h3');
     participants.textContent = `Participants (as per alias):`;
@@ -214,7 +214,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
       if (msg.intendedRecipientId === this.localUser.id) {
         const msgElement: HTMLElement = this._document.createElement('p');
         const timeElement: HTMLElement = this._document.createElement('span');
-        timeElement.textContent = `[${formatDate(msg.createdAt, 'dd-MM-yyyy, h:mm a', 'en-IN')}] `;
+        timeElement.textContent = `[${formatDate(msg.createdAt, DateTimeFormat.DateTime, DateTimeFormat.TimeZone)}] `;
         const nameElement: HTMLElement = this._document.createElement('strong');
         nameElement.textContent = this._userByIdPipe.transform(msg.createdBy, this.allConnectedUsers);
         const chatElement: HTMLElement = this._document.createElement('span');
@@ -265,7 +265,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.checkMessage();
     if (localMsg.replace(/\n/g, '').length > 0 && localMsg.length <= this.messageSize) {
       setTimeout(() => {
-      this.queue.next(localMsg);
+        this.queue.next(localMsg);
       });
     }
   }
