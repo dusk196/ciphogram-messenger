@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IUser } from 'src/app/types/types';
 
 @Pipe({
-  name: 'userById'
+  name: 'userById',
+  pure: true
 })
 
 export class UserByIdPipe implements PipeTransform {

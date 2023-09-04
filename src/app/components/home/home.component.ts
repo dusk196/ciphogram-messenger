@@ -225,6 +225,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   generateAlias(): void {
+    this.userDetails.id = this._uuidService.generateUuid();
     this.userDetails.name = this._utilsService.generateRandomAlias();
     this._utilsService.devConsoleLog('Generated alias ID: ', this.userDetails.id);
     this._utilsService.devConsoleLog('Generated alias: ', this.userDetails.name);
@@ -258,6 +259,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onModeChange(): void {
     this._utilsService.updateMode(this.isProdMode);
+    this._utilsService.devConsoleLog('Generated alias ID: ', this.userDetails.id);
+    this._utilsService.devConsoleLog('Generated alias: ', this.userDetails.name);
   }
 
   ngOnDestroy(): void {
