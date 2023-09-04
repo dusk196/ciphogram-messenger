@@ -48,6 +48,5 @@ Thumbs.db
 .runtimeconfig.json
 
 # To prevent accidental commits of the secrets
-# Try adding `git update-index --assume-unchanged <file>` if the above doesn't work
-src/environments/environment.ts
-src/environments/environment.prod.ts
+# Also add `git update-index --assume-unchanged <file> for both environments
+src/environments/
