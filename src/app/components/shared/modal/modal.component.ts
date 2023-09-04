@@ -8,7 +8,7 @@ import { IModal } from 'src/app/types/types';
 
 export class ModalComponent {
 
-  @Input() modalDetails: IModal = { title: '', message: '', show: false };
+  @Input() modalDetails: IModal = { title: '', message: '', show: false, typeHtml: false };
   @Output() closeModalEvent = new EventEmitter<void>();
 
   closeModal(): void {

@@ -43,6 +43,10 @@ export enum HowModal {
   Message = `🔥 No session, no cookie, no tracking! 100% anonymous.\n\n👤 No accounts required. Only real-time usage!\n\n🔐 Uses true end-to-end encryption (E2EE) for both 1 to 1 and group chats without taking any toll on performance… How? By the power of both symmetrical (AES CBC) & asymmetrical encryption (RSA)!\n\n💾 Thanks to Firebase’s real time database, it’s quite fast and everything is almost real-time even for the slowest connections.\n\n💣💥 Your messages are self-destructible & destroyed as soon as you leave the system! No need to worry about traces.`
 }
 
+export enum DeploymentStatsModal {
+  Title = 'Deployment Stats 🤖'
+}
+
 export enum MessageConst {
   Size = 2000,
   MobilePlaceholder = 'Enter your messege...',

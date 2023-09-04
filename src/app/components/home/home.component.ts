@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { child, DatabaseReference, DataSnapshot, onValue, Unsubscribe } from '@angular/fire/database';
 import { faUser, faPeopleRoof, faRotateRight, faPaste, faCircleXmark, faHeart, faCopy, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { IChat, ILocalUser, IModal, IUser } from 'src/app/types/types';
-import { RoutePaths, ErrorModal, ErrorPaste, NoRoomModal, HowModal, WhatsProdMode, Titles, ThemeColors } from 'src/app/types/enums';
+import { RoutePaths, ErrorModal, ErrorPaste, NoRoomModal, HowModal, DeploymentStatsModal, WhatsProdMode, Titles, ThemeColors } from 'src/app/types/enums';
 import { UuidService } from 'src/app/services/uuid.service';
 import { UtilsService } from 'src/app//services/utils.service';
 import { DbService } from 'src/app/services/db.service';
@@ -58,6 +58,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   buildTime: string = environment.buildTimeStamp;
   version: string = packageJson['version'];
   angularVersion: string = packageJson['dependencies']['@angular/core'];
+  bulmaVersion: string = packageJson['devDependencies']['bulma'];
+  firebaseVersion: string = packageJson['dependencies']['@angular/fire'];
 
   constructor(
     private readonly _utilsService: UtilsService,
@@ -236,6 +238,19 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       title: HowModal.Title,
       message: HowModal.Message,
       show: true
+    };
+  }
+
+  showDeploymentStats(): void {
+    this.modalDetails = {
+      title: DeploymentStatsModal.Title,
+      message: `<strong>Deployed on:</strong> ${this.buildTime} <br /><br />
+                <strong>Ciphogram:</strong> v${this.version} <br />
+                <strong>Angular</strong>: ${this.angularVersion} <br />
+                <strong>Bulma</strong>: ${this.bulmaVersion} <br />
+                <strong>Firebase</strong>: ${this.firebaseVersion}`,
+      show: true,
+      typeHtml: true
     };
   }
 

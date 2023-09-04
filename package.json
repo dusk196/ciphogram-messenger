@@ -12,13 +12,13 @@
   "license": "GPL-3.0-only",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "start": "node getBuildTimestamp.js && ng serve",
+    "build": "node getBuildTimestamp.js && ng build",
+    "watch": "node getBuildTimestamp.js && ng build --watch --configuration development",
+    "test": "node getBuildTimestamp.js && ng test",
     "lint": "ng lint",
-    "deploy": "node getBuildTimeStamp.js && ng build && ng deploy",
-    "start-pwa": "ng build && npx http-server -p 8080 -c-1 dist/ciphogram-messenger"
+    "deploy": "node getBuildTimestamp.js && ng build && ng deploy",
+    "start-pwa": "node getBuildTimestamp.js && ng build && npx http-server -p 8080 -c-1 dist/ciphogram-messenger"
   },
   "dependencies": {
     "@angular/animations": "^16.2.3",
@@ -67,7 +67,6 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "moment-timezone": "^0.5.43",
     "replace-in-file": "^7.0.1",
     "typescript": "~5.1.3"
   }

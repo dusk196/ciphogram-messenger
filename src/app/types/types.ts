@@ -2,6 +2,7 @@ export interface IModal {
   title: string;
   message: string;
   show: boolean;
+  typeHtml?: boolean
 }
 
 export interface IInfoModal {

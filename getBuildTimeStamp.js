@@ -1,7 +1,6 @@
 var replace = require('replace-in-file');
-var moment = require('moment-timezone');
 
-var timeStamp = moment(new Date()).tz('Asia/Kolkata').format("DD/MMM/YYYY hh:mm A z");
+var timeStamp = new Date().toString();
 var options = {
     files: [
         'src/environments/environment.ts',

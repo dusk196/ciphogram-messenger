@@ -162,10 +162,10 @@
       <div class="message-body">
         <strong class="is-underlined">Pro Tips:</strong>
         <p *ngIf="createRoom">
-          🔥 You can also use the <strong> Quick Start </strong> link:
+          🔥 You can also bookmark the <strong> Quick Start </strong> link:
           <strong>
             <a [href]="quickStart" target="_self">{{quickStart}}</a>
-            <span class="icon is-small pl-1 is-clickable" (click)="copyQuickStartLink()">
+            <span class="icon is-small pl-3 pr-2 is-clickable" (click)="copyQuickStartLink()">
               <fa-icon [icon]="faCopy"> </fa-icon>
             </span>
           </strong>
@@ -205,7 +205,10 @@
     </a>
   </p>
   <p class="has-text-centered is-size-6-mobile">
-    Last build: {{buildTime}} (App: v{{version}}, Angular: {{angularVersion}})
+    <a class="is-underlined" rel="noopener" href="javascript:void(0)" (click)="showDeploymentStats()">
+      deployment stats
+    </a>
+    <!-- Last build: {{buildTime}} (App: v{{version}}, Angular: {{angularVersion}}) -->
   </p>
 </footer>
 <app-modal [modalDetails]="modalDetails" (closeModalEvent)="closeModal()"> </app-modal>
