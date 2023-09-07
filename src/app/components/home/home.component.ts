@@ -45,6 +45,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   faCircleXmark: IconDefinition = faCircleXmark;
   faHeart: IconDefinition = faHeart;
   faCopy: IconDefinition = faCopy;
+  nameTimeout!: NodeJS.Timeout;
   userDetails: ILocalUser = {
     id: '',
     name: '',
@@ -223,6 +224,14 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   copyQuickStartLink(): void {
     navigator.clipboard.writeText(this.quickStart);
+  }
+
+  onNameChange() {
+    clearTimeout(this.nameTimeout);
+    this.nameTimeout = setTimeout(() => {
+      this._utilsService.devConsoleLog('Generated alias ID: ', this.userDetails.id);
+      this._utilsService.devConsoleLog('Generated alias: ', this.userDetails.name);
+    }, 1000);
   }
 
   generateAlias(): void {
