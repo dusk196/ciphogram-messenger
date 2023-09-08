@@ -35,12 +35,12 @@ export enum NoUserModal {
 
 export enum WhatsProdMode {
   Title = 'So... Production mode 🔥',
-  Message = `I started this applcation as a proof of concept (POC). I was not sure if it\'d be a good idea to make it available for everyone apart from devs. 🤗\n\nIf you are a developer and checking how this works in real-time, you can uncheck this option & keep an eye in the console for informative logs. 🤓\n\nFor regular users, I recommend to keep the production mode checked for enhanced security. 😎`
+  Message = `I started this applcation as a proof of concept (POC). I was not sure if it\'d be a good idea to make it available for everyone apart from devs. 🤗\n\nIf you are a developer and checking how the end-to-end encryption works & looks like in real-time, you can uncheck this option & keep an eye in the console for informative logs. 🤓\n\nPS: It's ALWAYS ON by default. For regular users, I recommend to keep the production mode checked for enhanced security. 😎`
 }
 
 export enum HowModal {
   Title = 'Wondering how? ❤️‍🔥',
-  Message = `🔥 No session, no cookie, no tracking! 100% anonymous.\n\n👤 No accounts required. Only real-time usage!\n\n🔐 Uses true end-to-end encryption (E2EE) for both 1 to 1 and group chats without taking any toll on performance… How? By the power of both symmetrical (AES CBC) & asymmetrical encryption (RSA)!\n\n💾 Thanks to Firebase’s real time database, it’s quite fast and everything is almost real-time even for the slowest connections.\n\n💣💥 Your messages are self-destructible & destroyed as soon as you leave the system! No need to worry about traces.`
+  Message = `🤏🏼 Pretty small & fast! Only 250+ KB (gZipped, without background image & sounds).\n\n🔥 No session, no cookie, no tracking! 100% anonymous.\n\n👤 No accounts required. Only real-time usage!\n\n🔐 Uses true end-to-end encryption (E2EE) for both 1 to 1 and group chats without taking any toll on performance… How? By the power of both symmetrical (AES CBC) & asymmetrical encryption (RSA)!\n\n💾 Thanks to Firebase’s real time database, it’s quite fast and everything is almost real-time even for the slowest connections.\n\n💣💥 Your messages are self-destructible & destroyed as soon as you leave the system! No need to worry about traces.`
 }
 
 export enum DeploymentStatsModal {

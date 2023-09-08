@@ -22,7 +22,7 @@ Have you ever felt not safe using big corporates messaging platform? Have you ev
 
 ## How is it different
 
-🤏🏼 Small! Only 250+ KB (gZipped, without background image).
+🤏🏼 Pretty small & fast! Only 250+ KB (gZipped, without background image & sounds).
 
 🔥 No session, no cookie, no tracking! 100% anonymous.
 

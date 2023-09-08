@@ -84,10 +84,12 @@ export class UtilsService {
 
   setLocalStorageTheme(theme: string): void {
     this._localStorage.setItem('theme', theme);
+    this.devConsoleLog('Set theme to:', theme);
   }
 
   setLocalStorageSound(sound: string): void {
     this._localStorage.setItem('sound', sound);
+    this.devConsoleLog('Set volume to:', sound);
   }
 
   getLocalStorageTheme(): boolean {

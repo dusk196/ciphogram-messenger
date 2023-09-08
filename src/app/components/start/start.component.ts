@@ -42,6 +42,9 @@ export class StartComponent implements OnInit {
     this._utilsService.updateMeta(ThemeColors.Primary);
     this.userDetails.id = this._uuidService.generateUuid();
     this.userDetails.name = this._utilsService.generateRandomAlias();
+    this._utilsService.devConsoleLog('Generated alias ID: ', this.userDetails.id);
+    this._utilsService.devConsoleLog('Generated alias: ', this.userDetails.name);
+    this._utilsService.devConsoleLog('Generated Room ID:', this.userDetails.associatedRoomId);
     this._utilsService.updateAlias(this.userDetails);
     const user: IUser = {
       id: this.userDetails.id,
