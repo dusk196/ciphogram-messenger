@@ -86,8 +86,16 @@ export class UtilsService {
     this._localStorage.setItem('theme', theme);
   }
 
+  setLocalStorageSound(sound: string): void {
+    this._localStorage.setItem('sound', sound);
+  }
+
   getLocalStorageTheme(): boolean {
     return this._localStorage.getItem('theme') === 'dark';
+  }
+
+  getLocalStorageSound(): boolean {
+    return this._localStorage.getItem('sound') === 'mute';
   }
 
   setTitle(newTitle: string): void {

@@ -2,7 +2,7 @@ import { Component, ChangeDetectorRef, ChangeDetectionStrategy, HostListener, In
 import { ActivatedRoute, Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
-import { faSun, faMoon, faPrint, faUser, faCopy, faRotateRight, faPeopleRoof, faLink, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon, faPrint, faUser, faCopy, faRotateRight, faPeopleRoof, faLink, faVolumeMute, faVolumeHigh, faPowerOff, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { cloneDeep } from 'lodash-es';
 import { RoutePaths, ErrorModal, MessageConst, NoUserModal, Titles, ThemeColors, DateTimeFormat } from 'src/app/types/enums';
@@ -44,6 +44,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
   messageLength: number = 0;
   faSun: IconDefinition = faSun;
   faMoon: IconDefinition = faMoon;
+  faVolumeMute: IconDefinition = faVolumeMute;
+  faVolumeHigh: IconDefinition = faVolumeHigh;
+  faPowerOff: IconDefinition = faPowerOff;
   faPrint: IconDefinition = faPrint;
   faUser: IconDefinition = faUser;
   faCopy: IconDefinition = faCopy;
@@ -55,6 +58,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   modalDismiss: boolean = false;
   isProdMode: boolean = true;
   isDarkMode: boolean = false;
+  isMute: boolean = false;
   isNavActive: boolean = false;
   showInfoModal: boolean = true;
   infoModalType: string = 'room';
@@ -82,6 +86,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._utilsService.setTitle(Titles.Room);
     this.isDarkMode = this._utilsService.getLocalStorageTheme();
+    this.isMute = this._utilsService.getLocalStorageSound();
     this._utilsService.updateMeta(this.isDarkMode ? ThemeColors.Dark : ThemeColors.Light);
     this.messageLength = this.messageSize - this.message.length;
     this.initializeUserData();
@@ -142,7 +147,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
       const data = snapshot.val();
       if (!this._utilsService.isNullOrEmpty(data)) {
         this.allMessages = cloneDeep(data);
-        this.sounds.chat2.play();
+        if (this.isMute) {
+          this.sounds.chat2.play();
+        }
       }
     }, (err: Error) => {
       this.modalDetails = {
@@ -315,9 +322,14 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this._utilsService.share(shareData);
   }
 
-  changeTheme(): void {
+  toggleTheme(): void {
     this.isDarkMode = !this.isDarkMode;
     this._utilsService.setLocalStorageTheme(this.isDarkMode ? 'dark' : 'light');
+  }
+
+  toggleSound(): void {
+    this.isMute = !this.isMute;
+    this._utilsService.setLocalStorageSound(this.isMute ? 'mute' : 'unmute');
   }
 
   closeInfoModal(): void {

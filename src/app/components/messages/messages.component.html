@@ -31,19 +31,36 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-rounded" [ngClass]="isDarkMode ? 'is-dark' : 'is-light'" (click)="changeTheme()">
-                <span class="icon">
+              <a class="button is-rounded" [ngClass]="isDarkMode ? 'is-dark' : 'is-light'" (click)="toggleSound()">
+                <span class="icon ml-0 mr-0">
+                  <fa-icon [icon]="isMute ? faVolumeMute : faVolumeHigh"> </fa-icon>
+                </span>
+                <span class="is-hidden-touch" [innerText]="isMute ? 'Mute' : 'Unmute'"> </span>
+              </a>
+              <a class="button is-rounded" [ngClass]="isDarkMode ? 'is-dark' : 'is-light'" (click)="toggleTheme()">
+                <span class="icon ml-0 mr-0">
                   <fa-icon [icon]="isDarkMode ? faSun : faMoon"> </fa-icon>
                 </span>
-                <span [innerText]="isDarkMode ? 'Light' : 'Dark'"> </span>
+                <span class="is-hidden-touch" [innerText]="isDarkMode ? 'Light' : 'Dark'"> </span>
               </a>
               <a class="button is-rounded" [ngClass]="isDarkMode ? 'is-dark' : 'is-light'" (click)="onPrint()">
-                <span class="icon">
+                <span class="icon ml-0 mr-0">
                   <fa-icon [icon]="faPrint"> </fa-icon>
                 </span>
-                <span> Print </span>
+                <span class="is-hidden-touch"> Print </span>
               </a>
-              <a class="button is-rounded is-danger" (click)="onExit()"> Exit </a>
+              <a class="button is-rounded is-danger is-hidden-touch" (click)="onExit()">
+                <span class="icon ml-0 mr-0">
+                  <fa-icon [icon]="faPowerOff"> </fa-icon>
+                </span>
+                <span> Exit </span>
+              </a>
+              <a class="button is-rounded is-hidden-desktop" [ngClass]="isDarkMode ? 'is-dark' : 'is-light'"
+                (click)="onExit()">
+                <span class="icon has-text-danger ml-0 mr-0">
+                  <fa-icon [icon]="faPowerOff"> </fa-icon>
+                </span>
+              </a>
             </div>
           </div>
         </div>
@@ -257,7 +274,7 @@
         <div class="content">
           <p>
             Leaving the room will automatically destroy all of your chats. You still can reconnect, however; you will
-            not be able to see the previous chats.
+            not be able to see the previous chats (even your own).
           </p>
         </div>
         <div class="buttons">
