@@ -30,13 +30,13 @@ Have you ever felt not safe using big corporates messaging platform? Have you ev
 
 👤 No accounts required. Only real-time usage!
 
-🔐 Uses true end-to-end (E2EE) encryption for both 1 to 1 and group chats without taking any toll on performance… How? By the power of both symmetrical (AES CBC) & asymmetrical encryption (RSA)!
+🔐 Uses true end-to-end encryption (E2EE) for both 1 to 1 and group chats without taking any toll on performance… How? By the power of both symmetrical (AES CBC) & asymmetrical encryption (RSA)!
 
 💾 Thanks to Firebase’s real time database, it’s quite fast and everything is almost real-time even for the slowest connections.
 
 💣 Your messages are self-destructible and are destroyed as soon as you either leave the system or lost the connection for a certain period of time.
 
-## So, how the encryption works here in details (combination of symmetrical AES-CBC & asymmetrical RSA)
+## So, how the End to End Encryption works here in details (combination of symmetrical AES-CBC & asymmetrical RSA)
 
 1. User gets a `RSA Key pair` that includes a `Public Key` & a super super super secret `Private Key`.
 
