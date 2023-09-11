@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, ChangeDetectionStrategy, HostListener, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { DatabaseReference, onValue, child, Unsubscribe } from "@angular/fire/database";
@@ -19,8 +19,7 @@ import { DecryptMsgsPipe } from 'src/app/pipes/decrypt-msgs.pipe';
   selector: 'app-messages',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.scss'],
-  providers: [UserByIdPipe, DecryptMsgsPipe],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  providers: [UserByIdPipe, DecryptMsgsPipe]
 })
 
 export class MessagesComponent implements OnInit, OnDestroy {
@@ -70,11 +69,12 @@ export class MessagesComponent implements OnInit, OnDestroy {
     show: false
   };
 
+  @ViewChild('textarea') textarea!: ElementRef;
+
   constructor(
     @Inject(ActivatedRoute)
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _router: Router,
-    // private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _utilsService: UtilsService,
     private readonly _uuidService: UuidService,
     private readonly _dbService: DbService,
@@ -271,6 +271,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   checkMessage(): void {
     this.messageLength = this.messageSize - this.message.length;
+    this.textarea.nativeElement.focus();
   }
 
   queueMessage(): void {
@@ -299,6 +300,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this._dbService.updateMessages(this.roomId, this.allMessages)
       .then(() => {
         this._utilsService.scrollToBottom();
+        this.textarea.nativeElement.focus();
       })
       .catch((err: Error) => {
         this.message += message;
@@ -323,8 +325,10 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   toggleTheme(): void {
+    console.log(this.textarea)
     this.isDarkMode = !this.isDarkMode;
     this._utilsService.setLocalStorageTheme(this.isDarkMode ? 'dark' : 'light');
+    this._utilsService.updateMeta(this.isDarkMode ? ThemeColors.Dark : ThemeColors.Light);
   }
 
   toggleSound(): void {
@@ -370,7 +374,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('window:beforeunload')
-  onBeforeUnload() {
+  onBeforeUnload(): void {
     this.ngOnDestroy();
     return;
   }

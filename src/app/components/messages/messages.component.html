@@ -108,7 +108,7 @@
               <textarea class="field textarea has-fixed-size is-info is-small is-hidden-desktop"
                 [ngClass]="{'has-background-grey-dark has-text-white': isDarkMode}"
                 placeholder="{{mobilePlaceholderText}}" [(ngModel)]="message" (keyup)="checkMessage()"
-                (keyup.enter)="queueMessage()" [maxlength]="messageSize" autofocus> </textarea>
+                (keyup.enter)="queueMessage()" [maxlength]="messageSize" autofocus #textarea> </textarea>
               <button type="button" id="mobileSend" class="button is-small is-rounded is-hidden-desktop"
                 (click)="queueMessage()"
                 [ngClass]="isDarkMode ? 'has-background-info-dark has-text-white' : 'has-background-info-dark has-text-white'">
