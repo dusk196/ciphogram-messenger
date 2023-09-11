@@ -108,7 +108,7 @@
               <textarea class="field textarea has-fixed-size is-info is-small is-hidden-desktop"
                 [ngClass]="{'has-background-grey-dark has-text-white': isDarkMode}"
                 placeholder="{{mobilePlaceholderText}}" [(ngModel)]="message" (keyup)="checkMessage()"
-                (keyup.enter)="queueMessage()" [maxlength]="messageSize" autofocus> </textarea>
+                (keyup.enter)="queueMessage()" [maxlength]="messageSize" autofocus #textarea> </textarea>
               <button type="button" id="mobileSend" class="button is-small is-rounded is-hidden-desktop"
                 (click)="queueMessage()"
                 [ngClass]="isDarkMode ? 'has-background-info-dark has-text-white' : 'has-background-info-dark has-text-white'">
@@ -273,8 +273,8 @@
         <h1 class="subtitle is-size-4" [ngClass]="{'has-text-white': isDarkMode}"> Warning! </h1>
         <div class="content">
           <p>
-            Leaving the room will automatically destroy all of your chats. You still can reconnect, however; you will
-            not be able to see the previous chats (even your own).
+            Leaving the room will automatically destroy all of your chats. You still can reconnect till the room exists.
+            However; you will not be able to see the previous chats (even your own).
           </p>
         </div>
         <div class="buttons">

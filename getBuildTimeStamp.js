@@ -1,5 +1,4 @@
 var replace = require('replace-in-file');
-
 var timeStamp = new Date().toString();
 var options = {
     files: [
@@ -8,8 +7,9 @@ var options = {
     ],
     from: /buildTimeStamp: '(.*)'/g,
     to: "buildTimeStamp: '" + timeStamp + "'",
-    allowEmptyPaths: false,
+    allowEmptyPaths: false
 };
+
 try {
     replace.sync(options);
     console.log('Build timestamp is set to: ' + timeStamp);

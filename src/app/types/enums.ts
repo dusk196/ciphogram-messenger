@@ -34,7 +34,7 @@ export enum NoUserModal {
 }
 
 export enum WhatsProdMode {
-  Title = 'So... Production mode 🔥',
+  Title = 'So... Production mode? 🔥',
   Message = `I started this applcation as a proof of concept (POC). I was not sure if it\'d be a good idea to make it available for everyone apart from devs. 🤗\n\nIf you are a developer and checking how the end-to-end encryption works & looks like in real-time, you can uncheck this option & keep an eye in the console for informative logs. 🤓\n\nPS: It's ALWAYS ON by default. For regular users, I recommend to keep the production mode checked for enhanced security. 😎`
 }
 

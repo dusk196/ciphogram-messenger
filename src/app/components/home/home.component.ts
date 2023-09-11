@@ -258,11 +258,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.modalDetails = {
       title: DeploymentStatsModal.Title,
       message: `<strong>Deployed on:</strong> ${formatDate(this.buildTime, DateTimeFormat.DateTime, DateTimeFormat.TimeZone)} (IST) <br /><br />
-                <strong>Ciphogram:</strong> ${this.version} (rolling release) <br />
-                <strong>Angular</strong>: ${this.angularVersion} <br />
-                <strong>Bulma</strong>: ${this.bulmaVersion} <br />
-                <strong>Firebase</strong>: ${this.firebaseVersion} <br />
-                <strong>Node Forge</strong>: ${this.nodeForgeVersion}`,
+                <strong>Ciphogram:</strong> ${this.version.replace(/[\^~]/g, '')} (rolling release) <br />
+                <strong>Angular</strong>: ${this.angularVersion.replace(/[\^~]/g, '') } <br />
+                <strong>Bulma</strong>: ${this.bulmaVersion.replace(/[\^~]/g, '') } <br />
+                <strong>Firebase</strong>: ${this.firebaseVersion.replace(/[\^~]/g, '') } <br />
+                <strong>Node Forge</strong>: ${this.nodeForgeVersion.replace(/[\^~]/g, '') }`,
       show: true,
       typeHtml: true
     };

@@ -106,6 +106,7 @@ export class UtilsService {
 
   updateMeta(color: string): void {
     this.meta.updateTag({ name: 'theme-color', content: color }, 'name=\'theme-color\'');
+    this._document.body.style.backgroundColor = color;
   }
 
 }
